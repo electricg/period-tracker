@@ -4,7 +4,7 @@
 var namespace = 'periodTracker';
 var datePattern = 'YYYY-MM-DD';
 // this regexp is not strict as the date validation will be performed by moment.js
-// var dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/g);
+var dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
 var averageIntervals = 3;
 
 var Periods = function() {
@@ -59,10 +59,9 @@ var Periods = function() {
    */
   var isValidDate = function(date) {
     // check if the pattern is ok
-    // TODO
-    // if (!dateRegExp.test(date)) {
-    //   return false;
-    // }
+    if (!dateRegExp.test(date)) {
+      return false;
+    }
     // check if the date is actually valid
     return moment(date, datePattern).isValid();
   };
