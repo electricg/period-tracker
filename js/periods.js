@@ -5,6 +5,7 @@ var namespace = 'periodTracker';
 var datePattern = 'YYYY-MM-DD';
 // this regexp is not strict as the date validation will be performed by moment.js
 // var dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/g);
+var averageIntervals = 3;
 
 var Periods = function() {
   var _today = moment().format(datePattern);
@@ -166,12 +167,12 @@ var Periods = function() {
    * Calculate average interval in days between occurances
    */
   var calcAverage = function() {
-    var sum = 0;
-    var arr = _intervals.slice(0, 3);
+    var arr = _intervals.slice(0, averageIntervals);
     if (!arr.length) {
       _average = 0;
       return;
     }
+    var sum = 0;
     for (var i = 0; i < arr.length; i++) {
       sum += arr[i];
     }
