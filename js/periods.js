@@ -156,6 +156,7 @@ var Periods = function() {
    * Calculate interval in days between occurances
    */
   var calcIntervals = function() {
+    _intervals = [];
     for (var i = 1; i < _list.length; i++) {
       _intervals.push( moment.range(_list[i], _list[i - 1]).diff('days') );
     }
