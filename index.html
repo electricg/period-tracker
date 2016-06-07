@@ -9,12 +9,37 @@
   <meta name="theme-color" content="#0099FF">
   <meta name="robots" content="noindex,nofollow">
   <title>Period Tracker</title>
+  <style>
+.hide {
+  display: none;
+}
+  </style>
 </head>
 <body>
+
+<div id="wrapper" class="hide">
+  <div class="next">projected start date is <span id="next"></span></div>
+  <div class="countdown"><span id="countdown"></span> Days Left</div>
+
+  <form id="form">
+    <label for="date">Period just started <span>tap here</span></label>
+    <input type="date" id="date" value="2016-06-07">
+    <input type="reset" id="reset" value="Cancel">
+    <input type="submit" id="submit" value="Save">
+  </form>
+
+  <div class="average"><span id="average"></span> Days <span>in your average cycle</span></div>
+
+  <table class="list">
+    <thead><td colspan="2">Periods/cycle length</td></thead>
+    <tbody id="list"></tbody>
+  </table>
+</div>
 
 <script src="lib/moment-2.13.0.min.js"></script>
 <script src="lib/moment-range-2.2.0.min.js"></script>
 <script src="js/periods.js"></script>
+<script src="js/ui.js"></script>
 <script src="js/main.js"></script>
   
 </body>
