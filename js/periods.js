@@ -167,6 +167,10 @@ var Periods = function() {
   var calcAverage = function() {
     var sum = 0;
     var arr = _intervals.slice(0, 3);
+    if (!arr.length) {
+      _average = 0;
+      return;
+    }
     for (var i = 0; i < arr.length; i++) {
       sum += arr[i];
     }
