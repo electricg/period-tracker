@@ -42,5 +42,5 @@ var populateUI = function(p) {
   }
   $list.innerHTML = table;
 
-  $wrapper.classList.toggle('hide');
+  // $wrapper.classList.toggle('hide');
 };

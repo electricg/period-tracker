@@ -17,6 +17,14 @@
 </head>
 <body>
 
+<div id="authorize-div" style="display: none">
+      <span>Authorize access to Google Calendar API</span>
+      <!--Button for the user to click to initiate auth sequence -->
+      <button id="authorize-button" onclick="handleAuthAction()">
+        Authorize
+      </button>
+    </div>
+
 <div id="wrapper" class="hide">
   <div class="next">projected start date is <span id="next"></span></div>
   <div class="countdown"><span id="countdown"></span> Days Left</div>
@@ -39,7 +47,13 @@
 <script src="lib/moment-range-2.2.0.min.js"></script>
 <script src="js/periods.js"></script>
 <script src="js/ui.js"></script>
+
+<script src="js/gcal.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+
 <script src="js/main.js"></script>
+<script src="js/mine.js"></script>
+<pre id="output"></pre>
   
 </body>
 </html>
