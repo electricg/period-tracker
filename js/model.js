@@ -339,6 +339,8 @@
     this.drop = function() {
       return modify('drop');
     };
+
+    this.init();
   };
 
   // export to window

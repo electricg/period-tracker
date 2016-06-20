@@ -60,7 +60,7 @@ input[type=date]::-webkit-inner-spin-button {
   display: none;
   padding: 2.5rem 0 4em;
 }
-.main-section:target {
+.main-section.selected {
   display: block;
 }
 

@@ -1,13 +1,13 @@
-/* global moment, $$ */
+/* global moment */
 (function(window) {
   'use strict';
 
-  var Calendar = function(options) {
+  var Template = function(options) {
     var _startDayOkWeek = options.startDayOkWeek || 0;
     var _today = moment();
     var _week = moment.weekdaysShort();
 
-    this.get = function(monthN, yearN) {
+    var calendarGet = function(monthN, yearN) {
       monthN = monthN || _today.format('M');
       yearN = yearN || _today.format('YYYY');
 
@@ -63,16 +63,15 @@
       };
     };
 
-    this.draw = function(monthN, yearN) {
-      var cal = this.get(monthN, yearN);
-      var $cal = $$('#calendar');
-      var table = '<table border="1"><thead><tr>';
-      table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '/" title="' + cal.prev.title + '">&ltrif;</a></th>';
+    this.calendar = function(data, monthN, yearN) {
+      var cal = calendarGet(monthN, yearN);
+      var table = '<table class="calendar"><thead><tr>';
+      table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-prev"></use></svg></a></th>';
       table += '<th colspan="5">' + cal.title + '</th>';
-      table += '<th><a href="#/calendar/' + cal.next.yearN + '/' + cal.next.monthN + '/" title="' + cal.next.title + '">&rtrif;</a></th></tr><tr>';
-      for (var w = 0; w < cal.week.length; w++) {
-        table += '<td>' + cal.week[w] + '</td>';
-      }
+      table += '<th><a href="#/calendar/' + cal.next.yearN + '/' + cal.next.monthN + '" title="' + cal.next.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-next"></use></svg></a></th></tr><tr class="calendar-weekdays">';
+      cal.week.forEach(function(day) {
+        table += '<th>' + day + '</th>';
+      });
       table += '</tr></thead><tbody>';
       for (var d = 0; d < cal.days.length; d+=7) {
         table += '<tr>';
@@ -83,10 +82,21 @@
       }
       table += '</tbody></table>';
 
-      $cal.innerHTML = table;
+      return table;
+    };
+
+    this.log = function(data) {
+      var table = '<table class="log"><tbody>';
+      data.list.forEach(function(item, index) {
+        table += '<tr><td>' + item.date + '</td><td>' + (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '') + '</td>';
+        table += '<td><button class="log-button" title="Edit"><svg class="icon log-icon"><use xlink:href="#icon-edit"></use></svg></button></td><td><button class="log-button" title="Delete"><svg class="icon log-icon"><use xlink:href="#icon-delete"></use></svg></button></td></tr>';
+      });
+      table += '</tbody></table>';
+
+      return table;
     };
   };
 
   window.app = window.app || {};
-  window.app.Calendar = Calendar;
+  window.app.Template = Template;
 })(window);
