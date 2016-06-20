@@ -11,6 +11,7 @@
     var _namespace = name;
     var _today = moment().format(datePattern);
     var _list = [];
+    var _quicklist = [];
     var _intervals = [];
     var _average = 0;
     var _next = '';
@@ -19,6 +20,12 @@
     Object.defineProperty(this, 'list', {
       get: function() {
         return _list;
+      }
+    });
+
+    Object.defineProperty(this, 'quicklist', {
+      get: function() {
+        return _quicklist;
       }
     });
 
@@ -213,6 +220,20 @@
     };
 
     /**
+     * Create a simple array of only dates
+     */
+    var calcQuicklist = function() {
+      _quicklist = [];
+      _list.forEach(function(item) {
+        for (var i = 3; i > 0; i--) {
+          var m = moment(item.date).add(i, 'days');
+          _quicklist.push(m.format(datePattern));
+        }
+        _quicklist.push(item.date);
+      });
+    };
+
+    /**
      * Calculate interval in days between occurances
      */
     var calcIntervals = function() {
@@ -261,6 +282,7 @@
      * Do all calculations
      */
     var calcAll = function() {
+      calcQuicklist();
       calcIntervals();
       calcAverage();
       calcNext();

@@ -1,4 +1,4 @@
-/* global moment */
+/* global moment, z */
 (function(window) {
   'use strict';
 
@@ -7,7 +7,7 @@
     var _today = moment();
     var _week = moment.weekdaysShort();
 
-    var calendarGet = function(monthN, yearN) {
+    var calendarGet = function(data, monthN, yearN) {
       monthN = monthN || _today.format('M');
       yearN = yearN || _today.format('YYYY');
 
@@ -25,6 +25,7 @@
       
       var nextMonth = first.clone().add(1, 'months');
       var prevMonth = first.clone().subtract(1, 'months');
+      var daysInPrevMonth = prevMonth.daysInMonth();
       var next = {
         monthN: nextMonth.format('M'),
         yearN: nextMonth.format('YYYY'),
@@ -37,21 +38,45 @@
       };
 
       var diffStart = firstDayOkWeek - _startDayOkWeek;
+      var k;
+      var n;
       if (diffStart < 0) {
         diffStart = 7 + diffStart;
       }
-      for (var i = 0; i < diffStart; i++) {
-        days.push('');
+      for (var i = diffStart - 1; i >= 0; i--) {
+        n = daysInPrevMonth - i;
+        k = ['another-month'];
+        if (data.quicklist.indexOf(prev.yearN + '-' + z(prev.monthN) + '-' + z(n)) !== -1) {
+          k.push('selected');
+        }
+        days.push({
+          n: n,
+          k: k.join(' ')
+        });
       }
       for (var d = 1; d <= daysInMonth; d++) {
-        days.push(d);
+        k = [];
+        if (data.quicklist.indexOf(yearN + '-' + z(monthN) + '-' + z(d)) !== -1) {
+          k.push('selected');
+        }
+        days.push({
+          n: d,
+          k: k.join(' ')
+        });
       }
       var diffEnd = (_startDayOkWeek - 1) - lastDayOfWeek;
       if (diffEnd < 0 ) {
         diffEnd = 7 + diffEnd;
       }
-      for (var e = 0; e < diffEnd; e++) {
-        days.push('');
+      for (var e = 1; e <= diffEnd; e++) {
+        k = ['another-month'];
+        if (data.quicklist.indexOf(next.yearN + '-' + z(next.monthN) + '-' + z(e)) !== -1) {
+          k.push('selected');
+        }
+        days.push({
+          n: e,
+          k: k.join(' ')
+        });
       }
 
       return {
@@ -64,7 +89,7 @@
     };
 
     this.calendar = function(data, monthN, yearN) {
-      var cal = calendarGet(monthN, yearN);
+      var cal = calendarGet(data, monthN, yearN);
       var table = '<table class="calendar"><thead><tr>';
       table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-prev"></use></svg></a></th>';
       table += '<th colspan="5">' + cal.title + '</th>';
@@ -76,7 +101,7 @@
       for (var d = 0; d < cal.days.length; d+=7) {
         table += '<tr>';
         for (var dd = d; dd < (d+7); dd++) {
-          table += '<td>' + cal.days[dd] + '</td>';
+          table += '<td' + (cal.days[dd].k ? ' class="' + cal.days[dd].k + '"' : '') +'>' + cal.days[dd].n + '</td>';
         }
         table += '</tr>';
       }
