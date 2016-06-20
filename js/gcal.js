@@ -70,7 +70,8 @@ var listEvents = function() {
       var requestEventsList = gapi.client.calendar.events.list({
         'calendarId': calendarId,
         'singleEvents': true,
-        'orderBy': 'startTime'
+        'orderBy': 'startTime',
+        'showDeleted': true
       });
 
       requestEventsList.execute(function(resp) {
