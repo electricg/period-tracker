@@ -1,6 +1,6 @@
-/* global Periods, populateUI */
+/* global app, populateUI */
 
-var p = new Periods();
+var p = new app.Model('periodTracker');
 p.init();
 
 // console.log('list', p.list);
