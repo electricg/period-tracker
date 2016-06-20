@@ -1,5 +1,11 @@
 # Period Tracker
 
+## Why
+
+* I wanted to play with some of the cool new browser API (service workers, add to home screen, background sync, etc...)
+* I wanted a light app that does exactly what I need with only a couple of tap
+* I wanted the data to be easy to backup and retrieve (using Google Calendar)
+
 #### TODO
 * [ ] service worker - work offline 
 * [ ] add to home screen
