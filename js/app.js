@@ -1,6 +1,6 @@
 /* global app */
 /* exported version */
-const version = 0.2;
+const version = 0.3;
 const namespace = 'periodTracker';
 
 var defaultSettings = {
@@ -32,14 +32,20 @@ window.addEventListener('load', load);
 window.addEventListener('hashchange', show);
 
 
-  var hostname = window.location.hostname;
-  var scope = '';
-  if (hostname === 'electricg.github.io') {
-    scope = '/period-tracker/';
+var hostname = window.location.hostname;
+var port = window.location.port;
+var scope = '';
+if (hostname === 'electricg.github.io') {
+  scope = '/period-tracker/';
+}
+else if (hostname === 'localhost') {
+  if (port ===  '8000') {
+    scope = './';
   }
-  else if (hostname === 'localhost') {
-    scope = '/';
+  if (port === '8001') {
+    scope = './';
   }
+}
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js', {
     scope: scope
