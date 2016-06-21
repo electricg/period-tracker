@@ -28,12 +28,30 @@
     var $settingsPeriodLength = $$('#settings-period-length');
     var $settingsCycleLength = $$('#settings-cycle-length');
 
+    var $alert = $$('#alert');
+
     $$('#version').innerHTML = version;
     
     var _viewCommands = {};
 
+    _viewCommands.alert = function(type, msg) {
+      $alert.innerHTML += _self.template.alert(type, msg);
+    };
+
+    _viewCommands.info = function(err) {
+      _viewCommands.alert('info', err);
+    };
+
     _viewCommands.error = function(err) {
-      console.log(err);
+      _viewCommands.alert('error', err);
+    };
+
+    _viewCommands.success = function(err) {
+      _viewCommands.alert('success', err);
+    };
+
+    _viewCommands.warning = function(err) {
+      _viewCommands.alert('warning', err);
     };
 
     _viewCommands.section = function(model, parameter, args) {
@@ -169,6 +187,12 @@
             $input.value++;
             $input.dispatchEvent(new Event('input'));
           });
+        });
+      }
+      else if (event === 'alert') {
+        $delegate($alert, '.js-close', 'click', function() {
+          $alert.removeChild(this.parentNode);
+          handler();
         });
       }
     };

@@ -38,7 +38,7 @@
         _self.setData();
       }
       else {
-        _self.view.render('error', 'error');
+        _self.view.render('error', 'Error adding entry');
       }
       return res;
     };
@@ -49,7 +49,7 @@
         _self.setData();
       }
       else {
-        _self.view.render('error', 'error');
+        _self.view.render('error', 'Error removing entry');
       }
       return res;
     };
@@ -60,7 +60,7 @@
         _self.setData();
       }
       else {
-        _self.view.render('error', 'error');
+        _self.view.render('error', 'Error editing entry');
       }
       return res;
     };
@@ -71,7 +71,7 @@
         _self.setData();
       }
       else {
-        _self.view.render('error', 'error');
+        _self.view.render('error', 'Error removing all entries');
       }
       return res;
     };
@@ -100,6 +100,10 @@
 
     _self.view.bind('settingsUpdate', function(data) {
       _self.updateSettings(data);
+    });
+
+    _self.view.bind('alert', function() {
+      
     });
   };
 

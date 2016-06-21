@@ -168,6 +168,14 @@
 
       return table;
     };
+
+    this.alert = function(type, msg) {
+      var code = '<div class="alert alert-' + type + '"><span>';
+      code += msg;
+      code += '</span><button class="alert-close js-close" title="Close"><svg class="icon alert-icon"><use xlink:href="#icon-cancel-circle"></use></svg></button></div>';
+
+      return code;
+    };
   };
 
   window.app = window.app || {};
