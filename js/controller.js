@@ -42,14 +42,13 @@
       _self.setData();
     };
 
-    this.editItem = function(id) {
-      console.log(id);return;
-      _self.model.edit(id);
-      _self.setData();
-    };
+    // this.editItem = function(id) {
+    //   console.log(id);return;
+    //   _self.model.edit(id);
+    //   _self.setData();
+    // };
 
     this.removeAllItem = function() {
-      console.log('ALL');return;
       _self.model.drop();
       _self.setData();
     };

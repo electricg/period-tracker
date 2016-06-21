@@ -17,4 +17,4 @@
 * [ ] show error if erroring when add/update/delete
 * [ ] when during event, different homescreen
 * [X] fix when data is empty
-* [ ] edit entry functionality
+* [ ] implement edit entry functionality

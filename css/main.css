@@ -276,6 +276,9 @@ input[type=date]::-webkit-inner-spin-button {
   padding: 0;
   width: 2.5rem;
 }
+.log td:nth-child(3) {
+  display: none; // temporaly
+}
 .log-button {
   background: transparent;
   border: 0 none;
