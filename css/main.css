@@ -24,7 +24,7 @@ a {
   display: block;
   text-decoration: none;
 }
-label, button, input[type=button], input[type=submit] {
+label, button, input[type=button], input[type=submit], input[type=reset] {
   cursor: pointer;
   -webkit-appearance: none;
 }
@@ -171,7 +171,10 @@ input[type=date]::-webkit-inner-spin-button {
 
 /* add */
 .add-form {
-
+  display: none;
+}
+.add-form.selected {
+  display: block;
 }
 .add-date {
   background: transparent;
@@ -256,6 +259,9 @@ input[type=date]::-webkit-inner-spin-button {
 .log {
   border-collapse: collapse;
   width: 100%;
+}
+.log tr.selected {
+  background: #F00;
 }
 .log td {
   border-bottom: 1px solid #CCC;

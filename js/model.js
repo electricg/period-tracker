@@ -325,7 +325,7 @@
     /**
      * Add single occurance
      * @param {string} date - string in YYYY-DD-MM format
-     * @returns {number} -1 if not successful, otherwise index number of the affected element
+     * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
     this.add = function(date) {
       return modify('add', null, date);
@@ -335,7 +335,7 @@
      * Edit single occurance
      * @param {string} id - id of the occurance to edit
      * @param {string} date - string in YYYY-DD-MM format
-     * @returns {number|object} -1 if not successful, otherwise object with index numbers of the added and removed elements
+     * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
     this.edit = function(id, date) {
       return modify('edit', id, date);
@@ -344,7 +344,7 @@
     /**
      * Delete single occurance
      * @param {string} id - id of the occurance to remove
-     * @returns {number} -1 if not successful, otherwise index number of the affected element
+     * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
     this.remove = function(id) {
       return modify('remove', id);
@@ -352,7 +352,7 @@
 
     /**
      * Delete all occurances
-     * @returns {number} -1 if data was already empty, otherwise number of the removed elements
+     * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
     this.drop = function() {
       return modify('drop');

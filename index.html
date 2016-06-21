@@ -90,12 +90,12 @@
     <div class="home-wrapper">
       <div class="home-calc">next: <span id="next" class="home-next">&nbsp;</span></div>
       <div class="home-calc">days left: <span id="countdown" class="home-countdown">&nbsp;</span></div>
-      <button class="home-add">Period just started <span>tap here</span></button>
+      <button class="home-add" id="home-add">Period just started <span>tap here</span></button>
       
-      <form class="add-form">
-        <input type="date" id="" class="add-date" required value="">
+      <form class="add-form" id="add-form">
+        <input type="date" id="add-date" class="add-date" required>
         <div class="add-button-wrapper">
-          <input type="button" value="Cancel" class="add-button">
+          <input type="reset" value="Cancel" class="add-button">
           <input type="submit" value="Save" class="add-button">
         </div>
       </form>
@@ -120,23 +120,23 @@
   <section id="settings" class="main-section">
     <div class="settings">
       <button class="setting" onclick="giulia()">Load test data</button>
-      <button class="setting" onclick="localStorage.clear()">Delete all data</button>
+      <button class="setting" id="delete-all">Delete all data</button>
       <button class="setting">Connect Google account</button>
       <button class="setting">Disconnect Google account</button>
       <input type="checkbox" id="settings-week-start">
       <label class="setting" for="settings-week-start">Mon-Sun calendar<svg class="icon check-icon"><use xlink:href="#icon-unchecked" class="unchecked-icon"></use><use xlink:href="#icon-checked" class="checked-icon"></use></svg></label>
       <div class="setting no-setting">Period length 
         <div class="input-number-wrapper">
-          <button class="input-number-button"><svg class="icon input-number-icon"><use xlink:href="#icon-minus"></use></svg></button>
+          <button class="input-number-button" id="settings-period-length-sub"><svg class="icon input-number-icon"><use xlink:href="#icon-minus"></use></svg></button>
           <input type="number" class="input-number-input" id="settings-period-length" min="1" value="4">
-          <button class="input-number-button"><svg class="icon input-number-icon"><use xlink:href="#icon-plus"></use></svg></button>
+          <button class="input-number-button" id="settings-period-length-add"><svg class="icon input-number-icon"><use xlink:href="#icon-plus"></use></svg></button>
         </div>
       </div>
       
       <p>
         Developed by Giulia Alfonsi.<br>
         This is just a personal app with minimal functionalities.<br>
-        Live demo at <a href="" target="_blank">url</a> and source on <a href="" target="_blank">GitHub</a>
+        Live demo at <a href="https://electricg.github.io/period-tracker/" target="_blank">electricg.github.io/period-tracker/</a> and source on <a href="https://github.com/electricg/period-tracker" target="_blank">GitHub</a>
       </p>
     </div>
   </section>

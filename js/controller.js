@@ -30,6 +30,55 @@
       _self.view.render('log', _self.model);
       _self.view.render('settings');
     };
+
+    this.addItem = function(date) {
+      console.log(date);return;
+      _self.model.add(date);
+      _self.setData();
+    };
+
+    this.removeItem = function(id) {
+      console.log(id);return;
+      _self.model.remove(id);
+      _self.setData();
+    };
+
+    this.editItem = function(id) {
+      console.log(id);return;
+      _self.model.edit(id);
+      _self.setData();
+    };
+
+    this.removeAllItem = function() {
+      console.log('ALL');return;
+      _self.model.drop();
+      _self.setData();
+    };
+
+    this.updateSettings = function() {
+      console.log('settings');return;
+      _self.setData();
+    };
+
+    _self.view.bind('itemAdd', function(date) {
+      _self.addItem(date);
+    });
+
+    _self.view.bind('itemRemove', function(id) {
+      _self.removeItem(id);
+    });
+
+    _self.view.bind('itemEdit', function(id) {
+      _self.editItem(id);
+    });
+
+    _self.view.bind('itemRemoveAll', function() {
+      _self.removeAllItem();
+    });
+
+    _self.view.bind('settingsUpdate', function() {
+      _self.updateSettings();
+    });
   };
 
   // export to window

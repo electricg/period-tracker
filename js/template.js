@@ -153,8 +153,9 @@
     this.log = function(data) {
       var table = '<table class="log"><tbody>';
       data.list.forEach(function(item, index) {
-        table += '<tr><td>' + item.date + '</td><td>' + (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '') + '</td>';
-        table += '<td><button class="log-button" title="Edit"><svg class="icon log-icon"><use xlink:href="#icon-edit"></use></svg></button></td><td><button class="log-button" title="Delete"><svg class="icon log-icon"><use xlink:href="#icon-delete"></use></svg></button></td></tr>';
+        var s = moment(item.date).format('MMM D, YYYY');
+        table += '<tr><td>' + s + '</td><td>' + (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '') + '</td>';
+        table += '<td><button data-id="' + item.id + '" data-date="' + item.date + '" class="log-button js-edit" title="Edit"><svg class="icon log-icon"><use xlink:href="#icon-edit"></use></svg></button></td><td><button data-id="' + item.id + '" data-date="' + s + '" class="log-button js-remove" title="Remove"><svg class="icon log-icon"><use xlink:href="#icon-delete"></use></svg></button></td></tr>';
       });
       table += '</tbody></table>';
 
