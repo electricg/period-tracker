@@ -32,6 +32,10 @@
     
     var _viewCommands = {};
 
+    _viewCommands.error = function(err) {
+      console.log(err);
+    };
+
     _viewCommands.section = function(model, parameter, args) {
       parameter = parameter || 'home';
       $sections.forEach(function($el) {
@@ -94,7 +98,10 @@
         });
         $addForm.on('submit', function(event) {
           prev(event);
-          handler($addDate.value);
+          var res = handler($addDate.value);
+          if (res !== -1) {
+            $addForm.reset();
+          }
         });
         $addForm.on('reset', function() {
           $addForm.classList.remove('selected');

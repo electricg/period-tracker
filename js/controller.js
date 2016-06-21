@@ -33,24 +33,47 @@
     };
 
     this.addItem = function(date) {
-      _self.model.add(date);
-      _self.setData();
+      var res = _self.model.add(date);
+      if (res !== -1) {
+        _self.setData();
+      }
+      else {
+        _self.view.render('error', 'error');
+      }
+      return res;
     };
 
     this.removeItem = function(id) {
-      _self.model.remove(id);
-      _self.setData();
+      var res = _self.model.remove(id);
+      if (res !== -1) {
+        _self.setData();
+      }
+      else {
+        _self.view.render('error', 'error');
+      }
+      return res;
     };
 
-    // this.editItem = function(id) {
-    //   console.log(id);return;
-    //   _self.model.edit(id);
-    //   _self.setData();
-    // };
+    this.editItem = function(id) {
+      var res = _self.model.edit(id);
+      if (res !== -1) {
+        _self.setData();
+      }
+      else {
+        _self.view.render('error', 'error');
+      }
+      return res;
+    };
 
     this.removeAllItem = function() {
-      _self.model.drop();
-      _self.setData();
+      var res = _self.model.drop();
+      if (res !== -1) {
+        _self.setData();
+      }
+      else {
+        _self.view.render('error', 'error');
+      }
+      return res;
     };
 
     this.updateSettings = function(data) {
@@ -60,19 +83,19 @@
     };
 
     _self.view.bind('itemAdd', function(date) {
-      _self.addItem(date);
+      return _self.addItem(date);
     });
 
     _self.view.bind('itemRemove', function(id) {
-      _self.removeItem(id);
+      return _self.removeItem(id);
     });
 
     _self.view.bind('itemEdit', function(id) {
-      _self.editItem(id);
+      return _self.editItem(id);
     });
 
     _self.view.bind('itemRemoveAll', function() {
-      _self.removeAllItem();
+      return _self.removeAllItem();
     });
 
     _self.view.bind('settingsUpdate', function(data) {
