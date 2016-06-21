@@ -9,6 +9,11 @@
   <meta name="theme-color" content="#0099FF">
   <meta name="robots" content="noindex,nofollow">
   <title>Period Tracker</title>
+  <link rel="icon" href="images/icon16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="images/icon32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="images/icon96.png" sizes="96x96" type="image/png">
+  <link rel="icon apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" type="image/png">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -64,12 +69,16 @@
 <title>minus</title>
 <path d="M0 13v6c0 0.552 0.448 1 1 1h30c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1h-30c-0.552 0-1 0.448-1 1z"></path>
 </symbol>
+<symbol id="icon-moon" viewBox="0 0 32 32">
+<title>moon-stars</title>
+<path d="M18.214 11.762l-1.214 3.238-1.214-3.238-2.286-0.762 2.286-0.762 1.214-3.238 1.214 3.238 2.286 0.762-2.286 0.762zM22.214 18.238l-1.214-3.238-1.214 3.238-2.286 0.762 2.286 0.762 1.214 3.238 1.214-3.238 2.286-0.762-2.286-0.762zM14.836 22.331v0c0.088-0.351 0.142-0.716 0.158-1.091-0.468 0.165-0.971 0.254-1.495 0.254-2.485 0-4.5-2.015-4.5-4.5 0-0.524 0.090-1.027 0.254-1.495-0.374 0.016-0.739 0.070-1.091 0.158-2.392 0.597-4.163 2.76-4.163 5.336 0 3.038 2.462 5.5 5.5 5.5 2.577 0 4.739-1.772 5.337-4.163zM5 20.995c0-1.961 1.255-3.63 3.005-4.246-0.004 0.081-0.005 0.163-0.005 0.246 0 3.038 2.462 5.5 5.5 5.5 0.082 0 0.164-0.002 0.246-0.005-0.616 1.751-2.284 3.005-4.246 3.005-2.485 0-4.5-2.015-4.5-4.5v0zM26.867 12.429l1.633 0.571-1.633 0.571-0.867 2.429-0.867-2.429-1.633-0.571 1.633-0.571 0.867-2.429 0.867 2.429z"></path>
+</symbol>
 </defs>
 </svg>
 
 
 <header class="main-header">
-  <h1>Period Tracker v<span id="version"></span></h1>
+  <h1><svg class="icon header-icon"><use xlink:href="#icon-moon"></use></svg>Period Tracker v<span id="version"></span></h1>
 </header>
 
 <nav class="main-nav">

@@ -56,6 +56,12 @@ input[type=date]::-webkit-inner-spin-button {
   width: 100%;
   z-index: 1;
 }
+.header-icon {
+  display: inline;
+  height: 2.5rem;
+  vertical-align: top;
+  width: 2.5rem;
+}
 .main-section {
   display: none;
   padding: 2.5rem 0 4em;
