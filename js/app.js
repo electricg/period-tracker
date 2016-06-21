@@ -33,18 +33,12 @@ window.addEventListener('hashchange', show);
 
 
 var hostname = window.location.hostname;
-var port = window.location.port;
 var scope = '';
 if (hostname === 'electricg.github.io') {
   scope = '/period-tracker/';
 }
 else if (hostname === 'localhost') {
-  if (port ===  '8000') {
-    scope = './';
-  }
-  if (port === '8001') {
-    scope = './';
-  }
+  scope = './';
 }
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js', {
