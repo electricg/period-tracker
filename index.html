@@ -134,11 +134,20 @@
       <button class="setting">Disconnect Google account</button>
       <input type="checkbox" id="settings-week-start">
       <label class="setting" for="settings-week-start">Mon-Sun calendar<svg class="icon check-icon"><use xlink:href="#icon-unchecked" class="unchecked-icon"></use><use xlink:href="#icon-checked" class="checked-icon"></use></svg></label>
+      
       <div class="setting no-setting">Period length 
-        <div class="input-number-wrapper">
-          <button class="input-number-button" id="settings-period-length-sub"><svg class="icon input-number-icon"><use xlink:href="#icon-minus"></use></svg></button>
+        <div class="input-number-wrapper js-number">
+          <button class="input-number-button input-number-sub"><svg class="icon input-number-icon"><use xlink:href="#icon-minus"></use></svg></button>
           <input type="number" class="input-number-input" id="settings-period-length" min="1">
-          <button class="input-number-button" id="settings-period-length-add"><svg class="icon input-number-icon"><use xlink:href="#icon-plus"></use></svg></button>
+          <button class="input-number-button input-number-add"><svg class="icon input-number-icon"><use xlink:href="#icon-plus"></use></svg></button>
+        </div>
+      </div>
+
+      <div class="setting no-setting">Cycle length 
+        <div class="input-number-wrapper js-number">
+          <button class="input-number-button input-number-sub"><svg class="icon input-number-icon"><use xlink:href="#icon-minus"></use></svg></button>
+          <input type="number" class="input-number-input" id="settings-cycle-length" min="1">
+          <button class="input-number-button input-number-add"><svg class="icon input-number-icon"><use xlink:href="#icon-plus"></use></svg></button>
         </div>
       </div>
       

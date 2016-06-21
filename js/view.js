@@ -26,8 +26,7 @@
     var $settingsWeekStart = $$('#settings-week-start');
 
     var $settingsPeriodLength = $$('#settings-period-length');
-    var $settingsPeriodLengthSub = $$('#settings-period-length-sub');
-    var $settingsPeriodLengthAdd = $$('#settings-period-length-add');
+    var $settingsCycleLength = $$('#settings-cycle-length');
 
     $$('#version').innerHTML = version;
     
@@ -79,6 +78,7 @@
         $settingsWeekStart.checked = false;
       }
       $settingsPeriodLength.value = _self.settings.get('periodLength');
+      $settingsCycleLength.value = _self.settings.get('cycleLength');
     };
 
     this.render = function(viewCmd, model, parameter, args) {
@@ -141,16 +141,27 @@
           data.periodLength = this.value * 1;
           handler(data);
         });
-        $settingsPeriodLengthSub.on('click', function() {
-          if ($settingsPeriodLength.value <= 1) {
-            return;
-          }
-          $settingsPeriodLength.value--;
-          $settingsPeriodLength.dispatchEvent(new Event('input'));
+
+        $settingsCycleLength.on('input', function() {
+          data.cycleLength = this.value * 1;
+          handler(data);
         });
-        $settingsPeriodLengthAdd.on('click', function() {
-          $settingsPeriodLength.value++;
-          $settingsPeriodLength.dispatchEvent(new Event('input'));
+
+        $('.js-number').forEach(function($item) {
+          var $add = $item.querySelector('.input-number-add');
+          var $sub = $item.querySelector('.input-number-sub');
+          var $input = $item.querySelector('.input-number-input');
+          $sub.on('click', function() {
+            if ($input.value <= 1) {
+              return;
+            }
+            $input.value--;
+            $input.dispatchEvent(new Event('input'));
+          });
+          $add.on('click', function() {
+            $input.value++;
+            $input.dispatchEvent(new Event('input'));
+          });
         });
       }
     };

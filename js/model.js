@@ -7,8 +7,11 @@
   const dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
   const averageIntervals = 3;
 
-  var Model = function(name) {
+  var Model = function(name, settings) {
     const _namespace = name;
+    var _self = this;
+    _self.settings = settings;
+
     var _today = moment().format(datePattern);
     var _list = [];
     var _quicklist = [];
@@ -245,7 +248,7 @@
     var calcAverage = function() {
       var arr = _intervals.slice(0, averageIntervals);
       if (!arr.length) {
-        _average = 0;
+        _average = _self.settings.get('cycleLength');
         return;
       }
       var sum = 0;
@@ -329,6 +332,13 @@
      */
     this.init = function() {
       load();
+      calcAll();
+    };
+
+    /**
+     * Recalc data
+     */
+    this.update = function() {
       calcAll();
     };
 

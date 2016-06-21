@@ -56,7 +56,8 @@
 
     this.updateSettings = function(data) {
       _self.settings.update(data);
-      // _self.setData(); // not needed at the moment since calendar is being redraw at every call
+      _self.model.update();
+      _self.setData();
     };
 
     _self.view.bind('itemAdd', function(date) {
