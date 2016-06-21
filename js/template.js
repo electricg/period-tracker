@@ -132,6 +132,7 @@
 
     this.calendar = function(data, monthN, yearN) {
       var _startDayOkWeek = _self.settings.get('startDayOkWeek');
+      var _periodLength = _self.settings.get('periodLength');
       var cal = calendarGet(data, _startDayOkWeek, monthN, yearN);
       var table = '<table class="calendar"><thead><tr>';
       table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-prev"></use></svg></a></th>';
@@ -144,6 +145,9 @@
       for (var d = 0; d < cal.days.length; d+=7) {
         table += '<tr>';
         for (var dd = d; dd < (d+7); dd++) {
+          if (cal.days[dd].c <= _periodLength) {
+            cal.days[dd].k.push('selected');
+          }
           table += '<td data-counter="' + cal.days[dd].c + '"' + (cal.days[dd].k.length ? ' class="' + cal.days[dd].k.join(' ') + '"' : '') +'>' + cal.days[dd].n + '</td>';
         }
         table += '</tr>';

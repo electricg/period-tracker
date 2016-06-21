@@ -223,16 +223,10 @@ input[type=date]::-webkit-inner-spin-button {
 .calendar td.another-month {
   color: #808080;
 }
-.calendar td[data-counter="1"],
-.calendar td[data-counter="2"],
-.calendar td[data-counter="3"],
-.calendar td[data-counter="4"] {
+.calendar td.selected {
   background: #00ffc4;
 }
-.calendar td.future[data-counter="1"],
-.calendar td.future[data-counter="2"],
-.calendar td.future[data-counter="3"],
-.calendar td.future[data-counter="4"] {
+.calendar td.selected.future {
   background: #EEE;
   background-image: linear-gradient(45deg, transparent 50%, #00ffc4 0);
 }
