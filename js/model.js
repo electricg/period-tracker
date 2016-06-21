@@ -225,10 +225,6 @@
     var calcQuicklist = function() {
       _quicklist = [];
       _list.forEach(function(item) {
-        for (var i = 3; i > 0; i--) {
-          var m = moment(item.date).add(i, 'days');
-          _quicklist.push(m.format(datePattern));
-        }
         _quicklist.push(item.date);
       });
     };

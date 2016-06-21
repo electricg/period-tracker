@@ -40,44 +40,84 @@
       var diffStart = firstDayOkWeek - _startDayOkWeek;
       var k;
       var n;
+      var c = '';
+      var date;
+      var start;
+      var future = false;
+
+      // before
       if (diffStart < 0) {
         diffStart = 7 + diffStart;
       }
-      for (var i = diffStart - 1; i >= 0; i--) {
-        n = daysInPrevMonth - i;
+      for (var i1 = diffStart - 1; i1 >= 0; i1--) {
+        n = daysInPrevMonth - i1;
         k = ['another-month'];
-        if (data.quicklist.indexOf(prev.yearN + '-' + z(prev.monthN) + '-' + z(n)) !== -1) {
-          k.push('selected');
-        }
+        date = prev.yearN + '-' + z(prev.monthN) + '-' + z(n);
         days.push({
+          date: date,
           n: n,
-          k: k.join(' ')
+          c: c,
+          k: k
         });
       }
-      for (var d = 1; d <= daysInMonth; d++) {
+      // during
+      for (var i2 = 1; i2 <= daysInMonth; i2++) {
+        n = i2;
         k = [];
-        if (data.quicklist.indexOf(yearN + '-' + z(monthN) + '-' + z(d)) !== -1) {
-          k.push('selected');
-        }
+        date = yearN + '-' + z(monthN) + '-' + z(i2);
         days.push({
-          n: d,
-          k: k.join(' ')
+          date: date,
+          n: n,
+          c: c,
+          k: k
         });
       }
+      // after
       var diffEnd = (_startDayOkWeek - 1) - lastDayOfWeek;
       if (diffEnd < 0 ) {
         diffEnd = 7 + diffEnd;
       }
-      for (var e = 1; e <= diffEnd; e++) {
+      for (var i3 = 1; i3 <= diffEnd; i3++) {
+        n = i3;
         k = ['another-month'];
-        if (data.quicklist.indexOf(next.yearN + '-' + z(next.monthN) + '-' + z(e)) !== -1) {
-          k.push('selected');
-        }
+        date = next.yearN + '-' + z(next.monthN) + '-' + z(i3);
         days.push({
-          n: e,
-          k: k.join(' ')
+          date: date,
+          n: n,
+          c: c,
+          k: k
         });
       }
+
+      // loop through quicklist to find event that starts before the range or on its first very date
+      for (var i4 = 0; i4 < data.quicklist.length; i4++) {
+        if (data.quicklist[i4] <= days[0].date) {
+          start = data.quicklist[i4];
+          break;
+        }
+      }
+      if (start) {
+        var a = moment(days[0].date);
+        var b = moment(start);
+        c = a.diff(b, 'days') + 1;
+      }
+
+      days.forEach(function(item) {
+        if (data.quicklist.indexOf(item.date) !== -1) {
+          c = 1;
+        }
+        else if (item.date === data.next) {
+          c = 1;
+          future = true;
+        }
+        if (c) {
+          item.c = c;
+          c++;
+        }
+        if (future) {
+          item.k.push('future');
+        }
+      });
 
       return {
         days: days,
@@ -101,7 +141,7 @@
       for (var d = 0; d < cal.days.length; d+=7) {
         table += '<tr>';
         for (var dd = d; dd < (d+7); dd++) {
-          table += '<td' + (cal.days[dd].k ? ' class="' + cal.days[dd].k + '"' : '') +'>' + cal.days[dd].n + '</td>';
+          table += '<td data-counter="' + cal.days[dd].c + '"' + (cal.days[dd].k.length ? ' class="' + cal.days[dd].k.join(' ') + '"' : '') +'>' + cal.days[dd].n + '</td>';
         }
         table += '</tr>';
       }
