@@ -35,7 +35,7 @@ window.addEventListener('hashchange', show);
 var hostname = window.location.hostname;
 var scope = '';
 if (hostname === 'electricg.github.io') {
-  scope = '/period-tracker/';
+  scope = './';
 }
 else if (hostname === 'localhost') {
   scope = './';
