@@ -2,7 +2,7 @@
 const cacheName = 'v1::static';
 
 var fileList = [
-  '/period-tracker/',
+  '/',
   'css/main.css',
   'js/app.js',
   'js/controller.js',
