@@ -10,6 +10,7 @@
     var _self = this;
     _self.model = model;
     _self.view = view;
+    _self.settings = _self.view.settings;
 
     /**
      * Show the selected section
@@ -55,9 +56,9 @@
       _self.setData();
     };
 
-    this.updateSettings = function() {
-      console.log('settings');return;
-      _self.setData();
+    this.updateSettings = function(data) {
+      _self.settings.update(data);
+      // _self.setData(); // not needed at the moment since calendar is being redraw at every call
     };
 
     _self.view.bind('itemAdd', function(date) {
@@ -76,8 +77,8 @@
       _self.removeAllItem();
     });
 
-    _self.view.bind('settingsUpdate', function() {
-      _self.updateSettings();
+    _self.view.bind('settingsUpdate', function(data) {
+      _self.updateSettings(data);
     });
   };
 

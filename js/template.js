@@ -2,12 +2,14 @@
 (function(window) {
   'use strict';
 
-  var Template = function(options) {
-    var _startDayOkWeek = options.startDayOkWeek || 0;
+  var Template = function(settings) {
+    var _self = this;
+    _self.settings = settings;
+    
     var _today = moment();
     var _week = moment.weekdaysShort();
 
-    var calendarGet = function(data, monthN, yearN) {
+    var calendarGet = function(data, startDayOkWeek, monthN, yearN) {
       monthN = monthN || _today.format('M');
       yearN = yearN || _today.format('YYYY');
 
@@ -20,7 +22,7 @@
       var days = [];
       var title = first.format('MMMM YYYY');
       var week = _week.slice(0);
-      var leftoverWeek = week.splice(0, _startDayOkWeek);
+      var leftoverWeek = week.splice(0, startDayOkWeek);
       week = week.concat(leftoverWeek);
       
       var nextMonth = first.clone().add(1, 'months');
@@ -37,7 +39,7 @@
         title: prevMonth.format('MMMM YYYY')
       };
 
-      var diffStart = firstDayOkWeek - _startDayOkWeek;
+      var diffStart = firstDayOkWeek - startDayOkWeek;
       var k;
       var n;
       var c = '';
@@ -73,7 +75,7 @@
         });
       }
       // after
-      var diffEnd = (_startDayOkWeek - 1) - lastDayOfWeek;
+      var diffEnd = (startDayOkWeek - 1) - lastDayOfWeek;
       if (diffEnd < 0 ) {
         diffEnd = 7 + diffEnd;
       }
@@ -129,7 +131,8 @@
     };
 
     this.calendar = function(data, monthN, yearN) {
-      var cal = calendarGet(data, monthN, yearN);
+      var _startDayOkWeek = _self.settings.get('startDayOkWeek');
+      var cal = calendarGet(data, _startDayOkWeek, monthN, yearN);
       var table = '<table class="calendar"><thead><tr>';
       table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-prev"></use></svg></a></th>';
       table += '<th colspan="5">' + cal.title + '</th>';

@@ -1,4 +1,4 @@
-/* global $, $$, $delegate, prev, moment */
+/* global $, $$, $delegate, prev, moment, version */
 (function(window) {
   'use strict';
 
@@ -8,6 +8,7 @@
   var View = function(template) {
     var _self = this;
     _self.template = template;
+    _self.settings = _self.template.settings;
 
     var $sections = $('.main-section');
     var $navLinks = $('.main-nav a');
@@ -27,6 +28,8 @@
     var $settingsPeriodLength = $$('#settings-period-length');
     var $settingsPeriodLengthSub = $$('#settings-period-length-sub');
     var $settingsPeriodLengthAdd = $$('#settings-period-length-add');
+
+    $$('#version').innerHTML = version;
     
     var _viewCommands = {};
 
@@ -69,7 +72,13 @@
     };
 
     _viewCommands.settings = function() {
-      console.log('settings');
+      if (_self.settings.get('startDayOkWeek')) {
+        $settingsWeekStart.checked = true;
+      }
+      else {
+        $settingsWeekStart.checked = false;
+      }
+      $settingsPeriodLength.value = _self.settings.get('periodLength');
     };
 
     this.render = function(viewCmd, model, parameter, args) {
@@ -116,12 +125,21 @@
         });
       }
       else if (event === 'settingsUpdate') {
+        var data = {};
+
         $settingsWeekStart.on('change', function() {
-          console.log(this.checked);
+          if (this.checked) {
+            data.startDayOkWeek = 1;
+          }
+          else {
+            data.startDayOkWeek = 0;
+          }
+          handler(data);
         });
 
         $settingsPeriodLength.on('input', function() {
-          console.log(this.value);
+          data.periodLength = this.value * 1;
+          handler(data);
         });
         $settingsPeriodLengthSub.on('click', function() {
           if ($settingsPeriodLength.value <= 1) {

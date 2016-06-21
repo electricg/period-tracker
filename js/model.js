@@ -2,13 +2,13 @@
 (function(window) {
   'use strict';
 
-  var datePattern = 'YYYY-MM-DD';
+  const datePattern = 'YYYY-MM-DD';
   // this regexp is not strict as the date validation will be performed by moment.js
-  var dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
-  var averageIntervals = 3;
+  const dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
+  const averageIntervals = 3;
 
   var Model = function(name) {
-    var _namespace = name;
+    const _namespace = name;
     var _today = moment().format(datePattern);
     var _list = [];
     var _quicklist = [];
