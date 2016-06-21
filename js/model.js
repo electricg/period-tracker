@@ -267,7 +267,7 @@
       if (lastItem) {
         last = lastItem.date;
       }
-      if (_average > 0) {
+      if (_list.length) {
         _next = moment(last).add(_average, 'days').format(datePattern);
       }
       else {
