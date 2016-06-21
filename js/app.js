@@ -29,3 +29,25 @@ var load = function() {
 
 window.addEventListener('load', load);
 window.addEventListener('hashchange', show);
+
+
+(function() {
+  // var hostname = window.location.hostname;
+  // var root = '';
+  // if (hostname === 'electricg.github.io') {
+  //   root = '/period-tracker/';
+  // }
+  // else if (hostname === 'localhost') {
+  //   root = '/';
+  // }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+    .then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  }
+})();
