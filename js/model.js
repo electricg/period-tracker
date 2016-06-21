@@ -264,14 +264,24 @@
       if (lastItem) {
         last = lastItem.date;
       }
-      _next = moment(last).add(_average, 'days').format(datePattern);
+      if (_average > 0) {
+        _next = moment(last).add(_average, 'days').format(datePattern);
+      }
+      else {
+        _next = '';
+      }
     };
 
     /**
      * Caldulate how many days left until next occurance
      */
     var calcCountdown = function() {
-      _countdown = moment.range(_today, _next).diff('days');
+      if (_next) {
+        _countdown = moment.range(_today, _next).diff('days');
+      }
+      else {
+        _countdown = 0;
+      }
     };
 
     /**

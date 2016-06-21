@@ -8,7 +8,7 @@
 
 #### TODO
 * [ ] service worker - work offline 
-* [ ] add to home screen
+* [X] add to home screen
 * [ ] push notifications
 * [ ] background syncronisation
 * [ ] use google calendar as backend server
@@ -16,3 +16,5 @@
 * [X] calculate next event
 * [ ] show error if erroring when add/update/delete
 * [ ] when during event, different homescreen
+* [X] fix when data is empty
+* [ ] edit entry functionality

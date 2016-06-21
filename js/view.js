@@ -55,7 +55,7 @@
     };
 
     _viewCommands.home = function(model) {
-      $next.innerHTML = model.next;
+      $next.innerHTML = model.next ? moment(model.next).format('ddd, MMM D') : '';
       $countdown.innerHTML = model.countdown;
       var today = moment().format('YYYY-MM-DD');
       $addDate.defaultValue = today;

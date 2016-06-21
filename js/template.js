@@ -145,7 +145,7 @@
       for (var d = 0; d < cal.days.length; d+=7) {
         table += '<tr>';
         for (var dd = d; dd < (d+7); dd++) {
-          if (cal.days[dd].c <= _periodLength) {
+          if (cal.days[dd].c >=1 && cal.days[dd].c <= _periodLength) {
             cal.days[dd].k.push('selected');
           }
           table += '<td data-counter="' + cal.days[dd].c + '"' + (cal.days[dd].k.length ? ' class="' + cal.days[dd].k.join(' ') + '"' : '') +'>' + cal.days[dd].n + '</td>';
