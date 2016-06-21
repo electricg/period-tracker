@@ -33,13 +33,11 @@
     };
 
     this.addItem = function(date) {
-      console.log(date);return;
       _self.model.add(date);
       _self.setData();
     };
 
     this.removeItem = function(id) {
-      console.log(id);return;
       _self.model.remove(id);
       _self.setData();
     };

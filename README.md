@@ -14,3 +14,5 @@
 * [ ] use google calendar as backend server
 * [X] calculate average interval between events
 * [X] calculate next event
+* [ ] show error if erroring when add/update/delete
+* [ ] when during event, different homescreen

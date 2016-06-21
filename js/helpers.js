@@ -3,25 +3,26 @@ var $ = document.querySelectorAll.bind(document);
 var $$ = document.querySelector.bind(document);
 Element.prototype.on = Element.prototype.addEventListener;
 
+/**
+ * Prevent default event
+ * @param {object} event
+ */
 function prev(event) {
   if (event.preventDefault) { event.preventDefault(); }
   else { event.returnValue = false; }
 }
 
+/**
+ * Convert number into two digit string
+ * @param {number} n
+ * @returns {string}
+ */
 function z(n) {
   if (n < 10) {
     return '0' + n;
   }
-  return n;
+  return '' + n;
 }
-
-window.qsa = function (selector, scope) {
-  return (scope || document).querySelectorAll(selector);
-};
-
-window.$on = function (target, type, callback, useCapture) {
-  target.addEventListener(type, callback, !!useCapture);
-};
 
 /**
  * Attach a handler to event for all elements that match the selector,
@@ -33,7 +34,7 @@ var $delegate = function(target, selector, type, handler) {
     var els = [];
     var found = false;
     var hasMatch;
-    var potentialElements = window.qsa(selector, target);
+    var potentialElements = target.querySelectorAll(selector);
     while (el) {
       els.unshift(el);
       el = el.parentNode;
@@ -51,5 +52,5 @@ var $delegate = function(target, selector, type, handler) {
   // https://developer.mozilla.org/en-US/docs/Web/Events/blur
   var useCapture = type === 'blur' || type === 'focus';
 
-  window.$on(target, type, dispatchEvent, useCapture);
+  target.addEventListener(type, dispatchEvent, !!useCapture);
 };
