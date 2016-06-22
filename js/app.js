@@ -1,6 +1,5 @@
 /* global app */
-/* exported version */
-const version = 0.3;
+/* exported loadGcal */
 const namespace = 'periodTracker';
 
 const _OFFLINE = 1;
@@ -86,8 +85,5 @@ if (_OFFLINE) {
     }).catch(function(err) {
       console.log('ServiceWorker registration failed: ', err);
     });
-    // navigator.serviceWorker.addEventListener('message', function(e) {
-    //   console.log(e);
-    // });
   }
 }

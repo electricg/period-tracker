@@ -1,4 +1,4 @@
-/* global $, $$, $delegate, prev, moment, version */
+/* global $, $$, $delegate, prev, moment */
 (function(window) {
   'use strict';
 
@@ -32,8 +32,6 @@
 
     var $statusOffline = $$('#status-icon-offline');
 
-    $$('#version').innerHTML = version;
-    
     var _viewCommands = {};
 
     _viewCommands.alert = function(type, msg) {
