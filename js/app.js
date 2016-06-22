@@ -2,7 +2,11 @@
 /* exported loadGcal */
 const namespace = 'periodTracker';
 
-const _OFFLINE = 1;
+const gcalClientId = '264231513776-rbc9gpga3hsi244dodlt96crcmf99141.apps.googleusercontent.com';
+const gcalScopes = ['https://www.googleapis.com/auth/calendar'];
+const gcalNamespace = 'Period Tracker';
+
+const _OFFLINE = 0;
 
 var defaultSettings = {
   startDayOkWeek: 1, // 0 Sunday, 1 Monday
@@ -15,7 +19,8 @@ var Tracker = function(namespace) {
   this.model = new app.Model(namespace, this.settings);
   this.template = new app.Template(this.settings);
   this.view = new app.View(this.template);
-  this.controller = new app.Controller(this.model, this.view);
+  this.gcal = new app.Gcal(gcalClientId, gcalScopes, gcalNamespace);
+  this.controller = new app.Controller(this.model, this.view, {gcal: this.gcal});
 };
 
 var tracker = new Tracker(namespace);
@@ -27,6 +32,18 @@ var show = function() {
 var load = function() {
   tracker.controller.setData();
   show();
+};
+
+var loadGcal = function() {
+  // tracker.gcal.checkAuth(function(res) {
+  //   console.log(res);
+  //   tracker.view.render('gcal', true);
+  // });
+  tracker.gcal.checkAuth()
+  .then(function(res) {
+    console.log(res);
+    tracker.view.render('gcal', true);
+  });
 };
 
 window.addEventListener('load', load);

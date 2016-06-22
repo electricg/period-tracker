@@ -140,8 +140,8 @@
     <div class="settings">
       <button class="setting" onclick="giulia()">Load test data</button>
       <button class="setting" id="delete-all">Delete all data</button>
-      <button class="setting">Connect Google account</button>
-      <button class="setting">Disconnect Google account</button>
+      <button class="setting" id="gcal-connect">Connect Google account</button>
+      <!-- <button class="setting">Disconnect Google account</button> -->
       <input type="checkbox" id="settings-week-start">
       <label class="setting" for="settings-week-start">Mon-Sun calendar<svg class="icon check-icon"><use xlink:href="#icon-unchecked" class="unchecked-icon"></use><use xlink:href="#icon-checked" class="checked-icon"></use></svg></label>
       
@@ -180,11 +180,11 @@
 <script src="js/template.js"></script>
 <script src="js/view.js"></script>
 <script src="js/controller.js"></script>
-<script src="js/app.js"></script>
 <!-- <script src="js/mine.js"></script> -->
+<script src="js/gcalPromises.js"></script>
+<script src="js/app.js"></script>
 
-<!-- <script src="js/gcal.js"></script> -->
-<!-- <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script> -->
+<!-- <script src="https://apis.google.com/js/client.js?onload=loadGcal"></script> -->
   
 </body>
 </html>

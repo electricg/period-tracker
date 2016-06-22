@@ -183,7 +183,7 @@
      * Remove all occurances
      * @returns {number|object} -1 if data was already empty, otherwise the removed elements
      */
-    var drop = function() {
+    var clear = function() {
       var removed = -1;
       if (_list.length > 0) {
         removed = _list.splice(0);
@@ -209,8 +209,8 @@
       if (how === 'remove') {
         mod = remove(id);
       }
-      if (how === 'drop') {
-        mod = drop();
+      if (how === 'clear') {
+        mod = clear();
       }
       if (mod !== -1) {
         calcAll();
@@ -338,7 +338,7 @@
     /**
      * Recalc data
      */
-    this.update = function() {
+    this.calc = function() {
       calcAll();
     };
 
@@ -374,8 +374,8 @@
      * Delete all occurances
      * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
-    this.drop = function() {
-      return modify('drop');
+    this.clear = function() {
+      return modify('clear');
     };
 
     this.init();

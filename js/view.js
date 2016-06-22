@@ -32,7 +32,18 @@
 
     var $statusOffline = $$('#status-icon-offline');
 
+    var $gcalConnect = $$('#gcal-connect');
+
     var _viewCommands = {};
+
+    _viewCommands.gcal = function(authorized) {
+      if (authorized) {
+        $gcalConnect.style.display = 'none';
+      }
+      else {
+        $gcalConnect.style.display = '';
+      }
+    };
 
     _viewCommands.alert = function(type, msg) {
       $alert.innerHTML += _self.template.alert(type, msg);
