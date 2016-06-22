@@ -15,11 +15,6 @@ body, input, button {
   color: #333;
   font-family: Arial, sans-serif;
 }
-h1 {
-  font-size: 1rem;
-  line-height: 2.5rem;
-  margin: 0;
-}
 a {
   display: block;
   text-decoration: none;
@@ -47,14 +42,23 @@ input[type=date]::-webkit-inner-spin-button {
 }
 
 .main-header {
+  align-items: center;
   background: #09F;
   color: #00ffc4;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 .5rem;
   position: fixed;
   text-align: center;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
   top: 0;
   width: 100%;
   z-index: 1;
+}
+.main-title {
+  font-size: 1rem;
+  line-height: 2.5rem;
+  margin: 0;
 }
 .header-icon {
   display: inline;
@@ -67,6 +71,18 @@ input[type=date]::-webkit-inner-spin-button {
   padding: 2.5rem 0 4em;
 }
 .main-section.selected {
+  display: block;
+}
+.main-status {
+  display: flex;
+}
+.status-icon {
+  display: none;
+  height: 0.8rem;
+  margin: 0 1px;
+  width: 0.8rem;
+}
+.status-icon-active {
   display: block;
 }
 

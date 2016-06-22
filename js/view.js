@@ -30,6 +30,8 @@
 
     var $alert = $$('#alert');
 
+    var $statusOffline = $$('#status-icon-offline');
+
     $$('#version').innerHTML = version;
     
     var _viewCommands = {};
@@ -101,6 +103,10 @@
       }
       $settingsPeriodLength.value = _self.settings.get('periodLength');
       $settingsCycleLength.value = _self.settings.get('cycleLength');
+    };
+
+    _viewCommands.offline = function(status) {
+      $statusOffline.classList.toggle('status-icon-active', status);
     };
 
     this.render = function(viewCmd, model, parameter, args) {

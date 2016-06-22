@@ -1,8 +1,8 @@
-/* global version */
-const cacheName = 'v1::static';
+/* global self, caches */
+const cacheName = 'v0.1::static';
 
 var fileList = [
-  '/',
+  './',
   'css/main.css',
   'js/app.js',
   'js/controller.js',
@@ -12,8 +12,7 @@ var fileList = [
   'js/template.js',
   'js/view.js',
   'vendor/moment-2.13.0.min.js',
-  'vendor/moment-range-2.2.0.min.js',
-  'sw.js'
+  'vendor/moment-range-2.2.0.min.js'
 ];
 
 self.addEventListener('install', e => {
@@ -21,7 +20,10 @@ self.addEventListener('install', e => {
   // to make this work offline
   e.waitUntil(
     caches.open(cacheName).then(cache => {
-      return cache.addAll(fileList).then(() => self.skipWaiting());
+      return cache.addAll(fileList)
+      .then( () => {
+        self.skipWaiting();
+      });
     })
   );
 });
@@ -30,6 +32,11 @@ self.addEventListener('install', e => {
 // the cached object or go ahead and fetch the actual url
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(res => res || fetch(event.request))
+    caches.match(event.request)
+    .then(res => res || fetch(event.request))
   );
+});
+
+self.addEventListener('message', event => {
+  console.log(event);
 });
