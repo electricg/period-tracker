@@ -32,6 +32,9 @@ var show = function() {
 var load = function() {
   tracker.controller.setData();
   show();
+  var el = document.createElement('script');
+  el.setAttribute('src', 'https://apis.google.com/js/client.js');
+  document.body.appendChild(el);
 };
 
 var loadGcal = function() {

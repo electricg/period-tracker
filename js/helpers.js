@@ -3,6 +3,9 @@ var $ = document.querySelectorAll.bind(document);
 var $$ = document.querySelector.bind(document);
 Element.prototype.on = Element.prototype.addEventListener;
 
+// https://developer.mozilla.org/en/docs/Web/API/NodeList
+NodeList.prototype.forEach = Array.prototype.forEach;
+
 /**
  * Prevent default event
  * @param {object} event

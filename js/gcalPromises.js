@@ -13,7 +13,7 @@
     /**
      * Check if current user has authorized this application
      */
-    var checkAuth = function() {
+    this._checkAuth = function() {
       return new Promise(function(resolve, reject) {
         gapi.auth.authorize({
           'client_id': clientId,
@@ -24,12 +24,12 @@
             // Hide auth UI, then load client library.
             console.log('authorized');
             _authorized = true;
-            resolve();
+            resolve(authResult);
           } else {
             // Show auth UI, allowing the user to initiate authorization by clicking authorize button.
             console.log('not authorized');
             _authorized = false;
-            reject();
+            reject(authResult.error);
           }
         });
       });
@@ -38,7 +38,7 @@
     /**
      * Load Google Calendar client library
      */
-    var loadCalendarApi = function() {
+    this.loadCalendarApi = function() {
       return new Promise(function(resolve) {
         gapi.client.load('calendar', 'v3', function() {
           resolve();
@@ -49,11 +49,12 @@
     /**
      * Get calendar
      */
-    var getCalendar = function() {
+    this.getCalendar = function() {
       return new Promise(function(resolve) {
         var request = gapi.client.calendar.calendarList.list();
         
         request.execute(function(resp) {
+          console.log(resp);
           var calendars = resp.items;
           for (var i = 0; i < calendars.length; i++) {
             if (calendars[i].summary === namespace) {
@@ -63,7 +64,7 @@
             }
           }
 
-          return createCalendar();
+          return _self.createCalendar();
         });
       });
     };
@@ -71,7 +72,7 @@
     /**
      * Create calendar
      */
-    var createCalendar = function() {
+    this.createCalendar = function() {
       return new Promise(function(resolve) {
         var request = gapi.client.calendar.calendars.insert({
           'summary': namespace
@@ -89,7 +90,7 @@
      * Get events from calendar
      * @param {string} id
      */
-    var getEvents = function(id) {
+    this.getEvents = function(id) {
       return new Promise(function(resolve) {
         var request = gapi.client.calendar.events.list({
           'calendarId': id,
@@ -99,6 +100,7 @@
         });
 
         request.execute(function(resp) {
+          console.log(resp);
           _events = resp.items;
           resolve(_events);
         });
@@ -109,7 +111,7 @@
      * Parse downloaded data into our standard
      * @param {object} data
      */
-    var parseEvents = function(data) {
+    this.parseEvents = function(data) {
       return new Promise(function(resolve) {
         var parsedData = [];
         data.forEach(function(item) {
@@ -129,11 +131,11 @@
     };
 
     this.checkAuth = function() {
-      return checkAuth()
-      .then(loadCalendarApi)
-      .then(getCalendar)
-      .then(getEvents)
-      .then(parseEvents);
+      return _self._checkAuth()
+      .then(_self.loadCalendarApi)
+      .then(_self.getCalendar)
+      .then(_self.getEvents)
+      .then(_self.parseEvents);
     };
 
     /**
