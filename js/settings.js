@@ -1,71 +1,19 @@
-(function(window) {
-  'use strict';
+/* jshint unused:false */
+const version = '0.3';
+const namespace = 'periodTracker';
 
-  var Settings = function(name, defaultOpts) {
-    const _namespace = name + 'Settings';
-    var _options = defaultOpts;
-    var ls = load();
+const gcalClientId = '264231513776-rbc9gpga3hsi244dodlt96crcmf99141.apps.googleusercontent.com';
+const gcalScopes = ['https://www.googleapis.com/auth/calendar'];
+const gcalTitle = 'Period Tracker';
 
-    for (var key in ls) {
-      if (ls.hasOwnProperty(key) && _options.hasOwnProperty(key)) {
-        _options[key] = ls[key];
-      }
-    }
+var defaultSettings = {
+  startDayOkWeek: 1, // 0 Sunday, 1 Monday
+  periodLength: 4,
+  cycleLength: 28
+};
 
-    /**
-     * Load from localStorage
-     * @returns {object}
-     */
-    function load() {
-      try {
-        return JSON.parse(localStorage.getItem(_namespace)) || {};
-      } catch (e) {
-        console.log(e);
-        return {};
-      }
-    }
-
-    /**
-     * Save to localStorage
-     * @returns {boolean} True if save was successful
-     */
-    function save() {
-      try {
-        localStorage.setItem(_namespace, JSON.stringify(_options));
-        return true;
-      } catch (e) {
-        console.log(e);
-        return false;
-      }
-    }
-
-    /**
-     * Update the properties of the setting passed by
-     * @param {object} data
-     */
-    this.update = function(data) {
-      for (var key in data) {
-        if (data.hasOwnProperty(key) && _options.hasOwnProperty(key)) {
-          _options[key] = data[key];
-        }
-      }
-      save();
-    };
-
-    /**
-     * Get option value
-     * @param {string} key
-     * @return {number|string}
-     */
-    this.get = function(key) {
-      if (_options.hasOwnProperty(key)) {
-        return _options[key];
-      }
-      return undefined;
-    };
-  };
-
-  // export to window
-  window.app = window.app || {};
-  window.app.Settings = Settings;
-})(window);
+var features = {
+  offline: false,
+  gcal: true,
+  sync: true
+};

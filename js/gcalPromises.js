@@ -2,33 +2,65 @@
 (function(window) {
   'use strict';
 
-  var Gcal = function(clientId, scopes, namespace) {
+  var Gcal = function(clientId, scopes, title, namespace) {
     var _self = this;
 
-    var _calendarId = '';
-    var _calendar;
-    var _events;
     var _authorized = false;
+    var _settings = {};
 
     /**
-     * Check if current user has authorized this application
+     * Check if we have settings in localStorage
      */
-    this._checkAuth = function() {
+    this.firstLoad = function() {
+      try {
+        _settings = JSON.parse(localStorage.getItem(namespace + 'Gcal')) || {};
+      } catch (e) {
+        console.log(e);
+        _settings = {};
+      }
+      if (_settings.enabled && _settings.calendarId) {
+        _self.loadScript();
+      }
+    };
+
+    this.loadScript = function() {
+      var el = document.createElement('script');
+      el.setAttribute('src', 'https://apis.google.com/js/client.js?onload=gapiOnload');
+      document.body.appendChild(el);
+    };
+
+    window.gapiOnload = function() {
+      window.dispatchEvent(new Event('gcal'));
+    };
+
+    var save = function() {
+      try {
+        localStorage.setItem(namespace + 'Gcal', JSON.stringify(_settings));
+        return true;
+      } catch (e) {
+        console.log(e);
+        return false;
+      }
+    };
+
+    var authorize = function(immediate) {
       return new Promise(function(resolve, reject) {
         gapi.auth.authorize({
           'client_id': clientId,
           'scope': scopes.join(' '),
-          'immediate': true
+          'immediate': immediate
         }, function(authResult) {
           if (authResult && !authResult.error) {
-            // Hide auth UI, then load client library.
             console.log('authorized');
             _authorized = true;
+            _settings.enabled = true;
+            save();
             resolve(authResult);
           } else {
-            // Show auth UI, allowing the user to initiate authorization by clicking authorize button.
             console.log('not authorized');
             _authorized = false;
+            _settings.enabled = false;
+            save();
             reject(authResult.error);
           }
         });
@@ -38,33 +70,33 @@
     /**
      * Load Google Calendar client library
      */
-    this.loadCalendarApi = function() {
-      return new Promise(function(resolve) {
-        gapi.client.load('calendar', 'v3', function() {
-          resolve();
-        });
-      });
+    var loadCalendarApi = function() {
+      return gapi.client.load('calendar', 'v3');
     };
 
     /**
      * Get calendar
      */
-    this.getCalendar = function() {
+    var getCalendar = function() {
       return new Promise(function(resolve) {
+        if (_settings.calendarId) {
+          return resolve(_settings.calendarId);
+        }
+        
         var request = gapi.client.calendar.calendarList.list();
         
         request.execute(function(resp) {
           console.log(resp);
           var calendars = resp.items;
           for (var i = 0; i < calendars.length; i++) {
-            if (calendars[i].summary === namespace) {
-              _calendarId = calendars[i].id;
-              _calendar = calendars[i];
-              return resolve(_calendarId);
+            if (calendars[i].summary === title) {
+              _settings.calendarId = calendars[i].id;
+              save();
+              return resolve(_settings.calendarId);
             }
           }
 
-          return _self.createCalendar();
+          return createCalendar();
         });
       });
     };
@@ -72,16 +104,16 @@
     /**
      * Create calendar
      */
-    this.createCalendar = function() {
+    var createCalendar = function() {
       return new Promise(function(resolve) {
         var request = gapi.client.calendar.calendars.insert({
-          'summary': namespace
+          'summary': title
         });
 
         request.execute(function(resp) {
-          _calendarId = resp.id;
-          _calendar = resp;
-          return resolve(_calendarId);
+          _settings.calendarId = resp.id;
+          save();
+          return resolve(_settings.calendarId);
         });
       });
     };
@@ -90,7 +122,7 @@
      * Get events from calendar
      * @param {string} id
      */
-    this.getEvents = function(id) {
+    var getEvents = function(id) {
       return new Promise(function(resolve) {
         var request = gapi.client.calendar.events.list({
           'calendarId': id,
@@ -101,8 +133,7 @@
 
         request.execute(function(resp) {
           console.log(resp);
-          _events = resp.items;
-          resolve(_events);
+          resolve(resp.items);
         });
       });
     };
@@ -111,7 +142,7 @@
      * Parse downloaded data into our standard
      * @param {object} data
      */
-    this.parseEvents = function(data) {
+    var parseEvents = function(data) {
       return new Promise(function(resolve) {
         var parsedData = [];
         data.forEach(function(item) {
@@ -126,16 +157,21 @@
           parsedData.push(newItem);
         });
 
+        console.log(parsedData);
         resolve(parsedData);
       });
     };
 
-    this.checkAuth = function() {
-      return _self._checkAuth()
-      .then(_self.loadCalendarApi)
-      .then(_self.getCalendar)
-      .then(_self.getEvents)
-      .then(_self.parseEvents);
+    this.checkAuth = function(immediate) {
+      return authorize(immediate)
+      .then(loadCalendarApi)
+      .then(_self.fetchEvents);
+    };
+
+    this.fetchEvents = function() {
+      return getCalendar()
+      .then(getEvents)
+      .then(parseEvents);
     };
 
     /**
@@ -149,7 +185,7 @@
       }
       gapi.client.load('calendar', 'v3', function() {
         var request = gapi.client.calendar.events.insert({
-          'calendarId': _calendarId
+          'calendarId': _settings.calendarId
         }, {
           start: {
             date: data.date
@@ -178,7 +214,7 @@
       }
       gapi.client.load('calendar', 'v3', function() {
         var request = gapi.client.calendar.events.update({
-          'calendarId': _calendarId,
+          'calendarId': _settings.calendarId,
           'eventId': id
         }, {
           start: {
@@ -207,7 +243,7 @@
       }
       gapi.client.load('calendar', 'v3', function() {
         var request = gapi.client.calendar.events.delete({
-          'calendarId': _calendarId,
+          'calendarId': _settings.calendarId,
           'eventId': id
         });
 
@@ -228,7 +264,7 @@
       // TODO
       gapi.client.load('calendar', 'v3', function() {
         var request = gapi.client.calendar.calendars.clear({
-          'calendarId': _calendarId
+          'calendarId': _settings.calendarId
         });
 
         request.execute(function(resp) {

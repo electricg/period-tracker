@@ -1,5 +1,7 @@
 /* global self, caches */
-const cacheName = 'v0.1::static';
+self.importScripts('js/settings.js');
+console.log(version);
+const cacheName = 'v' + version + '::static';
 
 var fileList = [
   './',
@@ -11,7 +13,7 @@ var fileList = [
   'js/settings.js',
   'js/template.js',
   'js/view.js',
-  'js/gcalPromises.js',
+  // 'js/gcalPromises.js',
   'vendor/moment-2.13.0.min.js',
   'vendor/moment-range-2.2.0.min.js'
 ];

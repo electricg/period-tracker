@@ -210,6 +210,11 @@
           handler();
         });
       }
+      else if (event === 'gcal') {
+        $gcalConnect.on('click', function() {
+          handler();
+        });
+      }
     };
   };
 

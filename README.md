@@ -9,7 +9,6 @@
 #### TODO
 * [ ] service worker - work offline 
 * [X] add to home screen
-* [ ] push notifications
 * [ ] background syncronisation
 * [ ] use google calendar as backend server
 * [X] calculate average interval between events
