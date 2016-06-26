@@ -1,5 +1,4 @@
 /* global app, namespace, defaultSettings, features, gcalClientId, gcalScopes, gcalTitle */
-/* exported loadGcal */
 var Tracker = function(namespace, settings) {
   this.config = new app.Config(namespace, settings);
   this.model = new app.Model(namespace, this.config);

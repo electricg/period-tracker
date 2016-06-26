@@ -7,9 +7,10 @@
 
     var _authorized = false;
     var _settings = {};
+    var _user = {};
 
     /**
-     * Check if we have settings in localStorage
+     * Function to call when we first load the page
      */
     this.firstLoad = function() {
       try {
@@ -23,6 +24,9 @@
       }
     };
 
+    /**
+     * Initialize the api
+     */
     this.loadScript = function() {
       var el = document.createElement('script');
       el.setAttribute('src', 'https://apis.google.com/js/client.js?onload=gapiOnload');
@@ -33,6 +37,9 @@
       window.dispatchEvent(new Event('gcal'));
     };
 
+    /**
+     * Write settings in localStorage
+     */
     var save = function() {
       try {
         localStorage.setItem(namespace + 'Gcal', JSON.stringify(_settings));
@@ -43,19 +50,25 @@
       }
     };
 
+    /**
+     * Check amd start authorization
+     * @param {boolean} immediate - False to open popup
+     */
     var authorize = function(immediate) {
       return new Promise(function(resolve, reject) {
         gapi.auth.authorize({
           'client_id': clientId,
           'scope': scopes.join(' '),
-          'immediate': immediate
+          'immediate': immediate,
+          'cookie_policy': 'single_host_origin'
         }, function(authResult) {
           if (authResult && !authResult.error) {
             console.log('authorized');
             _authorized = true;
             _settings.enabled = true;
             save();
-            resolve(authResult);
+            // resolve(authResult);
+            resolve(getUser());
           } else {
             console.log('not authorized');
             _authorized = false;
@@ -63,6 +76,25 @@
             save();
             reject(authResult.error);
           }
+        });
+      });
+    };
+
+    /**
+     * Get user info
+     */
+    var getUser = function() {
+      return new Promise(function(resolve) {
+        gapi.client.load('oauth2', 'v2', function() {
+          gapi.client.oauth2.userinfo.get()
+          .execute(function(res) {
+            _user = {
+              email: res.email,
+              name: res.name,
+              image: res.picture
+            };
+            resolve();
+          });
         });
       });
     };
@@ -86,7 +118,6 @@
         var request = gapi.client.calendar.calendarList.list();
         
         request.execute(function(resp) {
-          console.log(resp);
           var calendars = resp.items;
           for (var i = 0; i < calendars.length; i++) {
             if (calendars[i].summary === title) {
@@ -132,7 +163,6 @@
         });
 
         request.execute(function(resp) {
-          console.log(resp);
           resolve(resp.items);
         });
       });
@@ -157,21 +187,42 @@
           parsedData.push(newItem);
         });
 
-        console.log(parsedData);
         resolve(parsedData);
       });
     };
 
+    /**
+     * Do everything
+     */
     this.checkAuth = function(immediate) {
       return authorize(immediate)
       .then(loadCalendarApi)
       .then(_self.fetchEvents);
     };
 
+    /**
+     * Get the events in our format
+     */
     this.fetchEvents = function() {
       return getCalendar()
       .then(getEvents)
-      .then(parseEvents);
+      .then(parseEvents)
+      .then(function(res) {
+        return {
+          events: res,
+          user: _user
+        };
+      });
+    };
+
+    /**
+     * Disconnect from remote account
+     */
+    this.disconnect = function() {
+      gapi.auth.signOut();
+      _authorized = false;
+      _settings.enabled = false;
+      save();
     };
 
     /**

@@ -33,15 +33,22 @@
     var $statusOffline = $$('#status-icon-offline');
 
     var $gcalConnect = $$('#gcal-connect');
+    var $gcalConnectOn = $$('#gcal-connect-on');
+    var $gcalConnectOff = $$('#gcal-connect-off');
+    var $gcalConnectUser = $$('#gcal-connect-user');
 
     var _viewCommands = {};
 
-    _viewCommands.gcal = function(authorized) {
-      if (authorized) {
-        $gcalConnect.style.display = 'none';
+    _viewCommands.gcal = function(user) {
+      if (user) {
+        $gcalConnectUser.innerHTML = user.email; // + '<img src="' + user.image + '">';
+        $gcalConnectOff.style.display = '';
+        $gcalConnectOn.style.display = 'none';
       }
       else {
-        $gcalConnect.style.display = '';
+        $gcalConnectUser.innerHTML = '';
+        $gcalConnectOn.style.display = '';
+        $gcalConnectOff.style.display = 'none';
       }
     };
 

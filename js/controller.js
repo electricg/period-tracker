@@ -12,16 +12,17 @@
     _self.view = view;
     _self.settings = _self.view.settings;
     _self.remote = remote;
+    var isRemote = false;
 
-    window.addEventListener('gcal', function(event) {
-      console.log(event);
+    window.addEventListener('gcal', function() {
       _self.remote.checkAuth()
       .then(function(res) {
-        console.log(res);
-        _self.view.render('gcal', true);
+        _self.view.render('gcal', res.user);
+        isRemote = true;
       }, function(err) {
         console.log(err);
         _self.view.render('gcal', false);
+        isRemote = false;
       });
     });
 
@@ -132,7 +133,14 @@
     });
 
     _self.view.bind('gcal', function() {
-      _self.remote.loadScript();
+      if (!isRemote) {
+        _self.remote.loadScript();
+      }
+      else {
+        _self.remote.disconnect();
+        _self.view.render('gcal', false);
+        isRemote = false;
+      }
     });
   };
 
