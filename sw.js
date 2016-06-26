@@ -1,19 +1,19 @@
-/* global self, caches */
+/* global self, caches, version */
 self.importScripts('js/settings.js');
-console.log(version);
 const cacheName = 'v' + version + '::static';
 
 var fileList = [
   './',
   'css/main.css',
   'js/app.js',
+  'js/config.js',
   'js/controller.js',
+  'js/gcal.js',
   'js/helpers.js',
   'js/model.js',
   'js/settings.js',
   'js/template.js',
   'js/view.js',
-  // 'js/gcalPromises.js',
   'vendor/moment-2.13.0.min.js',
   'vendor/moment-range-2.2.0.min.js'
 ];
