@@ -12,7 +12,7 @@
     /**
      * Function to call when we first load the page
      */
-    this.firstLoad = function() {
+    this.firstLoad = function(silent) {
       try {
         _settings = JSON.parse(localStorage.getItem(namespace + 'Gcal')) || {};
       } catch (e) {
@@ -20,21 +20,26 @@
         _settings = {};
       }
       if (_settings.enabled && _settings.calendarId) {
-        _self.loadScript();
+        _self.loadScript(silent);
       }
     };
 
     /**
      * Initialize the api
      */
-    this.loadScript = function() {
+    this.loadScript = function(silent) {
+      var param = silent ? 'Silent' : '';
       var el = document.createElement('script');
-      el.setAttribute('src', 'https://apis.google.com/js/client.js?onload=gapiOnload');
+      el.setAttribute('src', 'https://apis.google.com/js/client.js?onload=gapiOnload' + param);
       document.body.appendChild(el);
     };
 
     window.gapiOnload = function() {
       window.dispatchEvent(new Event('gcal'));
+    };
+
+    window.gapiOnloadSilent = function() {
+      window.dispatchEvent(new Event('gcalSilent'));
     };
 
     /**

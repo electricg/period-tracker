@@ -30,6 +30,22 @@
       });
     });
 
+    window.addEventListener('gcalSilent', function() {
+      _self.remote.checkAuth(true)
+      .then(function(res) {
+        _self.view.render('gcal', res.user);
+        // TODO: sync data
+        console.log(res.events);
+        _self.model.sync(res.events);
+        _self.setData();
+        isRemote = true;
+      }, function(err) {
+        console.log(err);
+        _self.view.render('gcal', false);
+        isRemote = false;
+      });
+    });
+
     /**
      * Show the selected section
      * @param {string} locationHash

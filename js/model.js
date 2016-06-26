@@ -397,6 +397,7 @@
       });
       sortDesc();
       calcAll();
+      save();
     };
 
     this.init();

@@ -18,7 +18,7 @@ var load = function() {
   tracker.controller.setData();
   show();
   if (features.gcal) {
-    tracker.gcal.firstLoad();
+    tracker.gcal.firstLoad(true);
   }
 };
 
