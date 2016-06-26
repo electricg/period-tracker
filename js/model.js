@@ -307,7 +307,7 @@
         _list = JSON.parse(localStorage.getItem(_namespace)) || [];
         return true;
       } catch (e) {
-        console.log(e);
+        console.error(e);
         return false;
       }
     };
@@ -321,7 +321,7 @@
         localStorage.setItem(_namespace, JSON.stringify(_list));
         return true;
       } catch (e) {
-        console.log(e);
+        console.error(e);
         return false;
       }
     };

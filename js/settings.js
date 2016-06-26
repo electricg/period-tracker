@@ -5,6 +5,7 @@ const namespace = 'periodTracker';
 const gcalClientId = '264231513776-rbc9gpga3hsi244dodlt96crcmf99141.apps.googleusercontent.com';
 const gcalScopes = ['https://www.googleapis.com/auth/calendar'];
 const gcalTitle = 'Period Tracker';
+const gcalOnload = 'gapiOnload';
 
 var defaultSettings = {
   startDayOkWeek: 1, // 0 Sunday, 1 Monday

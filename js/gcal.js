@@ -2,44 +2,26 @@
 (function(window) {
   'use strict';
 
-  var Gcal = function(clientId, scopes, title, namespace) {
+  var Gcal = function(clientId, scopes, title, namespace, onload) {
     var _self = this;
 
     var _authorized = false;
     var _settings = {};
     var _user = {};
 
-    /**
-     * Function to call when we first load the page
-     */
-    this.firstLoad = function(silent) {
-      try {
-        _settings = JSON.parse(localStorage.getItem(namespace + 'Gcal')) || {};
-      } catch (e) {
-        console.log(e);
-        _settings = {};
+    Object.defineProperty(this, 'onload', {
+      get: function() {
+        return onload;
       }
-      if (_settings.enabled && _settings.calendarId) {
-        _self.loadScript(silent);
-      }
-    };
+    });
 
     /**
      * Initialize the api
      */
-    this.loadScript = function(silent) {
-      var param = silent ? 'Silent' : '';
+    var loadScript = function() {
       var el = document.createElement('script');
-      el.setAttribute('src', 'https://apis.google.com/js/client.js?onload=gapiOnload' + param);
+      el.setAttribute('src', 'https://apis.google.com/js/client.js?onload=' + onload);
       document.body.appendChild(el);
-    };
-
-    window.gapiOnload = function() {
-      window.dispatchEvent(new Event('gcal'));
-    };
-
-    window.gapiOnloadSilent = function() {
-      window.dispatchEvent(new Event('gcalSilent'));
     };
 
     /**
@@ -50,7 +32,7 @@
         localStorage.setItem(namespace + 'Gcal', JSON.stringify(_settings));
         return true;
       } catch (e) {
-        console.log(e);
+        console.error(e);
         return false;
       }
     };
@@ -98,7 +80,7 @@
               name: res.name,
               image: res.picture
             };
-            resolve();
+            resolve(_user);
           });
         });
       });
@@ -197,6 +179,31 @@
     };
 
     /**
+     * Disconnect from remote account
+     */
+    var disconnect = function() {
+      gapi.auth.signOut();
+      _authorized = false;
+      _settings.enabled = false;
+      save();
+    };
+
+    /**
+     * Function to call when we first load the page
+     */
+    this.firstLoad = function() {
+      try {
+        _settings = JSON.parse(localStorage.getItem(namespace + 'Gcal')) || {};
+      } catch (e) {
+        console.error(e);
+        _settings = {};
+      }
+      if (_settings.enabled && _settings.calendarId) {
+        loadScript();
+      }
+    };
+
+    /**
      * Do everything
      */
     this.checkAuth = function(immediate) {
@@ -220,14 +227,19 @@
       });
     };
 
-    /**
-     * Disconnect from remote account
-     */
-    this.disconnect = function() {
-      gapi.auth.signOut();
-      _authorized = false;
-      _settings.enabled = false;
-      save();
+    this.toggle = function(connectCb, disconnectCb) {
+      if (_authorized) {
+        disconnect();
+        disconnectCb();
+      }
+      else {
+        if (typeof gapi === 'undefined') {
+          loadScript();
+        }
+        else {
+          connectCb();
+        }
+      }
     };
 
     /**

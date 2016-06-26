@@ -20,7 +20,7 @@
       try {
         return JSON.parse(localStorage.getItem(_namespace)) || {};
       } catch (e) {
-        console.log(e);
+        console.error(e);
         return {};
       }
     }
@@ -34,7 +34,7 @@
         localStorage.setItem(_namespace, JSON.stringify(_options));
         return true;
       } catch (e) {
-        console.log(e);
+        console.error(e);
         return false;
       }
     }

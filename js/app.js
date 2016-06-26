@@ -1,10 +1,10 @@
-/* global app, namespace, defaultSettings, features, gcalClientId, gcalScopes, gcalTitle */
+/* global app, namespace, defaultSettings, features, gcalClientId, gcalScopes, gcalTitle, gcalOnload */
 var Tracker = function(namespace, settings) {
   this.config = new app.Config(namespace, settings);
   this.model = new app.Model(namespace, this.config);
   this.template = new app.Template(this.config);
   this.view = new app.View(this.template);
-  this.gcal = new app.Gcal(gcalClientId, gcalScopes, gcalTitle, namespace);
+  this.gcal = new app.Gcal(gcalClientId, gcalScopes, gcalTitle, namespace, gcalOnload);
   this.controller = new app.Controller(this.model, this.view, this.gcal);
 };
 
@@ -18,7 +18,7 @@ var load = function() {
   tracker.controller.setData();
   show();
   if (features.gcal) {
-    tracker.gcal.firstLoad(true);
+    tracker.gcal.firstLoad();
   }
 };
 
@@ -76,7 +76,7 @@ if (features.offline) {
         tracker.view.render('offline', true);
       }
     }).catch(function(err) {
-      console.log('ServiceWorker registration failed: ', err);
+      console.error('ServiceWorker registration failed: ', err);
     });
   }
 }

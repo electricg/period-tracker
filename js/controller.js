@@ -12,37 +12,24 @@
     _self.view = view;
     _self.settings = _self.view.settings;
     _self.remote = remote;
-    var isRemote = false;
+
+    window[_self.remote.onload] = function() {
+      window.dispatchEvent(new Event('gcal'));
+    };
 
     window.addEventListener('gcal', function() {
-      _self.remote.checkAuth()
-      .then(function(res) {
-        _self.view.render('gcal', res.user);
-        // TODO: sync data
-        console.log(res.events);
-        _self.model.sync(res.events);
-        _self.setData();
-        isRemote = true;
-      }, function(err) {
-        console.log(err);
-        _self.view.render('gcal', false);
-        isRemote = false;
-      });
-    });
-
-    window.addEventListener('gcalSilent', function() {
       _self.remote.checkAuth(true)
+      .catch(function() {
+        return _self.remote.checkAuth(false);
+      })
       .then(function(res) {
         _self.view.render('gcal', res.user);
         // TODO: sync data
-        console.log(res.events);
         _self.model.sync(res.events);
         _self.setData();
-        isRemote = true;
       }, function(err) {
-        console.log(err);
+        console.error(err);
         _self.view.render('gcal', false);
-        isRemote = false;
       });
     });
 
@@ -153,14 +140,11 @@
     });
 
     _self.view.bind('gcal', function() {
-      if (!isRemote) {
-        _self.remote.loadScript();
-      }
-      else {
-        _self.remote.disconnect();
+      _self.remote.toggle(function() {
+        window.dispatchEvent(new Event('gcal'));
+      }, function() {
         _self.view.render('gcal', false);
-        isRemote = false;
-      }
+      });
     });
   };
 
