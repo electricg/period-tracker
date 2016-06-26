@@ -378,6 +378,27 @@
       return modify('clear');
     };
 
+    /**
+     * Sync with remote data
+     * @param {object} data
+     */
+    this.sync = function(data) {
+      _list = [];
+      data.forEach(function(item) {
+        if (!item.active) {
+          return;
+        }
+        _list.push({
+          id: item.id,
+          date: item.date,
+          created: item.created,
+          updated: item.updated
+        });
+      });
+      sortDesc();
+      calcAll();
+    };
+
     this.init();
   };
 
