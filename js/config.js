@@ -4,11 +4,19 @@
   var Config = function(name, defaultOpts) {
     const _namespace = name + 'Config';
     var _options = defaultOpts;
-    var ls = load();
 
-    for (var key in ls) {
-      if (ls.hasOwnProperty(key) && _options.hasOwnProperty(key)) {
-        _options[key] = ls[key];
+    // merge localStorage settings into default settings
+    merge(load());
+
+    /**
+     * Merge source into _options, but only for the properties already defined in _options
+     * @param {object} source
+     */
+    function merge(source) {
+      for (const key of Object.keys(source)) {
+        if (Object.prototype.hasOwnProperty.call(_options, key)) {
+          _options[key] = source[key];
+        }
       }
     }
 
@@ -44,11 +52,7 @@
      * @param {object} data
      */
     this.update = function(data) {
-      for (var key in data) {
-        if (data.hasOwnProperty(key) && _options.hasOwnProperty(key)) {
-          _options[key] = data[key];
-        }
-      }
+      merge(data);
       save();
     };
 
@@ -58,7 +62,7 @@
      * @return {number|string}
      */
     this.get = function(key) {
-      if (_options.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(_options, key)) {
         return _options[key];
       }
       return undefined;
