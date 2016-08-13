@@ -53,7 +53,7 @@
       }
       for (var i1 = diffStart - 1; i1 >= 0; i1--) {
         n = daysInPrevMonth - i1;
-        k = ['another-month'];
+        k = ['calendar__day--another-month'];
         date = prev.yearN + '-' + z(prev.monthN) + '-' + z(n);
         days.push({
           date: date,
@@ -81,7 +81,7 @@
       }
       for (var i3 = 1; i3 <= diffEnd; i3++) {
         n = i3;
-        k = ['another-month'];
+        k = ['calendar__day--another-month'];
         date = next.yearN + '-' + z(next.monthN) + '-' + z(i3);
         days.push({
           date: date,
@@ -117,7 +117,7 @@
           c++;
         }
         if (future) {
-          item.k.push('future');
+          item.k.push('calendar__day--future');
         }
       });
 
@@ -157,16 +157,16 @@
 
       var rowsTitle = function(prev, day) {
         return prev + `
-          <th>${day}</th>
+          <th class="calendar__weekday">${day}</th>
         `;
       };
 
       var rowDays = function(prev, item) {
         if (item.c >= 1 && item.c <= _periodLength) {
-          item.k.push('selected');
+          item.k.push('calendar__day--selected');
         }
         return prev + `
-          <td data-counter="${item.c}" class="${item.k.join(' ')}">${item.n}</td>
+          <td data-counter="${item.c}" class="calendar__day ${item.k.join(' ')}">${item.n}</td>
         `;
       };
 
@@ -190,22 +190,22 @@
           <thead>
             <tr>
               <th>
-                <a href="#/calendar/${cal.prev.yearN}/${cal.prev.monthN}" title="${cal.prev.title}">
-                  <svg class="icon calendar-icon">
+                <a href="#/calendar/${cal.prev.yearN}/${cal.prev.monthN}" class="calendar__nav" title="${cal.prev.title}">
+                  <svg class="icon calendar__nav__icon">
                     <use xlink:href="#icon-prev"></use>
                   </svg>
                 </a>
               </th>
               <th colspan="5">${cal.title}</th>
               <th>
-                <a href="#/calendar/${cal.next.yearN}/${cal.next.monthN}" title="${cal.next.title}">
-                  <svg class="icon calendar-icon">
+                <a href="#/calendar/${cal.next.yearN}/${cal.next.monthN}" class="calendar__nav" title="${cal.next.title}">
+                  <svg class="icon calendar__nav__icon">
                     <use xlink:href="#icon-next"></use>
                   </svg>
                 </a>
               </th>
             </tr>
-            <tr class="calendar-weekdays">
+            <tr>
               ${cal.week.reduce(rowsTitle, '')}
             </tr>
           </thead>
@@ -232,18 +232,18 @@
         var interval = (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '');
         return prev + `
           <tr>
-            <td>${s}</td>
-            <td>${interval}</td>
-            <td>
-              <button data-id="${item.id}" data-date="${item.date}" class="log-button js-edit" title="Edit">
-                <svg class="icon log-icon">
+            <td class="log-list__info log-list__info--date">${s}</td>
+            <td class="log-list__info log-list__info--interval">${interval}</td>
+            <td class="log-list__info log-list__info--edit">
+              <button data-id="${item.id}" data-date="${item.date}" class="log-list__button js-edit" title="Edit">
+                <svg class="icon log-list__button__icon">
                   <use xlink:href="#icon-edit"></use>
                 </svg>
               </button>
             </td>
-            <td>
-              <button data-id="${item.id}" data-date="${s}" class="log-button js-remove" title="Remove">
-                <svg class="icon log-icon">
+            <td class="log-list__info log-list__info--remove">
+              <button data-id="${item.id}" data-date="${s}" class="log-list__button js-remove" title="Remove">
+                <svg class="icon log-list__button__icon">
                   <use xlink:href="#icon-delete"></use>
                 </svg>
               </button>
@@ -253,7 +253,7 @@
       };
 
       var table = `
-        <table class="log">
+        <table class="log-list">
           <tbody>
             ${data.list.reduce(rows, '')}
           </tbody>
@@ -268,10 +268,10 @@
       // code += msg;
       // code += '</span><button class="alert-close js-close" title="Close"><svg class="icon alert-icon"><use xlink:href="#icon-cancel-circle"></use></svg></button></div>';
       var code = `
-        <div class="alert alert-${type}">
+        <div class="alert alert--${type}">
           <span>${msg}</span>
-          <button class="alert-close js-close" title="Close">
-            <svg class="icon alert-icon">
+          <button class="alert__close js-close" title="Close">
+            <svg class="icon alert__close__icon">
               <use xlink:href="#icon-cancel-circle"></use>
             </svg>
           </button>

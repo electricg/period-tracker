@@ -31,7 +31,7 @@
     var $settingsPeriodLength = $$('#settings-period-length');
     var $settingsCycleLength = $$('#settings-cycle-length');
 
-    var $alert = $$('#alert');
+    var $alerts = $$('#alerts');
 
     var $statusOffline = $$('#status-icon-offline');
 
@@ -56,7 +56,7 @@
     };
 
     _viewCommands.alert = function(type, msg) {
-      $alert.innerHTML += _self.template.alert(type, msg);
+      $alerts.innerHTML += _self.template.alert(type, msg);
     };
 
     _viewCommands.info = function(err) {
@@ -159,12 +159,12 @@
       else if (event === 'itemRemove') {
         $delegate($log, '.js-remove', 'click', function() {
           var $tr = this.parentNode.parentNode;
-          $tr.classList.toggle('selected');
+          $tr.classList.toggle('log-list__item--selected');
           if (window.confirm('Are you sure you want to delete `' + this.getAttribute('data-date') + '`?')) {
             handler(this.getAttribute('data-id'));
           }
           else {
-            $tr.classList.toggle('selected');
+            $tr.classList.toggle('log-list__item--selected');
           }
         });
       }
@@ -221,8 +221,8 @@
         });
       }
       else if (event === 'alert') {
-        $delegate($alert, '.js-close', 'click', function() {
-          $alert.removeChild(this.parentNode);
+        $delegate($alerts, '.js-close', 'click', function() {
+          $alerts.removeChild(this.parentNode);
           handler();
         });
       }
