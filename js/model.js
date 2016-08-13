@@ -19,6 +19,7 @@
     var _average = 0;
     var _next = '';
     var _countdown = 0;
+    var _counter = 0;
 
     Object.defineProperty(this, 'list', {
       get: function() {
@@ -53,6 +54,12 @@
     Object.defineProperty(this, 'countdown', {
       get: function() {
         return _countdown;
+      }
+    });
+
+    Object.defineProperty(this, 'counter', {
+      get: function() {
+        return _counter;
       }
     });
 
@@ -281,9 +288,11 @@
     var calcCountdown = function() {
       if (_next) {
         _countdown = moment.range(_today, _next).diff('days');
+        _counter = _average - _countdown + 1;
       }
       else {
         _countdown = 0;
+        _counter = 0;
       }
     };
 

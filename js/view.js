@@ -12,8 +12,11 @@
 
     var $sections = $('.main-section');
     var $navLinks = $('.main-nav a');
+    
+    var $homeCalc = $$('#home-calc');
     var $next = $$('#next');
     var $countdown = $$('#countdown');
+    var $counter = $$('#counter');
     var $homeAdd = $$('#home-add');
     var $addForm = $$('#add-form');
     var $addDate = $$('#add-date');
@@ -59,6 +62,9 @@
     _viewCommands.info = function(err) {
       _viewCommands.alert('info', err);
     };
+    this.giulia = function(){
+      _viewCommands.alert('info', 'ciao');
+    };
 
     _viewCommands.error = function(err) {
       _viewCommands.alert('error', err);
@@ -75,15 +81,15 @@
     _viewCommands.section = function(model, parameter, args) {
       parameter = parameter || 'home';
       $sections.forEach(function($el) {
-        $el.classList.remove('selected');
+        $el.classList.remove('main-section--selected');
       });
-      $$('#' + parameter).classList.add('selected');
+      $$('#' + parameter).classList.add('main-section--selected');
       $navLinks.forEach(function($el) {
         if ($el.getAttribute('href') === '#/' + parameter) {
-          $el.classList.add('selected');
+          $el.classList.add('main-nav__link--selected');
         }
         else {
-          $el.classList.remove('selected');
+          $el.classList.remove('main-nav__link--selected');
         }
       });
       if (parameter === 'calendar') {
@@ -96,6 +102,9 @@
     _viewCommands.home = function(model) {
       $next.innerHTML = model.next ? moment(model.next).format('ddd, MMM D') : '';
       $countdown.innerHTML = model.countdown;
+      $counter.innerHTML = model.counter;
+      console.log(model.counter);
+      $homeCalc.classList.toggle('home__calc--invisible', !model.next);
       var today = moment().format('YYYY-MM-DD');
       $addDate.defaultValue = today;
       $addDate.value = today;
@@ -122,7 +131,7 @@
     };
 
     _viewCommands.offline = function(status) {
-      $statusOffline.classList.toggle('status-icon-active', status);
+      $statusOffline.classList.toggle('main-header__status__icon--active', status);
     };
 
     this.render = function(viewCmd, model, parameter, args) {
@@ -132,7 +141,7 @@
     this.bind = function(event, handler) {
       if (event === 'itemAdd') {
         $homeAdd.on('click', function() {
-          $addForm.classList.add('selected');
+          $addForm.classList.add('add-form--selected');
           $addDate.focus();
           $addDate.click();
         });
@@ -144,7 +153,7 @@
           }
         });
         $addForm.on('reset', function() {
-          $addForm.classList.remove('selected');
+          $addForm.classList.remove('add-form--selected');
         });
       }
       else if (event === 'itemRemove') {
@@ -195,9 +204,9 @@
         });
 
         $('.js-number').forEach(function($item) {
-          var $add = $item.querySelector('.input-number-add');
-          var $sub = $item.querySelector('.input-number-sub');
-          var $input = $item.querySelector('.input-number-input');
+          var $add = $item.querySelector('.js-number__add');
+          var $sub = $item.querySelector('.js-number__sub');
+          var $input = $item.querySelector('.js-number__input');
           $sub.on('click', function() {
             if ($input.value <= 1) {
               return;

@@ -134,45 +134,149 @@
       var _startDayOkWeek = _self.settings.get('startDayOkWeek');
       var _periodLength = _self.settings.get('periodLength');
       var cal = calendarGet(data, _startDayOkWeek, monthN, yearN);
-      var table = '<table class="calendar"><thead><tr>';
-      table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-prev"></use></svg></a></th>';
-      table += '<th colspan="5">' + cal.title + '</th>';
-      table += '<th><a href="#/calendar/' + cal.next.yearN + '/' + cal.next.monthN + '" title="' + cal.next.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-next"></use></svg></a></th></tr><tr class="calendar-weekdays">';
-      cal.week.forEach(function(day) {
-        table += '<th>' + day + '</th>';
-      });
-      table += '</tr></thead><tbody>';
-      for (var d = 0; d < cal.days.length; d+=7) {
-        table += '<tr>';
-        for (var dd = d; dd < (d+7); dd++) {
-          if (cal.days[dd].c >=1 && cal.days[dd].c <= _periodLength) {
-            cal.days[dd].k.push('selected');
-          }
-          table += '<td data-counter="' + cal.days[dd].c + '"' + (cal.days[dd].k.length ? ' class="' + cal.days[dd].k.join(' ') + '"' : '') +'>' + cal.days[dd].n + '</td>';
+      
+      // var table = '<table class="calendar"><thead><tr>';
+      // table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-prev"></use></svg></a></th>';
+      // table += '<th colspan="5">' + cal.title + '</th>';
+      // table += '<th><a href="#/calendar/' + cal.next.yearN + '/' + cal.next.monthN + '" title="' + cal.next.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-next"></use></svg></a></th></tr><tr class="calendar-weekdays">';
+      // cal.week.forEach(function(day) {
+      //   table += '<th>' + day + '</th>';
+      // });
+      // table += '</tr></thead><tbody>';
+      // for (var d = 0; d < cal.days.length; d+=7) {
+      //   table += '<tr>';
+      //   for (var dd = d; dd < (d+7); dd++) {
+      //     if (cal.days[dd].c >=1 && cal.days[dd].c <= _periodLength) {
+      //       cal.days[dd].k.push('selected');
+      //     }
+      //     table += '<td data-counter="' + cal.days[dd].c + '"' + (cal.days[dd].k.length ? ' class="' + cal.days[dd].k.join(' ') + '"' : '') +'>' + cal.days[dd].n + '</td>';
+      //   }
+      //   table += '</tr>';
+      // }
+      // table += '</tbody></table>';
+
+      var rowsTitle = function(prev, day) {
+        return prev + `
+          <th>${day}</th>
+        `;
+      };
+
+      var rowDays = function(prev, item) {
+        if (item.c >= 1 && item.c <= _periodLength) {
+          item.k.push('selected');
         }
-        table += '</tr>';
-      }
-      table += '</tbody></table>';
+        return prev + `
+          <td data-counter="${item.c}" class="${item.k.join(' ')}">${item.n}</td>
+        `;
+      };
+
+      var rowsContent = function() {
+        var arr = [];
+        for (var i = 0; i < cal.days.length; i += 7) {
+          arr.push(cal.days.slice(i, i + 7));
+        }
+        var table = arr.reduce(function(prev, item) {
+          return prev + `
+            <tr>
+              ${item.reduce(rowDays, '')}
+            </tr>
+            `;
+        }, '');
+        return table;
+      };
+
+      var table = `
+        <table class="calendar">
+          <thead>
+            <tr>
+              <th>
+                <a href="#/calendar/${cal.prev.yearN}/${cal.prev.monthN}" title="${cal.prev.title}">
+                  <svg class="icon calendar-icon">
+                    <use xlink:href="#icon-prev"></use>
+                  </svg>
+                </a>
+              </th>
+              <th colspan="5">${cal.title}</th>
+              <th>
+                <a href="#/calendar/${cal.next.yearN}/${cal.next.monthN}" title="${cal.next.title}">
+                  <svg class="icon calendar-icon">
+                    <use xlink:href="#icon-next"></use>
+                  </svg>
+                </a>
+              </th>
+            </tr>
+            <tr class="calendar-weekdays">
+              ${cal.week.reduce(rowsTitle, '')}
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsContent()}
+          </tbody>
+        </table>
+      `;
 
       return table;
     };
 
     this.log = function(data) {
-      var table = '<table class="log"><tbody>';
-      data.list.forEach(function(item, index) {
+      // var table = '<table class="log"><tbody>';
+      // data.list.forEach(function(item, index) {
+      //   var s = moment(item.date).format('MMM D, YYYY');
+      //   table += '<tr><td>' + s + '</td><td>' + (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '') + '</td>';
+      //   table += '<td><button data-id="' + item.id + '" data-date="' + item.date + '" class="log-button js-edit" title="Edit"><svg class="icon log-icon"><use xlink:href="#icon-edit"></use></svg></button></td><td><button data-id="' + item.id + '" data-date="' + s + '" class="log-button js-remove" title="Remove"><svg class="icon log-icon"><use xlink:href="#icon-delete"></use></svg></button></td></tr>';
+      // });
+      // table += '</tbody></table>';
+
+      var rows = function(prev, item, index) {
         var s = moment(item.date).format('MMM D, YYYY');
-        table += '<tr><td>' + s + '</td><td>' + (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '') + '</td>';
-        table += '<td><button data-id="' + item.id + '" data-date="' + item.date + '" class="log-button js-edit" title="Edit"><svg class="icon log-icon"><use xlink:href="#icon-edit"></use></svg></button></td><td><button data-id="' + item.id + '" data-date="' + s + '" class="log-button js-remove" title="Remove"><svg class="icon log-icon"><use xlink:href="#icon-delete"></use></svg></button></td></tr>';
-      });
-      table += '</tbody></table>';
+        var interval = (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '');
+        return prev + `
+          <tr>
+            <td>${s}</td>
+            <td>${interval}</td>
+            <td>
+              <button data-id="${item.id}" data-date="${item.date}" class="log-button js-edit" title="Edit">
+                <svg class="icon log-icon">
+                  <use xlink:href="#icon-edit"></use>
+                </svg>
+              </button>
+            </td>
+            <td>
+              <button data-id="${item.id}" data-date="${s}" class="log-button js-remove" title="Remove">
+                <svg class="icon log-icon">
+                  <use xlink:href="#icon-delete"></use>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        `;
+      };
+
+      var table = `
+        <table class="log">
+          <tbody>
+            ${data.list.reduce(rows, '')}
+          </tbody>
+        </table>
+      `;
 
       return table;
     };
 
     this.alert = function(type, msg) {
-      var code = '<div class="alert alert-' + type + '"><span>';
-      code += msg;
-      code += '</span><button class="alert-close js-close" title="Close"><svg class="icon alert-icon"><use xlink:href="#icon-cancel-circle"></use></svg></button></div>';
+      // var code = '<div class="alert alert-' + type + '"><span>';
+      // code += msg;
+      // code += '</span><button class="alert-close js-close" title="Close"><svg class="icon alert-icon"><use xlink:href="#icon-cancel-circle"></use></svg></button></div>';
+      var code = `
+        <div class="alert alert-${type}">
+          <span>${msg}</span>
+          <button class="alert-close js-close" title="Close">
+            <svg class="icon alert-icon">
+              <use xlink:href="#icon-cancel-circle"></use>
+            </svg>
+          </button>
+        </div>
+      `;
 
       return code;
     };
