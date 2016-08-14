@@ -309,7 +309,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   background: var(--c-main-bg);
   font-size: .9em;
   font-weight: bold;
-  padding: .56em .22em .44em;
+  padding: .7em .3em .6em;
   position: relative;
   width: 14.3%; /* 100 / 7 */
 }

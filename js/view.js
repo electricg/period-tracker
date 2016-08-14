@@ -159,7 +159,11 @@
       else if (event === 'itemRemove') {
         $delegate($log, '.js-remove', 'click', function() {
           var $tr = this.parentNode.parentNode;
-          $tr.classList.toggle('log-list__item--selected');
+          $log.querySelectorAll('.log-list__item--selected').forEach(function($el) {
+            $el.classList.remove('log-list__item--selected');
+          });
+          $tr.classList.add('log-list__item--selected');
+          // TODO
           if (window.confirm('Are you sure you want to delete `' + this.getAttribute('data-date') + '`?')) {
             handler(this.getAttribute('data-id'));
           }
