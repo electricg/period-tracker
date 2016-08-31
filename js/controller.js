@@ -135,9 +135,8 @@
       _self.updateSettings(data);
     });
 
-    _self.view.bind('alert', function() {
-      
-    });
+    // _self.view.bind('alert', function() {
+    // });
 
     _self.view.bind('gcal', function() {
       _self.remote.toggle(function() {

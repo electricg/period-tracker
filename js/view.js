@@ -224,12 +224,12 @@
           });
         });
       }
-      else if (event === 'alert') {
-        $delegate($alerts, '.js-close', 'click', function() {
-          $alerts.removeChild(this.parentNode);
-          handler();
-        });
-      }
+      // else if (event === 'alert') {
+      //   window.alertClose = function(el) {
+      //     $alerts.removeChild(el.parentNode);
+      //     handler();
+      //   };
+      // }
       else if (event === 'gcal') {
         $gcalConnect.on('click', function() {
           handler();

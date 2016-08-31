@@ -270,7 +270,7 @@
       var code = `
         <div class="alert alert--${type}">
           <span>${msg}</span>
-          <button class="alert__close js-close" title="Close">
+          <button class="alert__close js-close" title="Close" onClick="this.parentNode.remove()">
             <svg class="icon alert__close__icon">
               <use xlink:href="#icon-cancel-circle"></use>
             </svg>
