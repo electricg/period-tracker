@@ -424,26 +424,13 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   margin: 1em 0;
   padding: .25em .5em;
   width: 100%;
-}
-.alert--info {
-  background: #d9edf7;
-  color: #31708f;
-}
-.alert--error {
-  background: #f2dede;
-  color: #a94442;
-}
-.alert--success {
-  background: #dff0d8;
-  color: #3c763d;
-}
-.alert--warning {
-  background: #fcf8e3;
-  color: #8a6d3b;
+  background: var(--c-bg);
+  color: var(--c-fg);
 }
 .alert__close {
   background: transparent;
   border: 0 none;
+  border-radius: 100%;
   color: inherit;
   height: 2rem;
   margin-left: .5rem;
@@ -452,4 +439,27 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 .alert__close__icon {
   height: 2rem;
   width: 2rem;
+}
+.alert .alert__close:hover,
+.alert .alert__close:focus,
+.alert .alert__close:active {
+  background: var(--c-fg);
+  box-shadow: 0px 0px 0px 2px var(--c-fg);
+  color: var(--c-bg);
+}
+.alert--info {
+  --c-bg: #d9edf7;
+  --c-fg: #31708f;
+}
+.alert--error {
+  --c-bg: #f2dede;
+  --c-fg: #a94442;
+}
+.alert--success {
+  --c-bg: #dff0d8;
+  --c-fg: #3c763d;
+}
+.alert--warning {
+  --c-bg: #fcf8e3;
+  --c-fg: #8a6d3b;
 }
