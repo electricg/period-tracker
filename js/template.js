@@ -9,131 +9,161 @@
     var _today = moment();
     var _week = moment.weekdaysShort();
 
-    var calendarGet = function(data, startDayOkWeek, monthN, yearN) {
+    /**
+     * @param {object} data
+     * @param {number} startDayOfWeek - 0 Sunday, 1 Monday, 6 Saturday
+     * @param {number} monthN - month number
+     * @param {number} yearN - year number
+     */
+    var calendarGet = function(data, startDayOfWeek, monthN, yearN) {
       monthN = monthN || _today.format('M');
       yearN = yearN || _today.format('YYYY');
 
-      var first = moment(yearN + '-' + monthN, 'YYYY-M');
-      var firstDayOkWeek = first.format('d');
-      var daysInMonth = first.daysInMonth();
-      var last = moment(yearN + '-' + monthN + '-' + daysInMonth, 'YYYY-M-D');
-      var lastDayOfWeek = last.format('d');
+      var thisMonth = moment(yearN + '-' + monthN, 'YYYY-M');
+      var weekdayFirstDayThisMonth = thisMonth.format('d');
+      var daysInThisMonth = thisMonth.daysInMonth();
+      var lastDayThisMonth = moment(yearN + '-' + monthN + '-' + daysInThisMonth, 'YYYY-M-D');
+      var weekdayLastDayThisMonth = lastDayThisMonth.format('d');
+      var monthTitle = thisMonth.format('MMMM YYYY');
 
-      var days = [];
-      var title = first.format('MMMM YYYY');
-      var week = _week.slice(0);
-      var leftoverWeek = week.splice(0, startDayOkWeek);
-      week = week.concat(leftoverWeek);
+      // rearrange weekday names starting from our own first day of the week
+      var weekTitle = _week.slice(0);
+      var leftoverWeek = weekTitle.splice(0, startDayOfWeek);
+      weekTitle = weekTitle.concat(leftoverWeek);
       
-      var nextMonth = first.clone().add(1, 'months');
-      var prevMonth = first.clone().subtract(1, 'months');
-      var daysInPrevMonth = prevMonth.daysInMonth();
-      var next = {
+      // previous and next month data for nav links
+      var nextMonth = thisMonth.clone().add(1, 'months');
+      var prevMonth = thisMonth.clone().subtract(1, 'months');
+      var nextObj = {
         monthN: nextMonth.format('M'),
         yearN: nextMonth.format('YYYY'),
         title: nextMonth.format('MMMM YYYY')
       };
-      var prev = {
+      var prevObj = {
         monthN: prevMonth.format('M'),
         yearN: prevMonth.format('YYYY'),
         title: prevMonth.format('MMMM YYYY')
       };
 
-      var diffStart = firstDayOkWeek - startDayOkWeek;
-      var k;
-      var n;
-      var c = '';
-      var date;
-      var start;
-      var future = false;
+      var days = [];
 
       // before
+      var daysInPrevMonth = prevMonth.daysInMonth();
+      var diffStart = weekdayFirstDayThisMonth - startDayOfWeek;
       if (diffStart < 0) {
         diffStart = 7 + diffStart;
       }
-      for (var i1 = diffStart - 1; i1 >= 0; i1--) {
-        n = daysInPrevMonth - i1;
-        k = ['calendar__day--another-month'];
-        date = prev.yearN + '-' + z(prev.monthN) + '-' + z(n);
+      diffStart = daysInPrevMonth - diffStart + 1;
+      for (var i1 = diffStart; i1 <= daysInPrevMonth; i1++) {
         days.push({
-          date: date,
-          n: n,
-          c: c,
-          k: k
+          date: prevObj.yearN + '-' + z(prevObj.monthN) + '-' + z(i1),
+          n: i1,
+          c: '',
+          k: ['calendar__day--another-month']
         });
       }
       // during
-      for (var i2 = 1; i2 <= daysInMonth; i2++) {
-        n = i2;
-        k = [];
-        date = yearN + '-' + z(monthN) + '-' + z(i2);
+      for (var i2 = 1; i2 <= daysInThisMonth; i2++) {
         days.push({
-          date: date,
-          n: n,
-          c: c,
-          k: k
+          date: yearN + '-' + z(monthN) + '-' + z(i2),
+          n: i2,
+          c: '',
+          k: []
         });
       }
       // after
-      var diffEnd = (startDayOkWeek - 1) - lastDayOfWeek;
+      var diffEnd = (startDayOfWeek - 1) - weekdayLastDayThisMonth;
       if (diffEnd < 0 ) {
         diffEnd = 7 + diffEnd;
       }
       for (var i3 = 1; i3 <= diffEnd; i3++) {
-        n = i3;
-        k = ['calendar__day--another-month'];
-        date = next.yearN + '-' + z(next.monthN) + '-' + z(i3);
         days.push({
-          date: date,
-          n: n,
-          c: c,
-          k: k
+          date: nextObj.yearN + '-' + z(nextObj.monthN) + '-' + z(i3),
+          n: i3,
+          c: '',
+          k: ['calendar__day--another-month']
         });
       }
 
-      // loop through quicklist to find event that starts before the range or on its first very date
-      for (var i4 = 0; i4 < data.quicklist.length; i4++) {
-        if (data.quicklist[i4] <= days[0].date) {
-          start = data.quicklist[i4];
+      // maximum date that is less than or equal the first day of the visible month
+      var floor;
+      var firstDay = days[0].date;
+      var firstDayDate = moment(firstDay);
+      for (var i5 = 0; i5 < data.quicklist.length; i5++) {
+        if (data.quicklist[i5] <= firstDay) {
+          floor = data.quicklist[i5];
           break;
         }
       }
-      if (start) {
-        var a = moment(days[0].date);
-        var b = moment(start);
-        c = a.diff(b, 'days') + 1;
+
+      // minimum date that is greater than the last day of the visible month
+      var ceiling;
+      var lastDay = days[days.length - 1].date;
+      var lastDayDate = moment(lastDay);
+      for (var i6 = i5 - 1; i6 >= 0; i6--) {
+        if (data.quicklist[i6] > lastDay) {
+          ceiling = data.quicklist[i6];
+          break;
+        }
       }
 
+      // list of dates to show in the visible month
+      var sliceOfDates = data.quicklist.slice(i6 + 1, i5 + 1);
+
+      // if we have the maximum but not the minimum date, it means we are in the future, so calculate the next events
+      if (floor && !ceiling) {
+        var lastEventDate = moment(sliceOfDates[0]);
+        var daysLastSinceLastEvent = lastDayDate.diff(lastEventDate, 'days') + 1;
+        if (daysLastSinceLastEvent > data.average) {
+          var daysFirstSinceLastEvent = firstDayDate.diff(lastEventDate, 'days') + 1;
+          var daysFirstDiff = daysFirstSinceLastEvent % data.average;
+          var n = firstDayDate.clone().subtract(daysFirstDiff - 1, 'days');
+          sliceOfDates = [n.format('YYYY-MM-DD')];
+          var daysEndDiff = daysFirstDiff + days.length;
+          var quotient = Math.floor(daysEndDiff / data.average);
+          for (var q = 0; q <= quotient; q++) {
+            n.add(data.average, 'days');
+            sliceOfDates.unshift(n.format('YYYY-MM-DD'));
+          }
+        }
+      }
+      
+      var firstEventDate = moment(sliceOfDates[sliceOfDates.length - 1]);
+      var counter = firstDayDate.diff(firstEventDate, 'days') + 1;
+
+      var today = _today.format('YYYY-MM-DD');
       days.forEach(function(item) {
-        if (data.quicklist.indexOf(item.date) !== -1) {
-          c = 1;
+        if (sliceOfDates.indexOf(item.date) !== -1) {
+          counter = 1;
         }
-        else if (item.date === data.next) {
-          c = 1;
-          future = true;
+        if (counter) {
+          if (counter > 0) {
+            item.c = counter;
+          }
+          counter++;
         }
-        if (c) {
-          item.c = c;
-          c++;
+        if (item.date === today) {
+          item.k.push('calendar__day--today');
         }
-        if (future) {
+        else if (item.date > today) {
           item.k.push('calendar__day--future');
         }
       });
 
+
       return {
         days: days,
-        week: week,
-        title: title,
-        next: next,
-        prev: prev
+        week: weekTitle,
+        title: monthTitle,
+        next: nextObj,
+        prev: prevObj
       };
     };
 
     this.calendar = function(data, monthN, yearN) {
-      var _startDayOkWeek = _self.settings.get('startDayOkWeek');
+      var _startDayOfWeek = _self.settings.get('startDayOfWeek');
       var _periodLength = _self.settings.get('periodLength');
-      var cal = calendarGet(data, _startDayOkWeek, monthN, yearN);
+      var cal = calendarGet(data, _startDayOfWeek, monthN, yearN);
       
       // var table = '<table class="calendar"><thead><tr>';
       // table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-prev"></use></svg></a></th>';

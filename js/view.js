@@ -64,6 +64,9 @@
     };
     this.giulia = function(){
       _viewCommands.alert('info', 'ciao');
+      _viewCommands.alert('error', 'ciao');
+      _viewCommands.alert('success', 'ciao');
+      _viewCommands.alert('warning', 'ciao');
     };
 
     _viewCommands.error = function(err) {
@@ -103,7 +106,6 @@
       $next.innerHTML = model.next ? moment(model.next).format('ddd, MMM D') : '';
       $countdown.innerHTML = model.countdown;
       $counter.innerHTML = model.counter;
-      console.log(model.counter);
       $homeCalc.classList.toggle('home__calc--invisible', !model.next);
       var today = moment().format('YYYY-MM-DD');
       $addDate.defaultValue = today;
@@ -120,7 +122,7 @@
     };
 
     _viewCommands.settings = function() {
-      if (_self.settings.get('startDayOkWeek')) {
+      if (_self.settings.get('startDayOfWeek')) {
         $settingsWeekStart.checked = true;
       }
       else {
@@ -189,10 +191,10 @@
 
         $settingsWeekStart.on('change', function() {
           if (this.checked) {
-            data.startDayOkWeek = 1;
+            data.startDayOfWeek = 1;
           }
           else {
-            data.startDayOkWeek = 0;
+            data.startDayOfWeek = 0;
           }
           handler(data);
         });

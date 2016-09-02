@@ -326,6 +326,19 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   color: var(--c-secondary-text);
   font-weight: normal;
 }
+.calendar__day--another-month:after {
+  background: var(--c-main-bg);
+  content: '';
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.calendar__day--today {
+  box-shadow: inset 0px 0px 0px 5px var(--c-theme-first);
+}
 .calendar__day--selected {
   background: var(--c-theme-second);
 }

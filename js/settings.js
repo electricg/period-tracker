@@ -8,7 +8,7 @@ const gcalTitle = 'Period Tracker';
 const gcalOnload = 'gapiOnload';
 
 var defaultSettings = {
-  startDayOkWeek: 1, // 0 Sunday, 1 Monday
+  startDayOfWeek: 1, // 0 Sunday, 1 Monday
   periodLength: 4,
   cycleLength: 28
 };
