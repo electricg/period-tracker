@@ -245,7 +245,7 @@
     var calcIntervals = function() {
       _intervals = [];
       for (var i = 1; i < _list.length; i++) {
-        _intervals.push( moment.range(_list[i].date, _list[i - 1].date).diff('days') );
+        _intervals.push( moment(_list[i - 1].date).diff(_list[i].date, 'days') );
       }
     };
 
@@ -287,7 +287,7 @@
      */
     var calcCountdown = function() {
       if (_next) {
-        _countdown = moment.range(_today, _next).diff('days');
+        _countdown = moment(_next).diff(_today, 'days');
         _counter = _average - _countdown + 1;
       }
       else {
