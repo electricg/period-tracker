@@ -111,7 +111,7 @@
       var sliceOfDates = data.quicklist.slice(i6 + 1, i5 + 1);
 
       // if we have the maximum but not the minimum date, it means we are in the future, so calculate the next events
-      if (!ceiling) {
+      if (!ceiling && data.quicklist.length) {
         var lastEventDate = moment(sliceOfDates[0]);
         var daysLastSinceLastEvent = lastDayDate.diff(lastEventDate, 'days') + 1;
         if (daysLastSinceLastEvent > data.average) {
