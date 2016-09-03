@@ -279,6 +279,9 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   padding: .47em .67em;
   width: 100%;
 }
+.home_add--hide {
+  display: none;
+}
 .home__add__tap {
   display: block;
   font-size: .6em;

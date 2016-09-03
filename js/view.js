@@ -110,6 +110,8 @@
       var today = moment().format('YYYY-MM-DD');
       $addDate.defaultValue = today;
       $addDate.value = today;
+      // hide add button if we are into the period time
+      $homeAdd.classList.toggle('home_add--hide', model.counter > 0 && model.counter <= _self.settings.get('periodLength'));
     };
 
     _viewCommands.calendar = function(model, month, year) {
