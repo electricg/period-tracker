@@ -6,6 +6,9 @@
   --c-secondary-text: #808080;
   --c-secondary-bg: #CCC;
   --border-radius: 3px;
+  --height-top: 2.5rem;
+  --height-bottom: 2.8rem;
+  --gap: .5rem;
 }
 *, *:after, *:before {
   -webkit-box-sizing: border-box;
@@ -87,26 +90,26 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 
 /*=== grid */
 .main-header {
-  height: 2.5rem;
+  height: var(--height-top);
 }
 .main-nav {
-  height: 2.8rem;
+  height: var(--height-bottom);
 }
 .main-content {
-  padding-bottom: 4.8rem;
-  padding-top: 2.5rem;
+  padding-bottom: var(--height-bottom);
+  padding-top: var(--height-top);
 }
 .main-header,
 .main-section--home,
 .main-section--settings,
 .log-average {
-  padding-left: .5rem;
-  padding-right: .5rem;
+  padding-left: var(--gap);
+  padding-right: var(--gap);
 }
 .home__wrapper,
 .main-section--settings,
 .log-average {
-  padding-top: .5rem;
+  padding-top: var(--gap);
 }
 
 /*=== input number with plus & minus buttons */
@@ -122,7 +125,6 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   border: 1px solid var(--c-main-text);
   border-radius: var(--border-radius);
   display: flex;
-  font-size: 1rem;
   height: 2em;
 }
 .input-number__input {
@@ -181,9 +183,9 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   background: transparent;
   border: 1px solid var(--c-main-text);
   border-radius: var(--border-radius);
-  font-size: 1rem;
-  margin: .5rem 0;
-  padding: .5rem 1rem;
+  font-size: inherit;
+  margin: var(--gap) 0;
+  padding: var(--gap) calc(var(--gap) * 2);
   text-align: center;
   width: 100%;
 }
@@ -191,9 +193,9 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   background: var(--c-secondary-bg);
   border: 1px solid var(--c-main-text);
   border-radius: var(--border-radius);
-  font-size: 1rem;
-  margin: 0 0 .5rem;
-  padding: .5rem 1rem;
+  font-size: inherit;
+  margin: 0 0 var(--gap);
+  padding: var(--gap) calc(var(--gap) * 2);
   width: 100%;
 }
 @media (min-width:300px) {
@@ -251,8 +253,8 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   text-align: center;
 }
 .home__calc {
-  font-size: .9rem;
-  margin-bottom: 1rem;
+  font-size: .9em;
+  margin-bottom: calc(var(--gap) * 2);
 }
 .home__calc--invisible {
   visibility: hidden;
@@ -387,9 +389,9 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 }
 .log-average {
   background: var(--c-secondary-bg);
-  font-size: .8rem;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
+  font-size: .8em;
+  margin-bottom: calc(var(--gap) * 2);
+  padding-bottom: calc(var(--gap) * 2);
   text-align: center;
 }
 .log-average__counter {
@@ -414,7 +416,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   background: var(--c-secondary-bg);
   border: 1px solid var(--c-main-text);
   border-radius: var(--border-radius);
-  font-size: 1rem;
+  font-size: inherit;
   padding-left: 1em;
   padding-right: 1em;
 }
@@ -426,10 +428,10 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 
 /*=== alert */
 .alerts-wrapper {
-  bottom: 3rem;
-  left: .5rem;
+  bottom: var(--height-bottom);
+  left: var(--gap);
   position: fixed;
-  width: calc(100% - 1rem);
+  width: calc(100% - var(--gap) * 2);
 }
 .alert {
   align-items: center;
@@ -448,13 +450,14 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   border: 0 none;
   border-radius: 100%;
   color: inherit;
-  height: 2rem;
-  margin-left: .5rem;
+  font-size: inherit;
+  height: 2em;
+  margin-left: var(--gap);
   padding: 0;
 }
 .alert__close__icon {
-  height: 2rem;
-  width: 2rem;
+  height: 2em;
+  width: 2em;
 }
 .alert .alert__close:hover,
 .alert .alert__close:focus,
