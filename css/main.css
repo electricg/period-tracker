@@ -39,7 +39,9 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 .icon {
   display: block;
   fill: currentColor;
-  width: 100%;
+  height: var(--size);
+  margin: 0 auto;
+  width: var(--size);
 }
 
 /*=== header */
@@ -62,8 +64,8 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   margin: 0;
 }
 .main-header__title__icon {
+  --size: 100%;
   display: inline;
-  height: 100%;
   vertical-align: middle;
   width: auto;
 }
@@ -71,10 +73,9 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   display: flex;
 }
 .main-header__status__icon {
+  --size: 0.8em;
   display: none;
-  height: 0.8em;
   margin: 0 1px;
-  width: 0.8em;
 }
 .main-header__status__icon--active {
   display: block;
@@ -149,13 +150,13 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   width: 2em;
 }
 .input-number__icon {
-  height: 0.667em;
+  --size: 0.667em;
 }
 
 /*=== input checkbox with svg icons */
 .input-checkbox__icon {
-  height: 1em;
-  width: 1em;
+  --size: 1em;
+  margin: 0;
 }
 .input-checkbox__check {
   display: none;
@@ -243,8 +244,8 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   text-shadow: none;
 }
 .main-nav__icon {
-  height: 1.25em;
-  margin: 0 auto .25em;
+  --size: 1.25em;
+  margin-bottom: .25em;
   stroke: rgba(0, 0, 0, .2);
 }
 
@@ -304,7 +305,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   color: var(--c-theme-second);
 }
 .calendar__nav__icon {
-  height: 2em;
+  --size: 2em;
 }
 .calendar__weekday {
   font-size: .7em;
@@ -383,9 +384,10 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   color: var(--c-secondary-text);
   display: block;
   font-size: inherit;
+  width: 100%;
 }
 .log-list__button__icon {
-  height: 1em;
+  --size: 1em;
 }
 .log-average {
   background: var(--c-secondary-bg);
@@ -456,8 +458,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   padding: 0;
 }
 .alert__close__icon {
-  height: 2em;
-  width: 2em;
+  --size: 2em;
 }
 .alert .alert__close:hover,
 .alert .alert__close:focus,
