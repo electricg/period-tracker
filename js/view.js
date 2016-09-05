@@ -27,6 +27,7 @@
 
     var $deleteAll = $$('#delete-all');
     var $settingsWeekStart = $$('#settings-week-start');
+    var $settingsExtendedMonth = $$('#settings-extended-month');
 
     var $settingsPeriodLength = $$('#settings-period-length');
     var $settingsCycleLength = $$('#settings-cycle-length');
@@ -130,6 +131,12 @@
       else {
         $settingsWeekStart.checked = false;
       }
+      if (_self.settings.get('showExtendedMonth')) {
+        $settingsExtendedMonth.checked = true;
+      }
+      else {
+        $settingsExtendedMonth.checked = false;
+      }
       $settingsPeriodLength.value = _self.settings.get('periodLength');
       $settingsCycleLength.value = _self.settings.get('cycleLength');
     };
@@ -197,6 +204,16 @@
           }
           else {
             data.startDayOfWeek = 0;
+          }
+          handler(data);
+        });
+
+        $settingsExtendedMonth.on('change', function() {
+          if (this.checked) {
+            data.showExtendedMonth = true;
+          }
+          else {
+            data.showExtendedMonth = false;
           }
           handler(data);
         });

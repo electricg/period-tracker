@@ -342,6 +342,9 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   top: 0;
   width: 100%;
 }
+.calendar--extended .calendar__day--another-month:after {
+  display: none;
+}
 .calendar__day--today {
   box-shadow: inset 0px 0px 0px 5px var(--c-theme-first);
 }

@@ -162,6 +162,7 @@
 
     this.calendar = function(data, monthN, yearN) {
       var _startDayOfWeek = _self.settings.get('startDayOfWeek');
+      var _showExtendedMonth = _self.settings.get('showExtendedMonth');
       var _periodLength = _self.settings.get('periodLength');
       var cal = calendarGet(data, _startDayOfWeek, monthN, yearN);
       
@@ -215,8 +216,10 @@
         return table;
       };
 
+      var showExtendedMonth = _showExtendedMonth ? 'calendar--extended' : '';
+
       var table = `
-        <table class="calendar">
+        <table class="calendar ${showExtendedMonth}">
           <thead>
             <tr>
               <th>

@@ -9,6 +9,7 @@ const gcalOnload = 'gapiOnload';
 
 var defaultSettings = {
   startDayOfWeek: 1, // 0 Sunday, 1 Monday
+  showExtendedMonth: false,
   periodLength: 4,
   cycleLength: 28
 };
