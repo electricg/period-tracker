@@ -1,6 +1,6 @@
 /* global self, caches, version */
-self.importScripts('js/settings.js');
-const cacheName = 'v' + version + '::static';
+// self.importScripts('js/settings.js');
+const cacheName = 'v' + '0.5' + '::static';
 
 var fileList = [
   './',
@@ -37,6 +37,18 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
     .then(res => res || fetch(event.request))
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(m) {
+          console.log(m);
+        })
+      );
+    })
   );
 });
 

@@ -105,6 +105,7 @@
 </nav>
 
 <main class="main-content">
+<!-- HOME -->
   <section id="home" class="main-section main-section--home">
     <div class="home__wrapper">
       <div id="home-calc">
@@ -124,20 +125,31 @@
   </section>
 
 
+<!-- CALENDAR -->
   <section id="calendar" class="main-section">
     <div id="calendar-data"></div>
   </section>
 
 
+<!-- LOG -->
   <section id="log" class="main-section">
     <div class="log-average">
       <span id="average" class="log-average__counter">&nbsp;</span> Days in your average cycle
     </div>
 
+    <button class="log__add" id="log-add">Add entry</button>
+
+    <form class="add-form" id="add-form">
+      <input type="date" id="add-date" class="add-form__date" required>
+      <input type="reset" value="Cancel" class="add-form__button">
+      <input type="submit" value="Save" class="add-form__button">
+    </form>
+
     <div id="log-data"></div>
   </section>
 
 
+<!-- SETTINGS -->
   <section id="settings" class="main-section main-section--settings">
     <div class="settings">
       <button class="settings__option settings__button" onclick="giulia()">Load test data</button>
@@ -181,6 +193,8 @@
     </div>
   </section>
 
+
+<!-- ALERTS -->
   <div id="alerts" class="alerts-wrapper"></div>
 </main>
 
