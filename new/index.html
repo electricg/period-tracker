@@ -2,18 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A minimal period tracker web app">
   <meta name="author" content="Giulia Alfonsi - @electric_g">
-  <meta name="theme-color" content="#0099FF">
   <meta name="robots" content="noindex,nofollow">
   <title>Period Tracker</title>
-  <link rel="icon" href="images/icon16.png" sizes="16x16" type="image/png">
-  <link rel="icon" href="images/icon32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="images/icon96.png" sizes="96x96" type="image/png">
-  <link rel="icon apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" type="image/png">
-  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -160,17 +153,13 @@
       <!-- <button class="settings__option settings__button">Disconnect Google account</button> -->
       
       <div class="input-checkbox">
-        <label class="input-checkbox__label settings__option settings__button" for="settings-week-start">Mon-Sun calendar
-          <input type="checkbox" class="input-checkbox__check" id="settings-week-start">
-          <svg class="icon input-checkbox__icon"><use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use></svg>
-        </label>
+        <input type="checkbox" class="input-checkbox__check" id="settings-week-start">
+        <label class="input-checkbox__label settings__option settings__button" for="settings-week-start">Mon-Sun calendar<svg class="icon input-checkbox__icon"><use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use></svg></label>
       </div>
 
       <div class="input-checkbox">
-        <label class="input-checkbox__label settings__option settings__button" for="settings-extended-month">Show extended month
-          <input type="checkbox" class="input-checkbox__check" id="settings-extended-month">
-          <svg class="icon input-checkbox__icon"><use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use></svg>
-        </label>
+        <input type="checkbox" class="input-checkbox__check" id="settings-extended-month">
+        <label class="input-checkbox__label settings__option settings__button" for="settings-extended-month">Show extended month<svg class="icon input-checkbox__icon"><use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use></svg></label>
       </div>
       
       <div class="settings__option">Period length 
@@ -201,18 +190,6 @@
 <!-- ALERTS -->
   <div id="alerts" class="alerts-wrapper"></div>
 </main>
-
-<script src="vendor/moment-2.13.0.min.js"></script>
-<script src="js/settings.js"></script>
-<script src="js/helpers.js"></script>
-<script src="js/config.js"></script>
-<script src="js/gcal.js"></script>
-<script src="js/model.js"></script>
-<script src="js/template.js"></script>
-<script src="js/view.js"></script>
-<script src="js/controller.js"></script>
-<!-- <script src="js/mine.js"></script> -->
-<script src="js/app.js"></script>
 
 </body>
 </html>

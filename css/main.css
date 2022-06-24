@@ -154,17 +154,34 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 }
 
 /*=== input checkbox with svg icons */
+.input-checkbox__label {
+  position: relative;
+}
 .input-checkbox__icon {
   --size: 1em;
   margin: 0;
 }
 .input-checkbox__check {
-  display: none;
+  cursor: pointer;
+  height: 18px;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: 18px;
+  width: 18px;
+}
+.input-checkbox__check:focus + svg {
+  outline: 3px solid #E55360;
+  outline-offset: 2px;
+}
+.input-checkbox__check:focus:not(:focus-visible) + svg {
+  outline: none;
 }
 .input-checkbox__icon__checked {
   display: none;
 }
-.input-checkbox__check:checked + .input-checkbox__label .input-checkbox__icon__checked {
+.input-checkbox__check:checked ~ svg .input-checkbox__icon__checked {
   display: block;
 }
 
