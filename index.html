@@ -87,7 +87,7 @@
 
 
 <header class="main-header">
-  <h1 class="main-header__title"><svg viewBox="0, 0, 100, 100" class="icon main-header__title__icon"><use xlink:href="#icon-moon"></use></svg>Period Tracker v0.3</h1>
+  <h1 class="main-header__title"><svg viewBox="0, 0, 100, 100" class="icon main-header__title__icon"><use xlink:href="#icon-moon"></use></svg>Period Tracker v<span id="version">0</span></h1>
   <div class="main-header__status"><svg id="status-icon-offline" class="icon main-header__status__icon"><use xlink:href="#icon-offline"></use></svg></div>
 </header>
 
@@ -156,9 +156,6 @@
       
       <button class="settings__option settings__button" id="delete-all">Delete all data</button>
       
-      <button class="settings__option settings__button" id="gcal-connect"><span id="gcal-connect-on">Connect Google account</span><span id="gcal-connect-off" style="display:none">Disconnect <strong id="gcal-connect-user"></strong></span></button>
-      <!-- <button class="settings__option settings__button">Disconnect Google account</button> -->
-      
       <div class="input-checkbox">
         <input type="checkbox" class="input-checkbox__check" id="settings-week-start">
         <label class="input-checkbox__label settings__option settings__button" for="settings-week-start">Mon-Sun calendar<svg class="icon input-checkbox__icon"><use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use></svg></label>
@@ -202,7 +199,6 @@
 <script src="js/settings.js"></script>
 <script src="js/helpers.js"></script>
 <script src="js/config.js"></script>
-<script src="js/gcal.js"></script>
 <script src="js/model.js"></script>
 <script src="js/template.js"></script>
 <script src="js/view.js"></script>
