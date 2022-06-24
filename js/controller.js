@@ -79,6 +79,29 @@
       _self.setData();
     };
 
+    this.importData = function (file) {
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsText(file);
+      }
+      reader.addEventListener(
+        "load",
+        function () {
+          console.log(reader.result);
+        },
+        false
+      );
+    };
+
+    this.exportData = async function () {
+      const data = JSON.stringify(_self.model.list);
+
+      const fileHandle = await window.showSaveFilePicker();
+      const writable = await fileHandle.createWritable();
+      await writable.write(data);
+      await writable.close();
+    };
+
     _self.view.bind("itemAdd", function (date) {
       return _self.addItem(date);
     });
@@ -89,6 +112,14 @@
 
     _self.view.bind("itemEdit", function (id) {
       return _self.editItem(id);
+    });
+
+    _self.view.bind("importData", function (file) {
+      return _self.importData(file);
+    });
+
+    _self.view.bind("exportData", function () {
+      return _self.exportData();
     });
 
     _self.view.bind("itemRemoveAll", function () {

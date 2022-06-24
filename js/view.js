@@ -25,6 +25,8 @@
     var $average = $$("#average");
     var $log = $$("#log-data");
 
+    var $importData = $$("#import-data");
+    var $exportData = $$("#export-data");
     var $deleteAll = $$("#delete-all");
     var $settingsWeekStart = $$("#settings-week-start");
     var $settingsExtendedMonth = $$("#settings-extended-month");
@@ -184,6 +186,15 @@
       } else if (event === "itemEdit") {
         $delegate($log, ".js-edit", "click", function () {
           handler(this.getAttribute("data-id"));
+        });
+      } else if (event === "importData") {
+        $importData.on("change", function () {
+          const [file] = $importData.files;
+          handler(file);
+        });
+      } else if (event === "exportData") {
+        $exportData.on("click", function () {
+          handler();
         });
       } else if (event === "itemRemoveAll") {
         $deleteAll.on("click", function () {
