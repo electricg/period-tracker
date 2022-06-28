@@ -159,13 +159,23 @@
       <button class="settings__option settings__button" id="delete-all">Delete all data</button>
       
       <div class="input-checkbox">
-        <input type="checkbox" class="input-checkbox__check" id="settings-week-start">
-        <label class="input-checkbox__label settings__option settings__button" for="settings-week-start">Mon-Sun calendar<svg class="icon input-checkbox__icon"><use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use></svg></label>
+        <label for="settings-week-start" class="input-checkbox__label settings__option settings__button">
+          <input type="checkbox" id="settings-week-start" class="input-checkbox__check">
+          <span>Mon-Sun calendar</span>
+          <svg class="icon input-checkbox__icon" aria-hidden="true" focusable="false">
+            <use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use>
+          </svg>
+        </label>
       </div>
 
       <div class="input-checkbox">
-        <input type="checkbox" class="input-checkbox__check" id="settings-extended-month">
-        <label class="input-checkbox__label settings__option settings__button" for="settings-extended-month">Show extended month<svg class="icon input-checkbox__icon"><use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use></svg></label>
+        <label for="settings-extended-month" class="input-checkbox__label settings__option settings__button">
+        <input type="checkbox" id="settings-extended-month" class="input-checkbox__check">
+        <span>Show extended month</span>
+        <svg class="icon input-checkbox__icon" aria-hidden="true" focusable="false">
+          <use xlink:href="#icon-unchecked" class="input-checkbox__icon__unchecked"></use><use xlink:href="#icon-checked" class="input-checkbox__icon__checked"></use>
+        </svg>
+      </label>
       </div>
       
       <div class="settings__option">Period length 

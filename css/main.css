@@ -154,17 +154,38 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 }
 
 /*=== input checkbox with svg icons */
-.input-checkbox__icon {
+.input-checkbox__label {
   --size: 1em;
-  margin: 0;
+  position: relative;
 }
 .input-checkbox__check {
-  display: none;
+  cursor: inherit;
+  font-size: 100%;
+  height: var(--size);
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: 1em;
+  width: var(--size);
+}
+.input-checkbox__icon {
+  margin: 0;
+}
+/* visually show focus outline when the SVG receives focus */
+.input-checkbox__check:focus ~ .input-checkbox__icon {
+  outline: 2px solid var(--c-theme-first);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+/* hide the focus styles for mouse users */
+.input-checkbox__check:focus:not(:focus-visible) ~ .input-checkbox__icon {
+  outline: none;
 }
 .input-checkbox__icon__checked {
   display: none;
 }
-.input-checkbox__check:checked + .input-checkbox__label .input-checkbox__icon__checked {
+.input-checkbox__check:checked ~ .input-checkbox__icon .input-checkbox__icon__checked {
   display: block;
 }
 
