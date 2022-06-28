@@ -2,7 +2,7 @@
   "use strict";
 
   var Config = function (defaultOpts, storage) {
-    var _options = defaultOpts;
+    var _options = { ...defaultOpts };
 
     // merge storage settings into default settings
     merge(load());
@@ -41,6 +41,14 @@
      */
     this.update = function (data) {
       merge(data);
+      save();
+    };
+
+    /**
+     * Reset the settings to default
+     */
+    this.reset = function () {
+      merge(defaultOpts);
       save();
     };
 

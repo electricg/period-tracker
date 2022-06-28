@@ -64,13 +64,10 @@
     };
 
     this.removeAllItem = function () {
-      var res = _self.model.clear();
-      if (res !== -1) {
-        _self.setData();
-      } else {
-        _self.view.render("error", "Error removing all entries");
-      }
-      return res;
+      _self.config.reset();
+      _self.model.clear();
+      _self.setData();
+      _self.view.render("success", "Data deleted successfully");
     };
 
     this.updateSettings = function (data) {
@@ -79,6 +76,7 @@
       _self.setData();
     };
 
+    // TODO clean
     this.importData = function (file) {
       const reader = new FileReader();
       if (file) {
