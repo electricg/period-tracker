@@ -94,9 +94,17 @@
     };
 
     this.exportData = async function () {
-      const data = JSON.stringify(_self.model.list);
+      const data = JSON.stringify({
+        periodTracker: _self.model.list,
+        periodTrackerConfig: _self.settings.getAll(),
+      });
+      const now = moment().format("YYYY-MM-DD");
+      const options = {
+        suggestedName: "period-tracker_" + now + ".json",
+        types: [{ accept: { "text/plain": [".json"] } }],
+      };
 
-      const fileHandle = await window.showSaveFilePicker();
+      const fileHandle = await window.showSaveFilePicker(options);
       const writable = await fileHandle.createWritable();
       await writable.write(data);
       await writable.close();

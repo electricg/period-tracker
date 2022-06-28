@@ -1,8 +1,8 @@
-(function(window) {
-  'use strict';
+(function (window) {
+  "use strict";
 
-  var Config = function(name, defaultOpts) {
-    const _namespace = name + 'Config';
+  var Config = function (name, defaultOpts) {
+    const _namespace = name + "Config";
     var _options = defaultOpts;
 
     // merge localStorage settings into default settings
@@ -51,7 +51,7 @@
      * Update the properties of the setting passed by
      * @param {object} data
      */
-    this.update = function(data) {
+    this.update = function (data) {
       merge(data);
       save();
     };
@@ -61,11 +61,19 @@
      * @param {string} key
      * @return {number|string}
      */
-    this.get = function(key) {
+    this.get = function (key) {
       if (Object.prototype.hasOwnProperty.call(_options, key)) {
         return _options[key];
       }
       return undefined;
+    };
+
+    /**
+     * Return options object
+     * @return {object}
+     */
+    this.getAll = function () {
+      return JSON.parse(JSON.stringify(_options));
     };
   };
 
