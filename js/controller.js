@@ -10,7 +10,7 @@
     var _self = this;
     _self.model = model;
     _self.view = view;
-    _self.settings = _self.view.settings;
+    _self.config = _self.view.config;
 
     /**
      * Show the selected section
@@ -74,7 +74,7 @@
     };
 
     this.updateSettings = function (data) {
-      _self.settings.update(data);
+      _self.config.update(data);
       _self.model.calc();
       _self.setData();
     };
@@ -87,20 +87,30 @@
       reader.addEventListener(
         "load",
         function () {
-          console.log(reader.result);
+          const data = JSON.parse(reader.result);
+
+          _self.model.update(data.periodTracker.list);
+          _self.config.update(data.periodTracker.config);
+          // update the ui
+          _self.setData();
+          _self.view.render("success", "Data imported successfully");
         },
         false
       );
     };
 
+    // TODO clean
     this.exportData = async function () {
       const data = JSON.stringify({
-        periodTracker: _self.model.list,
-        periodTrackerConfig: _self.settings.getAll(),
+        periodTracker: {
+          version: version,
+          list: _self.model.list,
+          config: _self.config.getAll(),
+        },
       });
       const now = moment().format("YYYY-MM-DD");
       const options = {
-        suggestedName: "period-tracker_" + now + ".json",
+        suggestedName: "_period-tracker_" + now + ".json",
         types: [{ accept: { "text/plain": [".json"] } }],
       };
 

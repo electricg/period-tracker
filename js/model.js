@@ -7,9 +7,9 @@
   const dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
   const averageIntervals = 3;
 
-  var Model = function (settings, storage) {
+  var Model = function (config, storage) {
     var _self = this;
-    _self.settings = settings;
+    _self.config = config;
 
     var _today = moment().format(datePattern);
     var _list = [];
@@ -198,13 +198,24 @@
     };
 
     /**
+     * Replace all occurances with passed list
+     * @param {array} newList - new list of occurances
+     * @returns {array}
+     */
+    var update = function (newList) {
+      _list = [...newList];
+      return _list;
+    };
+
+    /**
      * Modify occurances
      * @param {string} how - How to change
      * @param {string} id - id of the occurance
      * @param {string} date - string in YYYY-DD-MM format
+     * @param {array} list - new list
      * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
-    var modify = function (how, id, date) {
+    var modify = function (how, id, date, list) {
       var mod = -1;
       if (how === "add") {
         mod = add(date);
@@ -217,6 +228,9 @@
       }
       if (how === "clear") {
         mod = clear();
+      }
+      if (how === "update") {
+        mod = update(list);
       }
       if (mod !== -1) {
         calcAll();
@@ -254,7 +268,7 @@
     var calcAverage = function () {
       var arr = _intervals.slice(0, averageIntervals);
       if (!arr.length) {
-        _average = _self.settings.get("cycleLength");
+        _average = _self.config.get("cycleLength");
         return;
       }
       var sum = 0;
@@ -370,6 +384,15 @@
      */
     this.clear = function () {
       return modify("clear");
+    };
+
+    /**
+     * Replace list
+     * @param {array} list
+     * @returns {array} -1 if not successful, otherwise the new list
+     */
+    this.update = function (list) {
+      return modify("update", null, null, list);
     };
 
     this.init();

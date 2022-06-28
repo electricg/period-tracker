@@ -8,7 +8,7 @@
   var View = function (template) {
     var _self = this;
     _self.template = template;
-    _self.settings = _self.template.settings;
+    _self.config = _self.template.config;
 
     var $sections = $(".main-section");
     var $navLinks = $(".main-nav a");
@@ -105,7 +105,7 @@
       // hide add button if we are into the period time
       $homeAdd.classList.toggle(
         "home_add--hide",
-        model.counter > 0 && model.counter <= _self.settings.get("periodLength")
+        model.counter > 0 && model.counter <= _self.config.get("periodLength")
       );
     };
 
@@ -119,18 +119,18 @@
     };
 
     _viewCommands.settings = function () {
-      if (_self.settings.get("startDayOfWeek")) {
+      if (_self.config.get("startDayOfWeek")) {
         $settingsWeekStart.checked = true;
       } else {
         $settingsWeekStart.checked = false;
       }
-      if (_self.settings.get("showExtendedMonth")) {
+      if (_self.config.get("showExtendedMonth")) {
         $settingsExtendedMonth.checked = true;
       } else {
         $settingsExtendedMonth.checked = false;
       }
-      $settingsPeriodLength.value = _self.settings.get("periodLength");
-      $settingsCycleLength.value = _self.settings.get("cycleLength");
+      $settingsPeriodLength.value = _self.config.get("periodLength");
+      $settingsCycleLength.value = _self.config.get("cycleLength");
     };
 
     _viewCommands.offline = function (status) {
