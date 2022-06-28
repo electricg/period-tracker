@@ -43,12 +43,12 @@ var $delegate = function (target, selector, type, handler) {
     var potentialElements = target.querySelectorAll(selector);
     while (el) {
       els.unshift(el);
-      el = el.parentNode;
       hasMatch = Array.prototype.indexOf.call(potentialElements, el) >= 0;
       if (hasMatch) {
         found = true;
         break;
       }
+      el = el.parentNode;
     }
     if (found) {
       handler.call(el);
