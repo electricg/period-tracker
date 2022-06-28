@@ -1,11 +1,10 @@
 (function (window) {
   "use strict";
 
-  var Config = function (name, defaultOpts) {
-    const _namespace = name + "Config";
+  var Config = function (defaultOpts, storage) {
     var _options = defaultOpts;
 
-    // merge localStorage settings into default settings
+    // merge storage settings into default settings
     merge(load());
 
     /**
@@ -21,30 +20,19 @@
     }
 
     /**
-     * Load from localStorage
+     * Load from storage
      * @returns {object}
      */
     function load() {
-      try {
-        return JSON.parse(localStorage.getItem(_namespace)) || {};
-      } catch (e) {
-        console.error(e);
-        return {};
-      }
+      return storage.getItem("config") || {};
     }
 
     /**
-     * Save to localStorage
+     * Save to storage
      * @returns {boolean} True if save was successful
      */
     function save() {
-      try {
-        localStorage.setItem(_namespace, JSON.stringify(_options));
-        return true;
-      } catch (e) {
-        console.error(e);
-        return false;
-      }
+      storage.setItem("config", _options);
     }
 
     /**
@@ -69,7 +57,7 @@
     };
 
     /**
-     * Return options object
+     * Return all options
      * @return {object}
      */
     this.getAll = function () {

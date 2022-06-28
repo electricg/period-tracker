@@ -1,7 +1,8 @@
 /* global app, namespace, defaultSettings, features */
 var Tracker = function (namespace, settings) {
-  this.config = new app.Config(namespace, settings);
-  this.model = new app.Model(namespace, this.config);
+  this.storage = new app.Storage(namespace);
+  this.config = new app.Config(settings, this.storage);
+  this.model = new app.Model(this.config, this.storage);
   this.template = new app.Template(this.config);
   this.view = new app.View(this.template);
   this.controller = new app.Controller(this.model, this.view);

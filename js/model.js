@@ -7,8 +7,7 @@
   const dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
   const averageIntervals = 3;
 
-  var Model = function (name, settings) {
-    const _namespace = name;
+  var Model = function (settings, storage) {
     var _self = this;
     _self.settings = settings;
 
@@ -306,31 +305,19 @@
     };
 
     /**
-     * Load from localStorage
+     * Load from storage
      * @returns {boolean} True if load was successful
      */
     var load = function () {
-      try {
-        _list = JSON.parse(localStorage.getItem(_namespace)) || [];
-        return true;
-      } catch (e) {
-        console.error(e);
-        return false;
-      }
+      _list = storage.getItem("list") || [];
     };
 
     /**
-     * Save to localStorage
+     * Save to storage
      * @returns {boolean} True if save was successful
      */
     var save = function () {
-      try {
-        localStorage.setItem(_namespace, JSON.stringify(_list));
-        return true;
-      } catch (e) {
-        console.error(e);
-        return false;
-      }
+      return storage.setItem("list", _list);
     };
 
     /**
