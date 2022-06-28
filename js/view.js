@@ -102,6 +102,7 @@
       var today = moment().format('YYYY-MM-DD');
       $addDate.defaultValue = today;
       $addDate.value = today;
+      $addDate.max = today;
       // hide add button if we are into the period time
       $homeAdd.classList.toggle(
         'home_add--hide',
