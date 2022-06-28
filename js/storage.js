@@ -1,9 +1,9 @@
 (function (window) {
-  "use strict";
+  'use strict';
 
   var Storage = function (namespace) {
     var capitalize = function (string) {
-      if (string === "") {
+      if (string === '') {
         return string;
       }
       return string[0].toUpperCase() + string.substring(1);
@@ -53,7 +53,7 @@
      * Clear all items of the namespace
      */
     this.clear = function () {
-      Object.keys(localStorage).forEach(key => {
+      Object.keys(localStorage).forEach((key) => {
         if (key.indexOf(namespace) === 0) {
           localStorage.removeItem(key);
         }

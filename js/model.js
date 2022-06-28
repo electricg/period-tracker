@@ -1,8 +1,8 @@
 /* global moment */
 (function (window) {
-  "use strict";
+  'use strict';
 
-  const datePattern = "YYYY-MM-DD";
+  const datePattern = 'YYYY-MM-DD';
   // this regexp is not strict as the date validation will be performed by moment.js
   const dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
   const averageIntervals = 3;
@@ -16,47 +16,47 @@
     var _quicklist = [];
     var _intervals = [];
     var _average = 0;
-    var _next = "";
+    var _next = '';
     var _countdown = 0;
     var _counter = 0;
 
-    Object.defineProperty(this, "list", {
+    Object.defineProperty(this, 'list', {
       get: function () {
         return _list;
       },
     });
 
-    Object.defineProperty(this, "quicklist", {
+    Object.defineProperty(this, 'quicklist', {
       get: function () {
         return _quicklist;
       },
     });
 
-    Object.defineProperty(this, "intervals", {
+    Object.defineProperty(this, 'intervals', {
       get: function () {
         return _intervals;
       },
     });
 
-    Object.defineProperty(this, "average", {
+    Object.defineProperty(this, 'average', {
       get: function () {
         return _average;
       },
     });
 
-    Object.defineProperty(this, "next", {
+    Object.defineProperty(this, 'next', {
       get: function () {
         return _next;
       },
     });
 
-    Object.defineProperty(this, "countdown", {
+    Object.defineProperty(this, 'countdown', {
       get: function () {
         return _countdown;
       },
     });
 
-    Object.defineProperty(this, "counter", {
+    Object.defineProperty(this, 'counter', {
       get: function () {
         return _counter;
       },
@@ -135,7 +135,7 @@
         return -1;
       }
       var now = moment();
-      var id = now.valueOf() + "";
+      var id = now.valueOf() + '';
       var newItem = {
         id: id,
         date: date,
@@ -217,19 +217,19 @@
      */
     var modify = function (how, id, date, list) {
       var mod = -1;
-      if (how === "add") {
+      if (how === 'add') {
         mod = add(date);
       }
-      if (how === "edit") {
+      if (how === 'edit') {
         mod = edit(id, date);
       }
-      if (how === "remove") {
+      if (how === 'remove') {
         mod = remove(id);
       }
-      if (how === "clear") {
+      if (how === 'clear') {
         mod = clear();
       }
-      if (how === "update") {
+      if (how === 'update') {
         mod = update(list);
       }
       if (mod !== -1) {
@@ -258,7 +258,7 @@
     var calcIntervals = function () {
       _intervals = [];
       for (var i = 1; i < _list.length; i++) {
-        _intervals.push(moment(_list[i - 1].date).diff(_list[i].date, "days"));
+        _intervals.push(moment(_list[i - 1].date).diff(_list[i].date, 'days'));
       }
     };
 
@@ -268,7 +268,7 @@
     var calcAverage = function () {
       var arr = _intervals.slice(0, averageIntervals);
       if (!arr.length) {
-        _average = _self.config.get("cycleLength");
+        _average = _self.config.get('cycleLength');
         return;
       }
       var sum = 0;
@@ -288,9 +288,9 @@
         last = lastItem.date;
       }
       if (_list.length) {
-        _next = moment(last).add(_average, "days").format(datePattern);
+        _next = moment(last).add(_average, 'days').format(datePattern);
       } else {
-        _next = "";
+        _next = '';
       }
     };
 
@@ -299,7 +299,7 @@
      */
     var calcCountdown = function () {
       if (_next) {
-        _countdown = moment(_next).diff(_today, "days");
+        _countdown = moment(_next).diff(_today, 'days');
         _counter = _average - _countdown + 1;
       } else {
         _countdown = 0;
@@ -323,7 +323,7 @@
      * @returns {boolean} True if load was successful
      */
     var load = function () {
-      _list = storage.getItem("list") || [];
+      _list = storage.getItem('list') || [];
     };
 
     /**
@@ -331,7 +331,7 @@
      * @returns {boolean} True if save was successful
      */
     var save = function () {
-      return storage.setItem("list", _list);
+      return storage.setItem('list', _list);
     };
 
     /**
@@ -356,7 +356,7 @@
      * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
     this.add = function (date) {
-      return modify("add", null, date);
+      return modify('add', null, date);
     };
 
     /**
@@ -366,7 +366,7 @@
      * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
     this.edit = function (id, date) {
-      return modify("edit", id, date);
+      return modify('edit', id, date);
     };
 
     /**
@@ -375,7 +375,7 @@
      * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
     this.remove = function (id) {
-      return modify("remove", id);
+      return modify('remove', id);
     };
 
     /**
@@ -383,7 +383,7 @@
      * @returns {number|object} -1 if not successful, otherwise the affected elements
      */
     this.clear = function () {
-      return modify("clear");
+      return modify('clear');
     };
 
     /**
@@ -392,7 +392,7 @@
      * @returns {array} -1 if not successful, otherwise the new list
      */
     this.update = function (list) {
-      return modify("update", null, null, list);
+      return modify('update', null, null, list);
     };
 
     this.init();

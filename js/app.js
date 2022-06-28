@@ -19,38 +19,38 @@ var load = function () {
   show();
 };
 
-window.addEventListener("load", load);
-window.addEventListener("hashchange", show);
+window.addEventListener('load', load);
+window.addEventListener('hashchange', show);
 
 function onFirstLoad() {
-  var msg = "ready to work offline";
+  var msg = 'ready to work offline';
   console.log(msg);
   // the very first activation!
   // tell the user stuff works offline
-  tracker.view.render("info", msg);
-  tracker.view.render("offline", true);
+  tracker.view.render('info', msg);
+  tracker.view.render('offline', true);
 }
 
 function onClaimed() {
-  console.log("sw claimed");
+  console.log('sw claimed');
   navigator.serviceWorker.controller.postMessage({
-    type: "claimed",
+    type: 'claimed',
     value: true,
   });
 }
 
 function onInstalled() {
-  console.log("sw installed");
+  console.log('sw installed');
 }
 
 function onStateChange(newWorker) {
-  if (newWorker.state === "activated") {
+  if (newWorker.state === 'activated') {
     onFirstLoad();
     if (navigator.serviceWorker.controller) {
       onClaimed();
     }
   } else if (
-    newWorker.state === "installed" &&
+    newWorker.state === 'installed' &&
     navigator.serviceWorker.controller
   ) {
     onInstalled();
@@ -60,25 +60,25 @@ function onStateChange(newWorker) {
 function onUpdateFound(registration) {
   var newWorker = registration.installing;
 
-  registration.installing.addEventListener("statechange", () =>
+  registration.installing.addEventListener('statechange', () =>
     onStateChange(newWorker)
   );
 }
 
 if (features.offline) {
-  if ("serviceWorker" in navigator) {
+  if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register("sw.js")
+      .register('sw.js')
       .then(function (registration) {
-        registration.addEventListener("updatefound", () =>
+        registration.addEventListener('updatefound', () =>
           onUpdateFound(registration)
         );
-        if (registration.active && registration.active.state === "activated") {
-          tracker.view.render("offline", true);
+        if (registration.active && registration.active.state === 'activated') {
+          tracker.view.render('offline', true);
         }
       })
       .catch(function (err) {
-        console.error("ServiceWorker registration failed: ", err);
+        console.error('ServiceWorker registration failed: ', err);
       });
   }
 }

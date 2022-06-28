@@ -11,8 +11,11 @@ NodeList.prototype.forEach = Array.prototype.forEach;
  * @param {object} event
  */
 function prev(event) {
-  if (event.preventDefault) { event.preventDefault(); }
-  else { event.returnValue = false; }
+  if (event.preventDefault) {
+    event.preventDefault();
+  } else {
+    event.returnValue = false;
+  }
 }
 
 /**
@@ -31,7 +34,7 @@ function z(n) {
  * Attach a handler to event for all elements that match the selector,
  * now or in the future, based on a root element
  */
-var $delegate = function(target, selector, type, handler) {
+var $delegate = function (target, selector, type, handler) {
   function dispatchEvent(event) {
     var el = event.target;
     var els = [];

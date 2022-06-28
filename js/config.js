@@ -1,5 +1,5 @@
 (function (window) {
-  "use strict";
+  'use strict';
 
   var Config = function (defaultOpts, storage) {
     var _options = { ...defaultOpts };
@@ -24,7 +24,7 @@
      * @returns {object}
      */
     function load() {
-      return storage.getItem("config") || {};
+      return storage.getItem('config') || {};
     }
 
     /**
@@ -32,7 +32,7 @@
      * @returns {boolean} True if save was successful
      */
     function save() {
-      storage.setItem("config", _options);
+      storage.setItem('config', _options);
     }
 
     /**

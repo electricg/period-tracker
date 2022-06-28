@@ -1,6 +1,6 @@
 /* jshint unused:false */
-const version = "0.4";
-const namespace = "periodTracker";
+const version = '0.5';
+const namespace = 'periodTracker';
 
 var defaultSettings = {
   startDayOfWeek: 1, // 0 Sunday, 1 Monday

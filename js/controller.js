@@ -1,5 +1,5 @@
 (function (window) {
-  "use strict";
+  'use strict';
 
   /**
    * Take a model and view and acts as the controller between them
@@ -17,20 +17,20 @@
      * @param {string} locationHash
      */
     this.setSection = function (locationHash) {
-      var args = locationHash.split("/");
+      var args = locationHash.split('/');
       args.shift();
       var section = args.shift();
-      _self.view.render("section", _self.model, section, args);
+      _self.view.render('section', _self.model, section, args);
     };
 
     /**
      * Insert data into the views
      */
     this.setData = function () {
-      _self.view.render("chrome");
-      _self.view.render("home", _self.model);
-      _self.view.render("log", _self.model);
-      _self.view.render("settings");
+      _self.view.render('chrome');
+      _self.view.render('home', _self.model);
+      _self.view.render('log', _self.model);
+      _self.view.render('settings');
     };
 
     this.addItem = function (date) {
@@ -38,7 +38,7 @@
       if (res !== -1) {
         _self.setData();
       } else {
-        _self.view.render("error", "Error adding entry");
+        _self.view.render('error', 'Error adding entry');
       }
       return res;
     };
@@ -48,7 +48,7 @@
       if (res !== -1) {
         _self.setData();
       } else {
-        _self.view.render("error", "Error removing entry");
+        _self.view.render('error', 'Error removing entry');
       }
       return res;
     };
@@ -58,7 +58,7 @@
       if (res !== -1) {
         _self.setData();
       } else {
-        _self.view.render("error", "Error editing entry");
+        _self.view.render('error', 'Error editing entry');
       }
       return res;
     };
@@ -67,7 +67,7 @@
       _self.config.reset();
       _self.model.clear();
       _self.setData();
-      _self.view.render("success", "Data deleted successfully");
+      _self.view.render('success', 'Data deleted successfully');
     };
 
     this.updateSettings = function (data) {
@@ -83,7 +83,7 @@
         reader.readAsText(file);
       }
       reader.addEventListener(
-        "load",
+        'load',
         function () {
           const data = JSON.parse(reader.result);
 
@@ -91,7 +91,7 @@
           _self.config.update(data.periodTracker.config);
           // update the ui
           _self.setData();
-          _self.view.render("success", "Data imported successfully");
+          _self.view.render('success', 'Data imported successfully');
         },
         false
       );
@@ -106,10 +106,10 @@
           config: _self.config.getAll(),
         },
       });
-      const now = moment().format("YYYY-MM-DD");
+      const now = moment().format('YYYY-MM-DD');
       const options = {
-        suggestedName: "_period-tracker_" + now + ".json",
-        types: [{ accept: { "text/plain": [".json"] } }],
+        suggestedName: '_period-tracker_' + now + '.json',
+        types: [{ accept: { 'text/plain': ['.json'] } }],
       };
 
       const fileHandle = await window.showSaveFilePicker(options);
@@ -118,31 +118,31 @@
       await writable.close();
     };
 
-    _self.view.bind("itemAdd", function (date) {
+    _self.view.bind('itemAdd', function (date) {
       return _self.addItem(date);
     });
 
-    _self.view.bind("itemRemove", function (id) {
+    _self.view.bind('itemRemove', function (id) {
       return _self.removeItem(id);
     });
 
-    _self.view.bind("itemEdit", function (id) {
+    _self.view.bind('itemEdit', function (id) {
       return _self.editItem(id);
     });
 
-    _self.view.bind("importData", function (file) {
+    _self.view.bind('importData', function (file) {
       return _self.importData(file);
     });
 
-    _self.view.bind("exportData", function () {
+    _self.view.bind('exportData', function () {
       return _self.exportData();
     });
 
-    _self.view.bind("itemRemoveAll", function () {
+    _self.view.bind('itemRemoveAll', function () {
       return _self.removeAllItem();
     });
 
-    _self.view.bind("settingsUpdate", function (data) {
+    _self.view.bind('settingsUpdate', function (data) {
       _self.updateSettings(data);
     });
 
