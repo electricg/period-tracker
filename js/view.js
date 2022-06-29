@@ -18,8 +18,9 @@
     var $countdown = $$('#countdown');
     var $counter = $$('#counter');
     var $homeAdd = $$('#home-add');
-    var $addForm = $$('#add-form');
-    var $addDate = $$('#add-date');
+    var $addFormToggle = $('.add-form__toggle');
+    var $addForm = $('.add-form');
+    var $addDate = $('input[name="add-date"]');
 
     var $cal = $$('#calendar-data');
     var $average = $$('#average');
@@ -100,9 +101,11 @@
       $counter.innerHTML = model.counter;
       $homeCalc.classList.toggle('home__calc--invisible', !model.next);
       var today = moment().format('YYYY-MM-DD');
-      $addDate.defaultValue = today;
-      $addDate.value = today;
-      $addDate.max = today;
+      $addDate.forEach(function ($el) {
+        $el.defaultValue = today;
+        $el.value = today;
+        $el.max = today;
+      });
       // hide add button if we are into the period time
       $homeAdd.classList.toggle(
         'home_add--hide',
@@ -147,20 +150,27 @@
 
     this.bind = function (event, handler) {
       if (event === 'itemAdd') {
-        $homeAdd.on('click', function () {
-          $addForm.classList.add('add-form--selected');
-          $addDate.focus();
-          $addDate.click();
+        $addFormToggle.forEach(function ($el) {
+          $el.on('click', function () {
+            this.form.classList.add('add-form--selected');
+            this.form.elements['add-date'].focus();
+            this.form.elements['add-date'].click();
+          });
         });
-        $addForm.on('submit', function (event) {
-          prev(event);
-          var res = handler($addDate.value);
-          if (res !== -1) {
-            $addForm.reset();
-          }
+
+        $addForm.forEach(function ($el) {
+          $el.on('submit', function (event) {
+            prev(event);
+            var res = handler(this.elements['add-date'].value);
+            if (res !== -1) {
+              this.reset();
+            }
+          });
         });
-        $addForm.on('reset', function () {
-          $addForm.classList.remove('add-form--selected');
+        $addForm.forEach(function ($el) {
+          $el.on('reset', function () {
+            this.classList.remove('add-form--selected');
+          });
         });
       } else if (event === 'itemRemove') {
         $delegate($log, '.js-remove', 'click', function () {

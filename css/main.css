@@ -102,6 +102,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 }
 .main-header,
 .main-section--home,
+.main-section--log,
 .main-section--settings,
 .log-average {
   padding-left: var(--gap);
@@ -417,6 +418,8 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   background: var(--c-secondary-bg);
   font-size: .8em;
   margin-bottom: calc(var(--gap) * 2);
+  margin-left: calc(-1 * var(--gap));
+  margin-right: calc(-1 * var(--gap));
   padding-bottom: calc(var(--gap) * 2);
   text-align: center;
 }

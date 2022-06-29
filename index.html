@@ -114,10 +114,10 @@
         <div class="home__calc">period day: <span id="counter" class="home__counter">&nbsp;</span></div>
       </div>
 
-      <button class="home__add" id="home-add">Period just started <span class="home__add__tap">tap here</span></button>
+      <button type="button" class="home__add add-form__toggle" id="home-add" form="add-form--home">Period just started <span class="home__add__tap">tap here</span></button>
       
-      <form class="add-form" id="add-form">
-        <input type="date" id="add-date" class="add-form__date" required>
+      <form class="add-form" id="add-form--home">
+        <input type="date" name="add-date" class="add-form__date" required>
         <input type="reset" value="Cancel" class="add-form__button">
         <input type="submit" value="Save" class="add-form__button">
       </form>
@@ -132,15 +132,15 @@
 
 
 <!-- LOG -->
-  <section id="log" class="main-section">
+  <section id="log" class="main-section main-section--log">
     <div class="log-average">
       <span id="average" class="log-average__counter">&nbsp;</span> Days in your average cycle
     </div>
 
-    <button class="log__add" id="log-add">Add entry</button>
+    <button type="button" class="log__add add-form__toggle settings__button" form="add-form--log">Add entry</button>
 
-    <form class="add-form" id="add-form">
-      <input type="date" id="add-date" class="add-form__date" required>
+    <form class="add-form" id="add-form--log">
+      <input type="date" name="add-date" class="add-form__date" required>
       <input type="reset" value="Cancel" class="add-form__button">
       <input type="submit" value="Save" class="add-form__button">
     </form>
