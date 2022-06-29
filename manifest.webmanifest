@@ -1,7 +1,13 @@
 {
   "short_name": "Period Tracker",
   "name": "Period Tracker",
+  "description": "Period Tracker",
   "icons": [
+    {
+      "src": "images/icon.svg",
+      "sizes": "150x150",
+      "type": "image/svg+xml"
+    },
     {
       "src": "images/icon96.png",
       "sizes": "96x96",
