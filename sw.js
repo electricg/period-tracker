@@ -11,6 +11,7 @@ var urls = [
   'js/helpers.js',
   'js/model.js',
   'js/settings.js',
+  'js/storage.js',
   'js/template.js',
   'js/view.js',
   'vendor/moment-2.13.0.min.js',
