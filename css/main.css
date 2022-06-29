@@ -400,9 +400,6 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   padding: 0;
   width: 2.5em;
 }
-.log-list__info--edit {
-  display: none; // temporarily
-}
 .log-list__button {
   background: transparent;
   border: 0 none;

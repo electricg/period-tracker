@@ -270,14 +270,15 @@
     };
 
     this.log = function (data) {
-      // var table = '<table class="log"><tbody>';
-      // data.list.forEach(function(item, index) {
-      //   var s = moment(item.date).format('MMM D, YYYY');
-      //   table += '<tr><td>' + s + '</td><td>' + (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '') + '</td>';
-      //   table += '<td><button data-id="' + item.id + '" data-date="' + item.date + '" class="log-button js-edit" title="Edit"><svg class="icon log-icon"><use href="#icon-edit"></use></svg></button></td><td><button data-id="' + item.id + '" data-date="' + s + '" class="log-button js-remove" title="Remove"><svg class="icon log-icon"><use href="#icon-delete"></use></svg></button></td></tr>';
-      // });
-      // table += '</tbody></table>';
-
+      /*
+      <td class="log-list__info log-list__info--edit">
+        <button data-id="${item.id}" data-date="${item.date}" class="log-list__button js-edit" title="Edit">
+          <svg class="icon log-list__button__icon">
+            <use href="#icon-edit"></use>
+          </svg>
+        </button>
+      </td>
+      */
       var rows = function (prev, item, index) {
         var s = moment(item.date).format('MMM D, YYYY');
         var interval =
@@ -290,13 +291,6 @@
           <tr>
             <td class="log-list__info log-list__info--date">${s}</td>
             <td class="log-list__info log-list__info--interval">${interval}</td>
-            <td class="log-list__info log-list__info--edit">
-              <button data-id="${item.id}" data-date="${item.date}" class="log-list__button js-edit" title="Edit">
-                <svg class="icon log-list__button__icon">
-                  <use href="#icon-edit"></use>
-                </svg>
-              </button>
-            </td>
             <td class="log-list__info log-list__info--remove">
               <button data-id="${item.id}" data-date="${s}" class="log-list__button js-remove" title="Remove">
                 <svg class="icon log-list__button__icon">
