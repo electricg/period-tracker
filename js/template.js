@@ -170,9 +170,9 @@
       var cal = calendarGet(data, _startDayOfWeek, monthN, yearN);
 
       // var table = '<table class="calendar"><thead><tr>';
-      // table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-prev"></use></svg></a></th>';
+      // table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use href="#icon-prev"></use></svg></a></th>';
       // table += '<th colspan="5">' + cal.title + '</th>';
-      // table += '<th><a href="#/calendar/' + cal.next.yearN + '/' + cal.next.monthN + '" title="' + cal.next.title + '"><svg class="icon calendar-icon"><use xlink:href="#icon-next"></use></svg></a></th></tr><tr class="calendar-weekdays">';
+      // table += '<th><a href="#/calendar/' + cal.next.yearN + '/' + cal.next.monthN + '" title="' + cal.next.title + '"><svg class="icon calendar-icon"><use href="#icon-next"></use></svg></a></th></tr><tr class="calendar-weekdays">';
       // cal.week.forEach(function(day) {
       //   table += '<th>' + day + '</th>';
       // });
@@ -241,7 +241,7 @@
         cal.prev.monthN
       }" class="calendar__nav" title="${cal.prev.title}">
                   <svg class="icon calendar__nav__icon">
-                    <use xlink:href="#icon-prev"></use>
+                    <use href="#icon-prev"></use>
                   </svg>
                 </a>
               </th>
@@ -251,7 +251,7 @@
         cal.next.monthN
       }" class="calendar__nav" title="${cal.next.title}">
                   <svg class="icon calendar__nav__icon">
-                    <use xlink:href="#icon-next"></use>
+                    <use href="#icon-next"></use>
                   </svg>
                 </a>
               </th>
@@ -274,7 +274,7 @@
       // data.list.forEach(function(item, index) {
       //   var s = moment(item.date).format('MMM D, YYYY');
       //   table += '<tr><td>' + s + '</td><td>' + (typeof data.intervals[index] !== 'undefined' ? data.intervals[index] : '') + '</td>';
-      //   table += '<td><button data-id="' + item.id + '" data-date="' + item.date + '" class="log-button js-edit" title="Edit"><svg class="icon log-icon"><use xlink:href="#icon-edit"></use></svg></button></td><td><button data-id="' + item.id + '" data-date="' + s + '" class="log-button js-remove" title="Remove"><svg class="icon log-icon"><use xlink:href="#icon-delete"></use></svg></button></td></tr>';
+      //   table += '<td><button data-id="' + item.id + '" data-date="' + item.date + '" class="log-button js-edit" title="Edit"><svg class="icon log-icon"><use href="#icon-edit"></use></svg></button></td><td><button data-id="' + item.id + '" data-date="' + s + '" class="log-button js-remove" title="Remove"><svg class="icon log-icon"><use href="#icon-delete"></use></svg></button></td></tr>';
       // });
       // table += '</tbody></table>';
 
@@ -293,14 +293,14 @@
             <td class="log-list__info log-list__info--edit">
               <button data-id="${item.id}" data-date="${item.date}" class="log-list__button js-edit" title="Edit">
                 <svg class="icon log-list__button__icon">
-                  <use xlink:href="#icon-edit"></use>
+                  <use href="#icon-edit"></use>
                 </svg>
               </button>
             </td>
             <td class="log-list__info log-list__info--remove">
               <button data-id="${item.id}" data-date="${s}" class="log-list__button js-remove" title="Remove">
                 <svg class="icon log-list__button__icon">
-                  <use xlink:href="#icon-delete"></use>
+                  <use href="#icon-delete"></use>
                 </svg>
               </button>
             </td>
@@ -323,13 +323,13 @@
     this.alert = function (type, msg) {
       // var code = '<div class="alert alert-' + type + '"><span>';
       // code += msg;
-      // code += '</span><button class="alert-close js-close" title="Close"><svg class="icon alert-icon"><use xlink:href="#icon-cancel-circle"></use></svg></button></div>';
+      // code += '</span><button class="alert-close js-close" title="Close"><svg class="icon alert-icon"><use href="#icon-cancel-circle"></use></svg></button></div>';
       var code = `
         <div class="alert alert--${type}">
           <span>${msg}</span>
           <button class="alert__close js-close" title="Close" onClick="this.parentNode.remove()">
             <svg class="icon alert__close__icon">
-              <use xlink:href="#icon-cancel-circle"></use>
+              <use href="#icon-cancel-circle"></use>
             </svg>
           </button>
         </div>
