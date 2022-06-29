@@ -323,7 +323,7 @@
      * @returns {boolean} True if load was successful
      */
     var load = function () {
-      _list = storage.getItem('list') || [];
+      _list = storage.getItem('') || [];
     };
 
     /**
@@ -331,7 +331,7 @@
      * @returns {boolean} True if save was successful
      */
     var save = function () {
-      return storage.setItem('list', _list);
+      return storage.setItem('', _list);
     };
 
     /**

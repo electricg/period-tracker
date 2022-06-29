@@ -108,14 +108,18 @@
       });
       const now = moment().format('YYYY-MM-DD');
       const options = {
-        suggestedName: '_period-tracker_' + now + '.json',
+        suggestedName: 'period-tracker_' + now + '.json',
         types: [{ accept: { 'text/plain': ['.json'] } }],
       };
 
-      const fileHandle = await window.showSaveFilePicker(options);
-      const writable = await fileHandle.createWritable();
-      await writable.write(data);
-      await writable.close();
+      try {
+        const fileHandle = await window.showSaveFilePicker(options);
+        const writable = await fileHandle.createWritable();
+        await writable.write(data);
+        await writable.close();
+      } catch (e) {
+        // if the user doesn't save the file, swallow the relative browser error
+      }
     };
 
     _self.view.bind('itemAdd', function (date) {

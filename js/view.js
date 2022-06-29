@@ -199,6 +199,15 @@
           handler(this.getAttribute('data-id'));
         });
       } else if (event === 'importData') {
+        $importData.on('click', function (event) {
+          if (
+            !window.confirm(
+              'This will completely overwrite the data. Do you want to continue?'
+            )
+          ) {
+            prev(event);
+          }
+        });
         $importData.on('change', function () {
           const [file] = $importData.files;
           handler(file);
