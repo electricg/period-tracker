@@ -30,63 +30,10 @@ if (location.protocol === 'http:' && location.hostname !== 'localhost') {
 window.addEventListener('load', load);
 window.addEventListener('hashchange', show);
 
-function onFirstLoad() {
-  var msg = 'ready to work offline';
-  console.log(msg);
-  // the very first activation!
-  // tell the user stuff works offline
-  tracker.view.render('info', msg);
-  tracker.view.render('offline', true);
-}
-
-function onClaimed() {
-  console.log('sw claimed');
-  navigator.serviceWorker.controller.postMessage({
-    type: 'claimed',
-    value: true,
-  });
-}
-
-function onInstalled() {
-  console.log('sw installed');
-}
-
-function onStateChange(newWorker) {
-  if (newWorker.state === 'activated') {
-    onFirstLoad();
-    if (navigator.serviceWorker.controller) {
-      onClaimed();
-    }
-  } else if (
-    newWorker.state === 'installed' &&
-    navigator.serviceWorker.controller
-  ) {
-    onInstalled();
-  }
-}
-
-function onUpdateFound(registration) {
-  var newWorker = registration.installing;
-
-  registration.installing.addEventListener('statechange', () =>
-    onStateChange(newWorker)
-  );
-}
-
 if (features.offline) {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('sw.js')
-      .then(function (registration) {
-        registration.addEventListener('updatefound', () =>
-          onUpdateFound(registration)
-        );
-        if (registration.active && registration.active.state === 'activated') {
-          tracker.view.render('offline', true);
-        }
-      })
-      .catch(function (err) {
-        console.error('ServiceWorker registration failed: ', err);
-      });
-  }
+  var worker = new app.Worker({
+    renderOffline: (status) => tracker.view.render('offline', status),
+    renderInfo: (status) => tracker.view.render('info', status),
+  });
+  worker.init();
 }
