@@ -78,47 +78,51 @@
 
     // TODO clean
     this.importData = function (file) {
-      const reader = new FileReader();
-      if (file) {
-        reader.readAsText(file);
-      }
-      reader.addEventListener(
-        'load',
-        function () {
-          const data = JSON.parse(reader.result);
+      if (supported.fileReader) {
+        const reader = new FileReader();
+        if (file) {
+          reader.readAsText(file);
+        }
+        reader.addEventListener(
+          'load',
+          function () {
+            const data = JSON.parse(reader.result);
 
-          _self.model.update(data.periodTracker.list);
-          _self.config.update(data.periodTracker.config);
-          // update the ui
-          _self.setData();
-          _self.view.render('success', 'Data imported successfully');
-        },
-        false
-      );
+            _self.model.update(data.periodTracker.list);
+            _self.config.update(data.periodTracker.config);
+            // update the ui
+            _self.setData();
+            _self.view.render('success', 'Data imported successfully');
+          },
+          false
+        );
+      }
     };
 
     // TODO clean
     this.exportData = async function () {
-      const data = JSON.stringify({
-        periodTracker: {
-          version: version,
-          list: _self.model.list,
-          config: _self.config.getAll(),
-        },
-      });
-      const now = moment().format('YYYY-MM-DD');
-      const options = {
-        suggestedName: 'period-tracker_' + now + '.json',
-        types: [{ accept: { 'text/plain': ['.json'] } }],
-      };
+      if (supported.fileReader) {
+        const data = JSON.stringify({
+          periodTracker: {
+            version: version,
+            list: _self.model.list,
+            config: _self.config.getAll(),
+          },
+        });
+        const now = moment().format('YYYY-MM-DD');
+        const options = {
+          suggestedName: 'period-tracker_' + now + '.json',
+          types: [{ accept: { 'text/plain': ['.json'] } }],
+        };
 
-      try {
-        const fileHandle = await window.showSaveFilePicker(options);
-        const writable = await fileHandle.createWritable();
-        await writable.write(data);
-        await writable.close();
-      } catch (e) {
-        // if the user doesn't save the file, swallow the relative browser error
+        try {
+          const fileHandle = await window.showSaveFilePicker(options);
+          const writable = await fileHandle.createWritable();
+          await writable.write(data);
+          await writable.close();
+        } catch (e) {
+          // if the user doesn't save the file, swallow the relative browser error
+        }
       }
     };
 

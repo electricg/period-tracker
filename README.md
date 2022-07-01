@@ -18,5 +18,7 @@ Live demo [https://electricg.github.io/period-tracker/](https://electricg.github
 - [x] service worker - work offline
 - [ ] when during event, different homescreen
 - [ ] implement edit entry UI functionality
-- [ ] export data to app functionality
+- [ ] add share to app functionality
 - [x] better sw (with the "new update, refresh")
+- [ ] show export data functionality only if supported
+- [ ] verify how the storage works with the shared sub domain

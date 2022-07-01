@@ -60,3 +60,12 @@ var $delegate = function (target, selector, type, handler) {
 
   target.addEventListener(type, dispatchEvent, !!useCapture);
 };
+
+/**
+ * Check for what is supported by the browser/os/device
+ */
+var supported = {
+  fileReader: 'FileReader' in window,
+  showSaveFilePicker: 'showSaveFilePicker' in window,
+  canShare: false,
+};
