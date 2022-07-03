@@ -11,11 +11,11 @@ js/config.js
 js/controller.js
 js/helpers.js
 js/model.js
+js/offline.js
 js/settings.js
 js/storage.js
 js/template.js
 js/view.js
-js/worker.js
 vendor/moment-2.13.0.min.js
 manifest.webmanifest
 `
