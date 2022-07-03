@@ -1,7 +1,15 @@
 (function (window) {
   'use strict';
 
-  var Worker = function ({ renderOffline, renderInfo }) {
+  const Offline = function ({
+    showOffline = () => {},
+    showInfo = () => {},
+    debug = false,
+    registerFile = 'sw.js',
+    msgInstalled = 'This app is now available offline!',
+    msgUpdated = 'This app has an update, please refresh.',
+  }) {
+    debug && console.log('debug: on');
     let isSWInstalled = false;
 
     /**
@@ -9,24 +17,24 @@
      * @param {boolean} status true if sw is active
      */
     const swUIStatus = (status) => {
-      renderOffline(status);
-      // console.log('sw status', !!status);
+      debug && console.log('debug: sw status', !!status);
+      showOffline(status);
     };
 
     /**
      * Show service worker has been installed for the first time ever
      */
     const swUIFirstTime = () => {
-      // console.log('sw first time ever');
+      debug && console.log('debug: sw first time ever');
       swUIStatus(true);
-      swUIMessage('This app is now available offline!');
+      swUIMessage(msgInstalled);
     };
 
     /**
      * Show service worker has been installed
      */
     const swUIInstalled = () => {
-      // console.log('sw installed');
+      debug && console.log('debug: sw installed');
       swUIStatus(true);
     };
 
@@ -34,8 +42,8 @@
      * Show that service worker has a new update to show
      */
     const swUIUpdate = () => {
-      // console.log('sw there is a new update, please refresh');
-      swUIMessage('This app has an update, please refresh.');
+      debug && console.log('debug: sw there is a new update, please refresh');
+      swUIMessage(msgUpdated);
     };
 
     /**
@@ -43,15 +51,15 @@
      * @param {Object} err error
      */
     const swUIError = (err) => {
-      console.error('ServiceWorker registration failed: ', err);
+      debug && console.error('debug: sw registration failed: ', err);
     };
 
     /**
      * Change the sw message
      * @param {string} msg
      */
-    const swUIMessage = (msg = '') => {
-      renderInfo(msg);
+    const swUIMessage = (msg) => {
+      showInfo(msg);
     };
 
     /**
@@ -63,7 +71,7 @@
     };
 
     const onStateChange = (newWorker) => {
-      // console.log('onStateChange', newWorker.state);
+      debug && console.log('debug: sw onStateChange', newWorker.state);
       if (newWorker.state === 'activated') {
         if (!isSWInstalled) {
           isSWInstalled = swCheckStatus();
@@ -79,7 +87,7 @@
       }
     };
 
-    this.init = function () {
+    const init = function () {
       if ('serviceWorker' in navigator) {
         isSWInstalled = swCheckStatus();
 
@@ -88,7 +96,7 @@
         }
 
         navigator.serviceWorker
-          .register('sw.js')
+          .register(registerFile)
           .then((registration) => {
             registration.addEventListener('updatefound', () => {
               const newWorker = registration.installing;
@@ -103,9 +111,11 @@
           });
       }
     };
+
+    init();
   };
 
   // export to window
   window.app = window.app || {};
-  window.app.Worker = Worker;
+  window.app.Offline = Offline;
 })(window);

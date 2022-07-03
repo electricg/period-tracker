@@ -31,9 +31,8 @@ window.addEventListener('load', load);
 window.addEventListener('hashchange', show);
 
 if (features.offline) {
-  var worker = new app.Worker({
-    renderOffline: (status) => tracker.view.render('offline', status),
-    renderInfo: (status) => tracker.view.render('info', status),
+  var worker = new app.Offline({
+    showOffline: (status) => tracker.view.render('offline', status),
+    showInfo: (msg) => tracker.view.render('info', msg),
   });
-  worker.init();
 }
