@@ -158,7 +158,8 @@
 
     _viewCommands.hideIfNotSupported = function ($el, supported) {
       if (!supported) {
-        $el.classList.toggle('hide', true);
+        // not sure yet if or how I want to show something different UI wise
+        // $el.classList.toggle('hide', true);
       }
     };
 
@@ -218,6 +219,14 @@
         });
       } else if (event === 'importData') {
         $importData.on('click', function (event) {
+          if (!supported.fileReader) {
+            _self.render(
+              'error',
+              'This functionality is not supported in your browser/os/device'
+            );
+            prev(event);
+            return;
+          }
           if (
             !window.confirm(
               'This will completely overwrite the data. Do you want to continue?'
@@ -232,6 +241,14 @@
         });
       } else if (event === 'exportData') {
         $exportData.on('click', function () {
+          if (!supported.showSaveFilePicker) {
+            _self.render(
+              'error',
+              'This functionality is not supported in your browser/os/device'
+            );
+            return;
+          }
+
           handler();
         });
       } else if (event === 'itemRemoveAll') {

@@ -44,10 +44,6 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   width: var(--size);
 }
 
-.hide {
-  display: none !important; /* overwrite as this is applied later via js */
-}
-
 /*=== header */
 .main-header {
   align-items: center;
