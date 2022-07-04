@@ -144,8 +144,13 @@
     this.shareData = function () {
       const { data, filename, title } = prepareDataForExport();
       const file = new File([data], filename, { type: 'text/plain' });
+      const isFirefox = navigator.userAgent.indexOf('Firefox') !== -1;
 
-      if (navigator.canShare) {
+      // Firefox has a bug where text is not actually shared, and
+      // sharing of files is not supported at all, so functionality is
+      // totally disabled for it
+      // https://github.com/mozilla-mobile/fenix/issues/11946
+      if (navigator.canShare && !isFirefox) {
         const sharedObj = {
           title: title,
         };
