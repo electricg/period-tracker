@@ -61,6 +61,22 @@ var $delegate = function (target, selector, type, handler) {
   target.addEventListener(type, dispatchEvent, !!useCapture);
 };
 
+var oldDownload = function (filename, text) {
+  var el = document.createElement('a');
+  el.setAttribute(
+    'href',
+    'data:text/plain;charset=utf-8,' + encodeURIComponent(text)
+  );
+  el.setAttribute('download', filename);
+
+  el.style.display = 'none';
+  document.body.appendChild(el);
+
+  el.click();
+
+  document.body.removeChild(el);
+};
+
 /**
  * Check for what is supported by the browser/os/device
  */

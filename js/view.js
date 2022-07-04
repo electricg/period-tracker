@@ -135,18 +135,6 @@
       }
       $settingsPeriodLength.value = _self.config.get('periodLength');
       $settingsCycleLength.value = _self.config.get('cycleLength');
-
-      // hide import data button if not supported
-      _viewCommands.hideIfNotSupported(
-        $importData.parentNode,
-        supported.fileReader
-      );
-
-      // hide export data button if not supported
-      _viewCommands.hideIfNotSupported(
-        $exportData,
-        supported.showSaveFilePicker
-      );
     };
 
     _viewCommands.offline = function (status) {
@@ -154,13 +142,6 @@
         'main-header__status__icon--active',
         status
       );
-    };
-
-    _viewCommands.hideIfNotSupported = function ($el, supported) {
-      if (!supported) {
-        // not sure yet if or how I want to show something different UI wise
-        // $el.classList.toggle('hide', true);
-      }
     };
 
     this.render = function (viewCmd, model, parameter, args) {
@@ -219,14 +200,6 @@
         });
       } else if (event === 'importData') {
         $importData.on('click', function (event) {
-          if (!supported.fileReader) {
-            _self.render(
-              'error',
-              'This functionality is not supported in your browser/os/device'
-            );
-            prev(event);
-            return;
-          }
           if (
             !window.confirm(
               'This will completely overwrite the data. Do you want to continue?'
@@ -241,14 +214,6 @@
         });
       } else if (event === 'exportData') {
         $exportData.on('click', function () {
-          if (!supported.showSaveFilePicker) {
-            _self.render(
-              'error',
-              'This functionality is not supported in your browser/os/device'
-            );
-            return;
-          }
-
           handler();
         });
       } else if (event === 'itemRemoveAll') {

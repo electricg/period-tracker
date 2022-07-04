@@ -103,10 +103,6 @@
 
     // TODO clean
     this.exportData = async function () {
-      if (!supported.showSaveFilePicker) {
-        throw 'not supported';
-      }
-
       const data = JSON.stringify({
         periodTracker: {
           version: version,
@@ -115,9 +111,16 @@
         },
       });
       const now = moment().format('YYYY-MM-DD');
+      const filename = 'period-tracker_' + now + '.txt';
+
+      if (!supported.showSaveFilePicker) {
+        oldDownload(filename, data);
+        return;
+      }
+
       const options = {
-        suggestedName: 'period-tracker_' + now + '.json',
-        types: [{ accept: { 'text/plain': ['.json'] } }],
+        suggestedName: filename,
+        types: [{ accept: { 'text/plain': ['.txt'] } }],
       };
 
       try {
