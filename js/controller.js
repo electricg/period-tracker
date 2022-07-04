@@ -145,35 +145,20 @@
       const { data, filename, title } = prepareDataForExport();
       const file = new File([data], filename, { type: 'text/plain' });
 
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator
-          .share({
-            title: title,
-            files: [file],
-          })
-          .then(() => {
-            // console.log('Share was successful.');
-          })
-          .catch((e) => {
-            // if the user doesn't share the file, swallow the relative browser error
-            // console.log('Sharing failed', e.message);
-          });
-      } else if (
-        navigator.canShare &&
-        navigator.canShare({ title: title, text: data })
-      ) {
-        navigator
-          .share({
-            title: title,
-            text: data,
-          })
-          .then(() => {
-            // console.log('Share was successful.');
-          })
-          .catch((e) => {
-            // if the user doesn't share the file, swallow the relative browser error
-            // console.log('Sharing failed', e.message);
-          });
+      if (navigator.canShare) {
+        const sharedObj = {
+          title: title,
+        };
+
+        if (navigator.canShare({ files: [file] })) {
+          sharedObj.files = [file];
+        } else if (navigator.canShare({ text: data })) {
+          sharedObj.text = data;
+        }
+
+        navigator.share(sharedObj).catch((e) => {
+          // if the user doesn't share the file, swallow the relative browser error
+        });
       } else {
         _self.view.render(
           'error',
