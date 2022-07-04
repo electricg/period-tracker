@@ -28,6 +28,7 @@
 
     var $importData = $$('#import-data');
     var $exportData = $$('#export-data');
+    var $shareData = $$('#share-data');
     var $deleteAll = $$('#delete-all');
     var $settingsWeekStart = $$('#settings-week-start');
     var $settingsExtendedMonth = $$('#settings-extended-month');
@@ -214,6 +215,10 @@
         });
       } else if (event === 'exportData') {
         $exportData.on('click', function () {
+          handler();
+        });
+      } else if (event === 'shareData') {
+        $shareData.on('click', function () {
           handler();
         });
       } else if (event === 'itemRemoveAll') {

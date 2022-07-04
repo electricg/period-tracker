@@ -101,8 +101,7 @@
       );
     };
 
-    // TODO clean
-    this.exportData = async function () {
+    const prepareDataForExport = function () {
       const data = JSON.stringify({
         periodTracker: {
           version: version,
@@ -112,6 +111,14 @@
       });
       const now = moment().format('YYYY-MM-DD');
       const filename = 'period-tracker_' + now + '.txt';
+      const type = 'text/plain';
+
+      return { data, filename };
+    };
+
+    // TODO clean
+    this.exportData = async function () {
+      const { data, filename } = prepareDataForExport();
 
       if (!supported.showSaveFilePicker) {
         oldDownload(filename, data);
@@ -133,6 +140,31 @@
       }
     };
 
+    // TODO clean
+    this.shareData = function () {
+      const { data, filename } = prepareDataForExport();
+      const file = new File([data], filename, { type: 'text/plain' });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator
+          .share({
+            files: [file],
+            title: 'Dummy title',
+            text: 'Some dummy text file',
+          })
+          .then(() => console.log('Share was successful.'))
+          .catch((e) => {
+            // if the user doesn't share the file, swallow the relative browser error
+            // console.log('Sharing failed', e.message);
+          });
+      } else {
+        _self.view.render(
+          'error',
+          'This functionality is not supported in your browser/os/device'
+        );
+      }
+    };
+
     _self.view.bind('itemAdd', function (date) {
       return _self.addItem(date);
     });
@@ -151,6 +183,10 @@
 
     _self.view.bind('exportData', function () {
       return _self.exportData();
+    });
+
+    _self.view.bind('shareData', function () {
+      return _self.shareData();
     });
 
     _self.view.bind('itemRemoveAll', function () {
