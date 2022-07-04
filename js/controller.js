@@ -111,9 +111,9 @@
       });
       const now = moment().format('YYYY-MM-DD');
       const filename = 'period-tracker_' + now + '.txt';
-      const type = 'text/plain';
+      const title = 'Period Tracker Backup ' + now;
 
-      return { data, filename };
+      return { data, filename, title };
     };
 
     // TODO clean
@@ -142,17 +142,34 @@
 
     // TODO clean
     this.shareData = function () {
-      const { data, filename } = prepareDataForExport();
+      const { data, filename, title } = prepareDataForExport();
       const file = new File([data], filename, { type: 'text/plain' });
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator
           .share({
+            title: title,
             files: [file],
-            title: 'Dummy title',
-            text: 'Some dummy text file',
           })
-          .then(() => console.log('Share was successful.'))
+          .then(() => {
+            // console.log('Share was successful.');
+          })
+          .catch((e) => {
+            // if the user doesn't share the file, swallow the relative browser error
+            // console.log('Sharing failed', e.message);
+          });
+      } else if (
+        navigator.canShare &&
+        navigator.canShare({ title: title, text: data })
+      ) {
+        navigator
+          .share({
+            title: title,
+            text: data,
+          })
+          .then(() => {
+            // console.log('Share was successful.');
+          })
           .catch((e) => {
             // if the user doesn't share the file, swallow the relative browser error
             // console.log('Sharing failed', e.message);
