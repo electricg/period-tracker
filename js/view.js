@@ -200,6 +200,7 @@
           }, 0);
         });
       } else if (event === 'itemEdit') {
+        // TODO clean
         var $editFormTr = document.createElement('tr');
         var $newTd = document.createElement('td');
         $editFormTr.classList.add('log-list__item--edit-form');
@@ -213,6 +214,7 @@
 
           $editForm.elements['edit-id'].value = id;
           $editForm.elements['edit-date'].value = date;
+          $editForm.elements['edit-date'].max = helpers.todayStr;
 
           var $tr = this.parentNode.parentNode;
           $log
