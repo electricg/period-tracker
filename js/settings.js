@@ -1,5 +1,5 @@
 /* jshint unused:false */
-const version = '0.6.4';
+const version = '0.7';
 const namespace = 'periodTracker';
 
 var defaultSettings = {
