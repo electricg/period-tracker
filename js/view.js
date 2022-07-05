@@ -182,18 +182,21 @@
               $el.classList.remove('log-list__item--selected');
             });
           $tr.classList.add('log-list__item--selected');
-          // TODO
-          if (
-            window.confirm(
-              'Are you sure you want to delete `' +
-                this.getAttribute('data-date') +
-                '`?'
-            )
-          ) {
-            handler(this.getAttribute('data-id'));
-          } else {
-            $tr.classList.toggle('log-list__item--selected');
-          }
+          // When showed a confirm dialog in Chrome and similar browsers, earlier DOM changes are not yet visible, hence the delay with setTimeout
+          // https://stackoverflow.com/a/59286014
+          setTimeout(() => {
+            if (
+              window.confirm(
+                'Are you sure you want to delete `' +
+                  this.getAttribute('data-date') +
+                  '`?'
+              )
+            ) {
+              handler(this.getAttribute('data-id'));
+            } else {
+              $tr.classList.toggle('log-list__item--selected');
+            }
+          }, 0);
         });
       } else if (event === 'itemEdit') {
         $delegate($log, '.js-edit', 'click', function () {

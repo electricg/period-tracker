@@ -381,10 +381,11 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 /*=== log */
 .log-list {
   border-collapse: collapse;
+  margin-top: var(--gap);
   width: 100%;
 }
 .log-list__item--selected {
-  background: #F00;
+  outline: 2px dashed var(--c-theme-first);
 }
 .log-list__info {
   border-bottom: 1px solid var(--c-secondary-bg);
