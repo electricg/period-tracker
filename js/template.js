@@ -6,7 +6,6 @@
     var _self = this;
     _self.config = config;
 
-    var _today = moment();
     var _week = moment.weekdaysShort();
 
     /**
@@ -16,8 +15,8 @@
      * @param {number} yearN - year number
      */
     var calendarGet = function (data, startDayOfWeek, monthN, yearN) {
-      monthN = monthN || _today.format('M');
-      yearN = yearN || _today.format('YYYY');
+      monthN = monthN || helpers.today.format('M');
+      yearN = yearN || helpers.today.format('YYYY');
 
       var thisMonth = moment(yearN + '-' + monthN, 'YYYY-M');
       var weekdayFirstDayThisMonth = thisMonth.format('d');
@@ -59,7 +58,12 @@
       diffStart = daysInPrevMonth - diffStart + 1;
       for (var i1 = diffStart; i1 <= daysInPrevMonth; i1++) {
         days.push({
-          date: prevObj.yearN + '-' + z(prevObj.monthN) + '-' + z(i1),
+          date:
+            prevObj.yearN +
+            '-' +
+            helpers.z(prevObj.monthN) +
+            '-' +
+            helpers.z(i1),
           n: i1,
           c: '',
           k: ['calendar__day--another-month'],
@@ -68,7 +72,7 @@
       // during
       for (var i2 = 1; i2 <= daysInThisMonth; i2++) {
         days.push({
-          date: yearN + '-' + z(monthN) + '-' + z(i2),
+          date: yearN + '-' + helpers.z(monthN) + '-' + helpers.z(i2),
           n: i2,
           c: '',
           k: [],
@@ -81,7 +85,12 @@
       }
       for (var i3 = 1; i3 <= diffEnd; i3++) {
         days.push({
-          date: nextObj.yearN + '-' + z(nextObj.monthN) + '-' + z(i3),
+          date:
+            nextObj.yearN +
+            '-' +
+            helpers.z(nextObj.monthN) +
+            '-' +
+            helpers.z(i3),
           n: i3,
           c: '',
           k: ['calendar__day--another-month'],
@@ -123,12 +132,12 @@
             firstDayDate.diff(lastEventDate, 'days') + 1;
           var daysFirstDiff = daysFirstSinceLastEvent % data.average;
           var n = firstDayDate.clone().subtract(daysFirstDiff - 1, 'days');
-          sliceOfDates = [n.format('YYYY-MM-DD')];
+          sliceOfDates = [n.format(helpers.datePattern)];
           var daysEndDiff = daysFirstDiff + days.length;
           var quotient = Math.floor(daysEndDiff / data.average);
           for (var q = 0; q <= quotient; q++) {
             n.add(data.average, 'days');
-            sliceOfDates.unshift(n.format('YYYY-MM-DD'));
+            sliceOfDates.unshift(n.format(helpers.datePattern));
           }
         }
       }
@@ -136,7 +145,7 @@
       var firstEventDate = moment(sliceOfDates[sliceOfDates.length - 1]);
       var counter = firstDayDate.diff(firstEventDate, 'days') + 1;
 
-      var today = _today.format('YYYY-MM-DD');
+      var todayStr = helpers.todayStr;
       days.forEach(function (item) {
         if (sliceOfDates.indexOf(item.date) !== -1) {
           counter = 1;
@@ -147,9 +156,9 @@
           }
           counter++;
         }
-        if (item.date === today) {
+        if (item.date === todayStr) {
           item.k.push('calendar__day--today');
-        } else if (item.date > today) {
+        } else if (item.date > todayStr) {
           item.k.push('calendar__day--future');
         }
       });

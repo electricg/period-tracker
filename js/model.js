@@ -2,7 +2,6 @@
 (function (window) {
   'use strict';
 
-  const datePattern = 'YYYY-MM-DD';
   // this regexp is not strict as the date validation will be performed by moment.js
   const dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
   const averageIntervals = 3;
@@ -11,7 +10,7 @@
     var _self = this;
     _self.config = config;
 
-    var _today = moment().format(datePattern);
+    var todayStr = helpers.todayStr;
     var _list = [];
     var _quicklist = [];
     var _intervals = [];
@@ -87,7 +86,7 @@
         return false;
       }
       // check if the date is actually valid
-      return moment(date, datePattern).isValid();
+      return moment(date, helpers.datePattern).isValid();
     };
 
     /**
@@ -282,13 +281,13 @@
      * Calculate next occurance
      */
     var calcNext = function () {
-      var last = _today;
+      var last = todayStr;
       var lastItem = _list[0];
       if (lastItem) {
         last = lastItem.date;
       }
       if (_list.length) {
-        _next = moment(last).add(_average, 'days').format(datePattern);
+        _next = moment(last).add(_average, 'days').format(helpers.datePattern);
       } else {
         _next = '';
       }
@@ -299,7 +298,7 @@
      */
     var calcCountdown = function () {
       if (_next) {
-        _countdown = moment(_next).diff(_today, 'days');
+        _countdown = moment(_next).diff(todayStr, 'days');
         _counter = _average - _countdown + 1;
       } else {
         _countdown = 0;

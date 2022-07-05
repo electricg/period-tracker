@@ -102,11 +102,11 @@
       $countdown.innerHTML = model.countdown;
       $counter.innerHTML = model.counter;
       $homeCalc.classList.toggle('home__calc--invisible', !model.next);
-      var today = moment().format('YYYY-MM-DD');
+      var todayStr = helpers.todayStr;
       $addDate.forEach(function ($el) {
-        $el.defaultValue = today;
-        $el.value = today;
-        $el.max = today;
+        $el.defaultValue = todayStr;
+        $el.value = todayStr;
+        $el.max = todayStr;
       });
       // hide add button if we are into the period time
       $homeAdd.classList.toggle(
@@ -162,7 +162,7 @@
 
         $addForm.forEach(function ($el) {
           $el.on('submit', function (event) {
-            prev(event);
+            helpers.prev(event);
             var res = handler(this.elements['add-date'].value);
             if (res !== -1) {
               this.reset();
@@ -175,7 +175,7 @@
           });
         });
       } else if (event === 'itemRemove') {
-        $delegate($log, '.js-remove', 'click', function () {
+        helpers.$delegate($log, '.js-remove', 'click', function () {
           var $tr = this.parentNode.parentNode;
           $log
             .querySelectorAll('.log-list__item--selected')
@@ -207,7 +207,7 @@
         $newTd.appendChild($editForm);
         $editFormTr.appendChild($newTd);
 
-        $delegate($log, '.js-edit', 'click', function () {
+        helpers.$delegate($log, '.js-edit', 'click', function () {
           var id = this.getAttribute('data-id');
           var date = this.getAttribute('data-date');
 
@@ -225,7 +225,7 @@
         });
 
         $editForm.on('submit', function (event) {
-          prev(event);
+          helpers.prev(event);
           var res = handler(
             this.elements['edit-id'].value,
             this.elements['edit-date'].value
@@ -247,7 +247,7 @@
               'This will completely overwrite the data. Do you want to continue?'
             )
           ) {
-            prev(event);
+            helpers.prev(event);
           }
         });
         $importData.on('change', function () {

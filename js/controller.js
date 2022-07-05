@@ -78,7 +78,7 @@
 
     // TODO clean
     this.importData = function (file) {
-      if (!supported.fileReader) {
+      if (!'FileReader' in window) {
         throw 'not supported';
       }
 
@@ -109,7 +109,7 @@
           config: _self.config.getAll(),
         },
       });
-      const now = moment().format('YYYY-MM-DD');
+      const now = helpers.todayStr;
       const filename = 'period-tracker_' + now + '.txt';
       const title = 'Period Tracker Backup ' + now;
 
@@ -120,8 +120,8 @@
     this.exportData = async function () {
       const { data, filename } = prepareDataForExport();
 
-      if (!supported.showSaveFilePicker) {
-        oldDownload(filename, data);
+      if (!'showSaveFilePicker' in window) {
+        helpers.oldDownload(filename, data);
         return;
       }
 
