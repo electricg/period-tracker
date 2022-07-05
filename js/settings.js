@@ -1,5 +1,5 @@
 /* jshint unused:false */
-const version = '0.7';
+const version = '0.8';
 const namespace = 'periodTracker';
 
 var defaultSettings = {
@@ -10,5 +10,5 @@ var defaultSettings = {
 };
 
 var features = {
-  offline: false,
+  offline: true,
 };
