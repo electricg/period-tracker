@@ -387,6 +387,19 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 .log-list__item--selected {
   outline: 2px dashed var(--c-theme-first);
 }
+.log-list__item--edit-form {
+  outline: 2px dashed var(--c-theme-first);
+  position: relative;
+}
+.log-list__item--edit-form:after {
+  background-color: var(--c-main-bg);
+  content: '';
+  height: 4px;
+  left: 0;
+  position: absolute;
+  top: -2px;
+  width: 100%;
+}
 .log-list__info {
   border-bottom: 1px solid var(--c-secondary-bg);
   padding: .6em .5em .5em;

@@ -180,8 +180,8 @@
       return _self.removeItem(id);
     });
 
-    _self.view.bind('itemEdit', function (id) {
-      return _self.editItem(id);
+    _self.view.bind('itemEdit', function (id, date) {
+      return _self.editItem(id, date);
     });
 
     _self.view.bind('importData', function (file) {

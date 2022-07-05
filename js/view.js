@@ -21,6 +21,7 @@
     var $addFormToggle = $('.add-form__toggle');
     var $addForm = $('.add-form');
     var $addDate = $('input[name="add-date"]');
+    var $editForm = $$('#edit-form--log');
 
     var $cal = $$('#calendar-data');
     var $average = $$('#average');
@@ -199,8 +200,45 @@
           }, 0);
         });
       } else if (event === 'itemEdit') {
+        var $editFormTr = document.createElement('tr');
+        var $newTd = document.createElement('td');
+        $editFormTr.classList.add('log-list__item--edit-form');
+        $newTd.setAttribute('colspan', 4);
+        $newTd.appendChild($editForm);
+        $editFormTr.appendChild($newTd);
+
         $delegate($log, '.js-edit', 'click', function () {
-          handler(this.getAttribute('data-id'));
+          var id = this.getAttribute('data-id');
+          var date = this.getAttribute('data-date');
+
+          $editForm.elements['edit-id'].value = id;
+          $editForm.elements['edit-date'].value = date;
+
+          var $tr = this.parentNode.parentNode;
+          $log
+            .querySelectorAll('.log-list__item--selected')
+            .forEach(function ($el) {
+              $el.classList.remove('log-list__item--selected');
+            });
+          $tr.classList.add('log-list__item--selected');
+          $tr.parentNode.insertBefore($editFormTr, $tr.nextSibling);
+        });
+
+        $editForm.on('submit', function (event) {
+          prev(event);
+          var res = handler(
+            this.elements['edit-id'].value,
+            this.elements['edit-date'].value
+          );
+          if (res !== -1) {
+            this.reset();
+          }
+        });
+        $editForm.on('reset', function () {
+          $editFormTr.previousSibling.classList.remove(
+            'log-list__item--selected'
+          );
+          $editFormTr.remove();
         });
       } else if (event === 'importData') {
         $importData.on('click', function (event) {
