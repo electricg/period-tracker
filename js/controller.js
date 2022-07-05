@@ -78,7 +78,7 @@
 
     // TODO clean
     this.importData = function (file) {
-      if (!'FileReader' in window) {
+      if (!('FileReader' in window)) {
         throw 'not supported';
       }
 
@@ -120,7 +120,7 @@
     this.exportData = async function () {
       const { data, filename } = prepareDataForExport();
 
-      if (!'showSaveFilePicker' in window) {
+      if (!('showSaveFilePicker' in window)) {
         helpers.oldDownload(filename, data);
         return;
       }
