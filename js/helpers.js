@@ -83,5 +83,4 @@ var oldDownload = function (filename, text) {
 var supported = {
   fileReader: 'FileReader' in window,
   showSaveFilePicker: 'showSaveFilePicker' in window,
-  canShare: false,
 };
