@@ -227,6 +227,14 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   }
 }
 
+/*=== edit form */
+.edit-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 .5em;
+}
+
 /*=== nav */
 .main-nav {
   background: var(--c-theme-first);
