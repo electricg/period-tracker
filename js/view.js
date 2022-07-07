@@ -21,7 +21,9 @@
     var $addFormToggle = $('.add-form__toggle');
     var $addForm = $('.add-form');
     var $addDate = $('input[name="add-date"]');
+
     var $editForm = $$('#edit-form--log');
+    var $editFormTr = $$('#edit-form--log-tr');
 
     var $cal = $$('#calendar-data');
     var $average = $$('#average');
@@ -199,24 +201,16 @@
             }
           }, 0);
         });
-      } else if (event === 'itemEdit') {
-        // TODO clean
-        var $editFormTr = document.createElement('tr');
-        var $newTd = document.createElement('td');
-        $editFormTr.classList.add('log-list__item--edit-form');
-        $newTd.setAttribute('colspan', 4);
-        $newTd.appendChild($editForm);
-        $editFormTr.appendChild($newTd);
-
+      } else if (event === 'showItemEdit') {
         helpers.$delegate($log, '.js-edit', 'click', function () {
           var id = this.getAttribute('data-id');
-          var date = this.getAttribute('data-date');
+          var $tr = this.parentNode.parentNode;
+          var { date } = handler(id);
 
           $editForm.elements['edit-id'].value = id;
           $editForm.elements['edit-date'].value = date;
           $editForm.elements['edit-date'].max = helpers.todayStr;
 
-          var $tr = this.parentNode.parentNode;
           $log
             .querySelectorAll('.log-list__item--selected')
             .forEach(function ($el) {
@@ -225,7 +219,15 @@
           $tr.classList.add('log-list__item--selected');
           $tr.parentNode.insertBefore($editFormTr, $tr.nextSibling);
         });
-
+        $editForm.on('reset', function () {
+          if ($editFormTr.previousSibling) {
+            $editFormTr.previousSibling.classList.remove(
+              'log-list__item--selected'
+            );
+          }
+          $editFormTr.remove();
+        });
+      } else if (event === 'itemEdit') {
         $editForm.on('submit', function (event) {
           helpers.prev(event);
           var res = handler(
@@ -235,12 +237,6 @@
           if (res !== -1) {
             this.reset();
           }
-        });
-        $editForm.on('reset', function () {
-          $editFormTr.previousSibling.classList.remove(
-            'log-list__item--selected'
-          );
-          $editFormTr.remove();
         });
       } else if (event === 'importData') {
         $importData.on('click', function (event) {

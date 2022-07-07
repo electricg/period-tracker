@@ -184,6 +184,10 @@
       return _self.editItem(id, date);
     });
 
+    _self.view.bind('showItemEdit', function (id) {
+      return _self.model.getById(id);
+    });
+
     _self.view.bind('importData', function (file) {
       return _self.importData(file);
     });

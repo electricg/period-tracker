@@ -132,14 +132,25 @@
       <input type="submit" value="Save" class="add-form__button">
     </form>
 
-    <form class="edit-form" id="edit-form--log">
-      <input type="hidden" name="edit-id">
-      <input type="date" name="edit-date" class="add-form__date" required aria-label="Entry starting date">
-      <input type="reset" value="Cancel" class="add-form__button">
-      <input type="submit" value="Save" class="add-form__button">
-    </form>
+    
 
-    <div id="log-data"></div>
+    <div>
+      <table class="log-list">
+        <tbody id="log-data"></tbody>
+        <tfoot>
+          <tr id="edit-form--log-tr" class="log-list__item--edit-form">
+            <td colspan="4">
+              <form class="edit-form" id="edit-form--log">
+                <input type="hidden" name="edit-id">
+                <input type="date" name="edit-date" class="add-form__date" required aria-label="Entry starting date">
+                <input type="reset" value="Cancel" class="add-form__button">
+                <input type="submit" value="Save" class="add-form__button">
+              </form>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </section>
 
 

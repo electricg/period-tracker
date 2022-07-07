@@ -408,6 +408,9 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   top: -2px;
   width: 100%;
 }
+tfoot .log-list__item--edit-form {
+  display: none;
+}
 .log-list__info {
   border-bottom: 1px solid var(--c-secondary-bg);
   padding: .6em .5em .5em;

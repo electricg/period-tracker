@@ -295,11 +295,7 @@
       };
 
       var table = `
-        <table class="log-list">
-          <tbody>
-            ${data.list.reduce(rows, '')}
-          </tbody>
-        </table>
+        ${data.list.reduce(rows, '')}
       `;
 
       return table;

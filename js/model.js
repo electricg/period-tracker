@@ -394,6 +394,19 @@
       return modify('update', null, null, list);
     };
 
+    /**
+     * Return item selected by id
+     * @param {string} id
+     * @returns {number|object} -1 if not successful, otherwise the selected item
+     */
+    this.getById = function (id) {
+      var indexById = findById(id);
+      if (indexById === -1) {
+        return -1;
+      }
+      return _list[indexById];
+    };
+
     this.init();
   };
 
