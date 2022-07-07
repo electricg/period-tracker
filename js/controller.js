@@ -104,9 +104,8 @@
         },
       });
       const now = helpers.todayStr;
-      // TODO move to settings
-      const filename = `period-tracker_${now}.txt`;
-      const title = `Period Tracker Backup ${now}`;
+      const filename = FILE.name.replace('${now}', now);
+      const title = FILE.title.replace('${now}', now);
 
       return { data, filename, title };
     };

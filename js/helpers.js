@@ -14,6 +14,9 @@ NodeList.prototype.forEach = Array.prototype.forEach;
     const _today = moment();
     const _todayStr = _today.format(_datePattern);
 
+    const _notSupported =
+      'This functionality is not supported in your browser/os/device';
+
     Object.defineProperty(this, 'today', {
       get: function () {
         return _today;
@@ -114,9 +117,8 @@ NodeList.prototype.forEach = Array.prototype.forEach;
      * @returns {Promise} promise with the content
      */
     this.readFromInputFile = async function (file) {
-      console.log(file);
       if (!('FileReader' in window)) {
-        throw 'This functionality is not supported in your browser/os/device';
+        throw _notSupported;
       }
 
       const reader = new FileReader();
@@ -191,7 +193,7 @@ NodeList.prototype.forEach = Array.prototype.forEach;
           // if the user doesn't share the file, swallow the relative browser error
         });
       } else {
-        throw 'This functionality is not supported in your browser/os/device';
+        throw _notSupported;
       }
     };
   };

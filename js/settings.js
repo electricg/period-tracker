@@ -15,5 +15,11 @@ const FEATURES = {
   offline: false,
 };
 
+const FILE = {
+  name: 'period-tracker_${now}.txt',
+  title: 'Period Tracker Backup ${now}',
+};
+
 Object.freeze(DEFAULT_USER_SETTINGS);
 Object.freeze(FEATURES);
+Object.freeze(FILE);
