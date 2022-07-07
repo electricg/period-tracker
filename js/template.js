@@ -178,26 +178,6 @@
       var _periodLength = _self.config.get('periodLength');
       var cal = calendarGet(data, _startDayOfWeek, monthN, yearN);
 
-      // var table = '<table class="calendar"><thead><tr>';
-      // table += '<th><a href="#/calendar/' + cal.prev.yearN + '/' + cal.prev.monthN + '" title="' + cal.prev.title + '"><svg class="icon calendar-icon"><use href="#icon-prev"></use></svg></a></th>';
-      // table += '<th colspan="5">' + cal.title + '</th>';
-      // table += '<th><a href="#/calendar/' + cal.next.yearN + '/' + cal.next.monthN + '" title="' + cal.next.title + '"><svg class="icon calendar-icon"><use href="#icon-next"></use></svg></a></th></tr><tr class="calendar-weekdays">';
-      // cal.week.forEach(function(day) {
-      //   table += '<th>' + day + '</th>';
-      // });
-      // table += '</tr></thead><tbody>';
-      // for (var d = 0; d < cal.days.length; d+=7) {
-      //   table += '<tr>';
-      //   for (var dd = d; dd < (d+7); dd++) {
-      //     if (cal.days[dd].c >=1 && cal.days[dd].c <= _periodLength) {
-      //       cal.days[dd].k.push('selected');
-      //     }
-      //     table += '<td data-counter="' + cal.days[dd].c + '"' + (cal.days[dd].k.length ? ' class="' + cal.days[dd].k.join(' ') + '"' : '') +'>' + cal.days[dd].n + '</td>';
-      //   }
-      //   table += '</tr>';
-      // }
-      // table += '</tbody></table>';
-
       var rowsTitle = function (prev, day) {
         return (
           prev +
@@ -326,9 +306,6 @@
     };
 
     this.alert = function (type, msg) {
-      // var code = '<div class="alert alert-' + type + '"><span>';
-      // code += msg;
-      // code += '</span><button class="alert-close js-close" title="Close"><svg class="icon alert-icon"><use href="#icon-cancel-circle"></use></svg></button></div>';
       var code = `
         <div class="alert alert--${type}">
           <span>${msg}</span>

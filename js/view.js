@@ -320,12 +320,6 @@
           });
         });
       }
-      // else if (event === 'alert') {
-      //   window.alertClose = function(el) {
-      //     $alerts.removeChild(el.parentNode);
-      //     handler();
-      //   };
-      // }
     };
   };
 
