@@ -69,6 +69,7 @@
      * @return {object}
      */
     this.getAll = function () {
+      // TODO clean
       return JSON.parse(JSON.stringify(_options));
     };
   };

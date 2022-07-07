@@ -1,6 +1,6 @@
-/* global self, caches, version */
+/* global self, caches, VERSION */
 self.importScripts('js/settings.js');
-const cacheName = `v${version}::static`;
+const cacheName = `v${VERSION}::static`;
 
 const fileList = `
 ./
@@ -35,7 +35,7 @@ self.addEventListener('install', (e) => {
         });
       })
       .then(() => {
-        console.log(`offline ${version} ready 🎉`);
+        console.log(`offline ${VERSION} ready 🎉`);
       })
   );
 });

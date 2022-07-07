@@ -1,14 +1,19 @@
 /* jshint unused:false */
-const version = '0.8';
-const namespace = 'periodTracker';
+'use strict';
 
-var defaultSettings = {
+const VERSION = '0.7';
+const NAMESPACE = 'periodTracker';
+
+const DEFAULT_USER_SETTINGS = {
   startDayOfWeek: 1, // 0 Sunday, 1 Monday
   showExtendedMonth: false,
   periodLength: 4,
   cycleLength: 28,
 };
 
-var features = {
-  offline: true,
+const FEATURES = {
+  offline: false,
 };
+
+Object.freeze(DEFAULT_USER_SETTINGS);
+Object.freeze(FEATURES);

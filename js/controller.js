@@ -89,10 +89,11 @@
       reader.addEventListener(
         'load',
         function () {
-          const data = JSON.parse(reader.result);
+          // TODO add try catch to the parse
+          const data = JSON.parse(reader.result)[NAMESPACE];
 
-          _self.model.update(data.periodTracker.list);
-          _self.config.update(data.periodTracker.config);
+          _self.model.update(data.list);
+          _self.config.update(data.config);
           // update the ui
           _self.setData();
           _self.view.render('success', 'Data imported successfully');
@@ -103,15 +104,16 @@
 
     const prepareDataForExport = function () {
       const data = JSON.stringify({
-        periodTracker: {
-          version: version,
+        [NAMESPACE]: {
+          version: VERSION,
           list: _self.model.list,
           config: _self.config.getAll(),
         },
       });
       const now = helpers.todayStr;
-      const filename = 'period-tracker_' + now + '.txt';
-      const title = 'Period Tracker Backup ' + now;
+      // TODO move to settings
+      const filename = `period-tracker_${now}.txt`;
+      const title = `Period Tracker Backup ${now}`;
 
       return { data, filename, title };
     };

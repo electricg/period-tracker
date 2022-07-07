@@ -1,4 +1,6 @@
 /* exported $, $$ */
+'use strict';
+
 var $ = document.querySelectorAll.bind(document);
 var $$ = document.querySelector.bind(document);
 Element.prototype.on = Element.prototype.addEventListener;

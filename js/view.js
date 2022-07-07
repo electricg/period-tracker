@@ -94,7 +94,7 @@
     };
 
     _viewCommands.chrome = function () {
-      $version.innerHTML = version;
+      $version.innerHTML = VERSION;
     };
 
     _viewCommands.home = function (model) {

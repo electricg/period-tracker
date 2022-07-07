@@ -1,4 +1,6 @@
-/* global app, namespace, defaultSettings, features */
+/* global app, NAMESPACE, DEFAULT_USER_SETTINGS, FEATURES */
+'use strict';
+
 var Tracker = function (namespace, settings) {
   this.storage = new app.Storage(namespace);
   this.config = new app.Config(settings, this.storage);
@@ -8,7 +10,7 @@ var Tracker = function (namespace, settings) {
   this.controller = new app.Controller(this.model, this.view);
 };
 
-var tracker = new Tracker(namespace, defaultSettings);
+var tracker = new Tracker(NAMESPACE, DEFAULT_USER_SETTINGS);
 
 var show = function () {
   tracker.controller.setSection(document.location.hash);
@@ -30,7 +32,7 @@ if (location.protocol === 'http:' && location.hostname !== 'localhost') {
 window.addEventListener('load', load);
 window.addEventListener('hashchange', show);
 
-if (features.offline) {
+if (FEATURES.offline) {
   new app.Offline({
     showOffline: (status) => tracker.view.render('offline', status),
     showInfo: (msg) => tracker.view.render('info', msg),
