@@ -23,3 +23,11 @@ Live demo [https://electricg.github.io/period-tracker/](https://electricg.github
 - [x] better sw (with the "new update, refresh")
 - [x] show export data functionality only if supported
 - [ ] verify how the storage works with the shared sub domain
+- [ ] use <time datetime="YYYY-MM-DD"> tag
+- [ ] add legend to calendar
+- [ ] add navigation by year, and back to today, in calendar
+- [ ] dark mode
+- [ ] update moment library
+- [ ] custom splash screen
+- [ ] manifest doesn't have a maskable icon
+- [ ] add functionality to clear/update sw cache from the app ui
