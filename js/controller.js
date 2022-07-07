@@ -76,30 +76,23 @@
       _self.setData();
     };
 
-    // TODO clean
-    this.importData = function (file) {
-      if (!('FileReader' in window)) {
-        throw 'not supported';
+    this.importData = async function (file) {
+      let data = {};
+
+      try {
+        const res = await helpers.readFromInputFile(file);
+        data = JSON.parse(res)[NAMESPACE];
+      } catch (e) {
+        _self.view.render('error', e);
+        return;
       }
 
-      const reader = new FileReader();
-      if (file) {
-        reader.readAsText(file);
-      }
-      reader.addEventListener(
-        'load',
-        function () {
-          // TODO add try catch to the parse
-          const data = JSON.parse(reader.result)[NAMESPACE];
+      _self.model.update(data.list);
+      _self.config.update(data.config);
 
-          _self.model.update(data.list);
-          _self.config.update(data.config);
-          // update the ui
-          _self.setData();
-          _self.view.render('success', 'Data imported successfully');
-        },
-        false
-      );
+      // // update the ui
+      _self.setData();
+      _self.view.render('success', 'Data imported successfully');
     };
 
     const prepareDataForExport = function () {

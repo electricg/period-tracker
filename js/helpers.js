@@ -107,6 +107,33 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 
       document.body.removeChild(el);
     };
+
+    /**
+     * Read content from uploaded file
+     * @param {object} file
+     * @returns {Promise} promise with the content
+     */
+    this.readFromInputFile = async function (file) {
+      console.log(file);
+      if (!('FileReader' in window)) {
+        throw 'This functionality is not supported in your browser/os/device';
+      }
+
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsText(file);
+      }
+
+      return new Promise((resolve) => {
+        reader.addEventListener(
+          'load',
+          function () {
+            resolve(reader.result);
+          },
+          false
+        );
+      });
+    };
   };
 
   window.helpers = new Helpers();
