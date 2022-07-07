@@ -248,8 +248,10 @@
               <th>
                 <a href="#/calendar/${cal.prev.yearN}/${
         cal.prev.monthN
-      }" class="calendar__nav" title="${cal.prev.title}">
-                  <svg class="icon calendar__nav__icon">
+      }" class="calendar__nav" title="${cal.prev.title}" aria-label="${
+        cal.prev.title
+      }">
+                  <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
                     <use href="#icon-prev"></use>
                   </svg>
                 </a>
@@ -258,8 +260,10 @@
               <th>
                 <a href="#/calendar/${cal.next.yearN}/${
         cal.next.monthN
-      }" class="calendar__nav" title="${cal.next.title}">
-                  <svg class="icon calendar__nav__icon">
+      }" class="calendar__nav" title="${cal.next.title}" aria-label="${
+        cal.next.title
+      }">
+                  <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
                     <use href="#icon-next"></use>
                   </svg>
                 </a>
@@ -292,15 +296,15 @@
             <td class="log-list__info log-list__info--date">${s}</td>
             <td class="log-list__info log-list__info--interval">${interval}</td>
             <td class="log-list__info log-list__info--edit">
-              <button data-id="${item.id}" data-date="${item.date}" class="log-list__button js-edit" title="Edit">
-                <svg class="icon log-list__button__icon">
+              <button data-id="${item.id}" data-date="${item.date}" class="log-list__button js-edit" title="Edit" aria-label="Edit">
+                <svg class="icon log-list__button__icon" focusable="false" aria-hidden="true">
                   <use href="#icon-edit"></use>
                 </svg>
               </button>
             </td>
             <td class="log-list__info log-list__info--remove">
-              <button data-id="${item.id}" data-date="${s}" class="log-list__button js-remove" title="Remove">
-                <svg class="icon log-list__button__icon">
+              <button data-id="${item.id}" data-date="${s}" class="log-list__button js-remove" title="Remove" aria-label="Remove">
+                <svg class="icon log-list__button__icon" focusable="false" aria-hidden="true">
                   <use href="#icon-delete"></use>
                 </svg>
               </button>
@@ -328,8 +332,8 @@
       var code = `
         <div class="alert alert--${type}">
           <span>${msg}</span>
-          <button class="alert__close js-close" title="Close" onClick="this.parentNode.remove()">
-            <svg class="icon alert__close__icon">
+          <button class="alert__close js-close" title="Close" aria-label="Close" onClick="this.parentNode.remove()">
+            <svg class="icon alert__close__icon" focusable="false" aria-hidden="true">
               <use href="#icon-cancel-circle"></use>
             </svg>
           </button>
