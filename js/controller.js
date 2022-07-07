@@ -111,28 +111,10 @@
       return { data, filename, title };
     };
 
-    // TODO clean
     this.exportData = async function () {
       const { data, filename } = prepareDataForExport();
 
-      if (!('showSaveFilePicker' in window)) {
-        helpers.oldDownload(filename, data);
-        return;
-      }
-
-      const options = {
-        suggestedName: filename,
-        types: [{ accept: { 'text/plain': ['.txt'] } }],
-      };
-
-      try {
-        const fileHandle = await window.showSaveFilePicker(options);
-        const writable = await fileHandle.createWritable();
-        await writable.write(data);
-        await writable.close();
-      } catch (e) {
-        // if the user doesn't save the file, swallow the relative browser error
-      }
+      await helpers.writeToFile(filename, data);
     };
 
     // TODO clean

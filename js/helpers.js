@@ -92,7 +92,7 @@ NodeList.prototype.forEach = Array.prototype.forEach;
      * @param {string} filename - name of the file
      * @param {string} text - content of the file
      */
-    this.oldDownload = function (filename, text) {
+    const oldDownload = function (filename, text) {
       var el = document.createElement('a');
       el.setAttribute(
         'href',
@@ -133,6 +133,33 @@ NodeList.prototype.forEach = Array.prototype.forEach;
           false
         );
       });
+    };
+
+    /**
+     * Write content into file
+     * @param {string} filename - name of the file
+     * @param {string} text - content of the file
+     * @returns {Promise}
+     */
+    this.writeToFile = async function (filename, text) {
+      if (!('showSaveFilePicker' in window)) {
+        oldDownload(filename, text);
+        return;
+      }
+
+      const options = {
+        suggestedName: filename,
+        types: [{ accept: { 'text/plain': ['.txt'] } }],
+      };
+
+      try {
+        const fileHandle = await window.showSaveFilePicker(options);
+        const writable = await fileHandle.createWritable();
+        await writable.write(text);
+        await writable.close();
+      } catch (e) {
+        // if the user doesn't save the file, swallow the relative browser error
+      }
     };
   };
 
