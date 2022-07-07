@@ -113,39 +113,15 @@
 
     this.exportData = async function () {
       const { data, filename } = prepareDataForExport();
-
       await helpers.writeToFile(filename, data);
     };
 
-    // TODO clean
     this.shareData = function () {
       const { data, filename, title } = prepareDataForExport();
-      const file = new File([data], filename, { type: 'text/plain' });
-      const isFirefox = navigator.userAgent.indexOf('Firefox') !== -1;
-
-      // Firefox has a bug where text is not actually shared, and
-      // sharing of files is not supported at all, so functionality is
-      // totally disabled for it
-      // https://github.com/mozilla-mobile/fenix/issues/11946
-      if (navigator.canShare && !isFirefox) {
-        const sharedObj = {
-          title: title,
-        };
-
-        if (navigator.canShare({ files: [file] })) {
-          sharedObj.files = [file];
-        } else if (navigator.canShare({ text: data })) {
-          sharedObj.text = data;
-        }
-
-        navigator.share(sharedObj).catch((e) => {
-          // if the user doesn't share the file, swallow the relative browser error
-        });
-      } else {
-        _self.view.render(
-          'error',
-          'This functionality is not supported in your browser/os/device'
-        );
+      try {
+        helpers.shareTo(filename, data, title);
+      } catch (e) {
+        _self.view.render('error', e);
       }
     };
 

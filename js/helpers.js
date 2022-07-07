@@ -161,6 +161,39 @@ NodeList.prototype.forEach = Array.prototype.forEach;
         // if the user doesn't save the file, swallow the relative browser error
       }
     };
+
+    /**
+     * Share content to other apps
+     * @param {string} filename - name of the file
+     * @param {string} text - content of the file
+     * @param {string} title - title of the file
+     */
+    this.shareTo = function (filename, text, title) {
+      const file = new File([text], filename, { type: 'text/plain' });
+      const isFirefox = navigator.userAgent.indexOf('Firefox') !== -1;
+
+      // Firefox has a bug where text is not actually shared, and
+      // sharing of files is not supported at all, so functionality is
+      // totally disabled for it
+      // https://github.com/mozilla-mobile/fenix/issues/11946
+      if (navigator.canShare && !isFirefox) {
+        const sharedObj = {
+          title: title,
+        };
+
+        if (navigator.canShare({ files: [file] })) {
+          sharedObj.files = [file];
+        } else if (navigator.canShare({ text: text })) {
+          sharedObj.text = text;
+        }
+
+        navigator.share(sharedObj).catch((e) => {
+          // if the user doesn't share the file, swallow the relative browser error
+        });
+      } else {
+        throw 'This functionality is not supported in your browser/os/device';
+      }
+    };
   };
 
   window.helpers = new Helpers();
