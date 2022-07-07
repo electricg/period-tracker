@@ -1,7 +1,7 @@
 /* jshint unused:false */
 'use strict';
 
-const VERSION = '0.7';
+const VERSION = '0.9';
 const NAMESPACE = 'periodTracker';
 
 const DEFAULT_USER_SETTINGS = {
