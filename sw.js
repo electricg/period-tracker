@@ -52,13 +52,17 @@ self.addEventListener('fetch', (event) => {
           return (
             res ||
             fetch(url).then((response) => {
-              cache.put(url, response.clone());
+              // check if request is made by chrome extensions or web page, because of some installed chrome extension, service worker throws the error `TypeError: Request scheme 'chrome-extension' is unsupported`
+              // https://stackoverflow.com/questions/49157622/service-worker-typeerror-when-opening-chrome-extension
+              if (url.url.startsWith('http')) {
+                cache.put(url, response.clone());
+              }
               return response;
             })
           );
         })
         .catch((error) => {
-          // console.log(error); // swallow error
+          console.log(error);
         });
     })
   );
