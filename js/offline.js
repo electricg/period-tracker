@@ -112,6 +112,28 @@
       }
     };
 
+    /**
+     * Send message object to the service worker
+     * @param {object} message
+     */
+    const sendMessage = (message) => {
+      navigator.serviceWorker.controller.postMessage(message);
+    };
+
+    /**
+     * Unregister service worker and send message to delete all caches
+     */
+    this.clearSW = async () => {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      const unregisterPromises = registrations.map((registration) =>
+        registration.unregister()
+      );
+      await Promise.all([...unregisterPromises]);
+      sendMessage({
+        type: 'clear',
+      });
+    };
+
     init();
   };
 

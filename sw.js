@@ -76,6 +76,17 @@ const clearOldCaches = () => {
   });
 };
 
+const clearAllCaches = () =>
+  caches.keys().then((keys) => keys.forEach((key) => caches.delete(key)));
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(clearOldCaches().then(() => self.clients.claim()));
+});
+
+self.addEventListener('message', (event) => {
+  console.log('sw received message:', event);
+  if (event.data.type === 'clear') {
+    console.log('delete all caches');
+    clearAllCaches();
+  }
 });
