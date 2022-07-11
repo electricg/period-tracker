@@ -101,6 +101,10 @@
       $next.innerHTML = model.next
         ? moment(model.next).format('ddd, MMM D')
         : '';
+      $next.setAttribute(
+        'datetime',
+        model.next ? moment(model.next).format(helpers.datePattern) : ''
+      );
       $countdown.innerHTML = model.countdown;
       $counter.innerHTML = model.counter;
       $homeCalc.classList.toggle('home__calc--invisible', !model.next);

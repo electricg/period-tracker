@@ -228,9 +228,9 @@
               <th>
                 <a href="#/calendar/${cal.prev.yearN}/${
         cal.prev.monthN
-      }" class="calendar__nav" title="${cal.prev.title}" aria-label="${
+      }" class="calendar__nav" title="${
         cal.prev.title
-      }">
+      }" aria-label="Previous month, ${cal.prev.title}">
                   <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
                     <use href="#icon-prev"></use>
                   </svg>
@@ -240,9 +240,9 @@
               <th>
                 <a href="#/calendar/${cal.next.yearN}/${
         cal.next.monthN
-      }" class="calendar__nav" title="${cal.next.title}" aria-label="${
+      }" class="calendar__nav" title="${
         cal.next.title
-      }">
+      }" aria-label="Next month, ${cal.next.title}">
                   <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
                     <use href="#icon-next"></use>
                   </svg>
@@ -273,10 +273,10 @@
           prev +
           `
           <tr>
-            <td class="log-list__info log-list__info--date">${s}</td>
+            <td class="log-list__info log-list__info--date"><time datetime="${item.date}">${s}</time></td>
             <td class="log-list__info log-list__info--interval">${interval}</td>
             <td class="log-list__info log-list__info--edit">
-              <button data-id="${item.id}" data-date="${item.date}" class="log-list__button js-edit" title="Edit" aria-label="Edit">
+              <button data-id="${item.id}" class="log-list__button js-edit" title="Edit" aria-label="Edit">
                 <svg class="icon log-list__button__icon" focusable="false" aria-hidden="true">
                   <use href="#icon-edit"></use>
                 </svg>
