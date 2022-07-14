@@ -329,9 +329,27 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   width: 100%;
 }
 .calendar__nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.calendar__nav div {
+  align-items: center;
+  display: flex;
+}
+.calendar__nav__middle a {
+  margin-right: -0.9em;
+}
+.calendar__nav__middle span {
+  padding: 0 1em;
+}
+.calendar__nav__middle svg {
+  --size: 0.9em;
+}
+.calendar__nav__link {
   display: block;
 }
-.calendar__nav:hover, .calendar__nav:focus {
+.calendar__nav__link:hover, .calendar__nav__link:focus {
   color: var(--c-theme-second);
 }
 .calendar__nav__icon {

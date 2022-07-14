@@ -25,7 +25,7 @@ Live demo [https://electricg.github.io/period-tracker/](https://electricg.github
 - [ ] verify how the storage works with the shared sub domain
 - [x] use <time datetime="YYYY-MM-DD"> tag
 - [ ] add legend to calendar
-- [ ] add navigation by year, and back to today, in calendar
+- [x] add navigation by year, and back to today, in calendar
 - [ ] dark mode
 - [ ] update moment library
 - [ ] custom splash screen

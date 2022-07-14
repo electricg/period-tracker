@@ -15,8 +15,11 @@
      * @param {number} yearN - year number
      */
     var calendarGet = function (data, startDayOfWeek, monthN, yearN) {
-      monthN = monthN || helpers.today.format('M');
-      yearN = yearN || helpers.today.format('YYYY');
+      var currentMonthN = helpers.today.format('M');
+      var currentYearN = helpers.today.format('YYYY');
+
+      monthN = monthN || currentMonthN;
+      yearN = yearN || currentYearN;
 
       var thisMonth = moment(yearN + '-' + monthN, 'YYYY-M');
       var weekdayFirstDayThisMonth = thisMonth.format('d');
@@ -45,6 +48,27 @@
         monthN: prevMonth.format('M'),
         yearN: prevMonth.format('YYYY'),
         title: prevMonth.format('MMMM YYYY'),
+      };
+
+      // previous and next year data for nav links
+      var nextYear = thisMonth.clone().add(1, 'years');
+      var prevYear = thisMonth.clone().subtract(1, 'years');
+      var nextYearObj = {
+        monthN: nextYear.format('M'),
+        yearN: nextYear.format('YYYY'),
+        title: nextYear.format('MMMM YYYY'),
+      };
+      var prevYearObj = {
+        monthN: prevYear.format('M'),
+        yearN: prevYear.format('YYYY'),
+        title: prevYear.format('MMMM YYYY'),
+      };
+
+      // current month and year data for today link
+      var currentObj = {
+        monthN: currentMonthN,
+        yearN: currentYearN,
+        title: helpers.today.format('MMMM YYYY'),
       };
 
       var days = [];
@@ -98,6 +122,7 @@
       }
 
       // maximum date that is less than or equal the first day of the visible month
+      // TODO what is this?
       var floor;
       var firstDay = days[0].date;
       var firstDayDate = moment(firstDay);
@@ -169,6 +194,9 @@
         title: monthTitle,
         next: nextObj,
         prev: prevObj,
+        nextYear: nextYearObj,
+        prevYear: prevYearObj,
+        current: currentObj,
       };
     };
 
@@ -221,32 +249,71 @@
 
       var showExtendedMonth = _showExtendedMonth ? 'calendar--extended' : '';
 
+      var currentMonthLink =
+        (monthN === undefined && yearN === undefined) ||
+        (monthN === cal.current.monthN && yearN === cal.current.yearN)
+          ? ''
+          : `
+        <a href="#/calendar/${cal.current.yearN}/${cal.current.monthN}" class="calendar__nav__link" title="${cal.current.title}" aria-label="This month, ${cal.current.title}">
+          <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+            <use href="#icon-today"></use>
+          </svg>
+        </a>
+      `;
+
       var table = `
         <table class="calendar ${showExtendedMonth}">
           <thead>
             <tr>
-              <th>
-                <a href="#/calendar/${cal.prev.yearN}/${
+              <th colspan="7">
+                <nav class="calendar__nav">
+                  <div>
+                    <a href="#/calendar/${cal.prev.yearN}/${
         cal.prev.monthN
-      }" class="calendar__nav" title="${
+      }" class="calendar__nav__link" title="${
         cal.prev.title
       }" aria-label="Previous month, ${cal.prev.title}">
-                  <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
-                    <use href="#icon-prev"></use>
-                  </svg>
-                </a>
-              </th>
-              <th colspan="5">${cal.title}</th>
-              <th>
-                <a href="#/calendar/${cal.next.yearN}/${
+                      <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+                        <use href="#icon-prev"></use>
+                      </svg>
+                    </a>
+                    <a href="#/calendar/${cal.next.yearN}/${
         cal.next.monthN
-      }" class="calendar__nav" title="${
+      }" class="calendar__nav__link" title="${
         cal.next.title
       }" aria-label="Next month, ${cal.next.title}">
-                  <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
-                    <use href="#icon-next"></use>
-                  </svg>
-                </a>
+                      <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+                        <use href="#icon-next"></use>
+                      </svg>
+                    </a>
+                  </div>
+                
+                  <div class="calendar__nav__middle">
+                    <span>${cal.title}</span>
+                    ${currentMonthLink}
+                  </div>
+
+                  <div>
+                    <a href="#/calendar/${cal.prevYear.yearN}/${
+        cal.prevYear.monthN
+      }" class="calendar__nav__link" title="${
+        cal.prevYear.title
+      }" aria-label="Previous year, ${cal.prevYear.title}">
+                      <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+                        <use href="#icon-up"></use>
+                      </svg>
+                    </a>
+                    <a href="#/calendar/${cal.nextYear.yearN}/${
+        cal.nextYear.monthN
+      }" class="calendar__nav__link" title="${
+        cal.nextYear.title
+      }" aria-label="Next year, ${cal.nextYear.title}">
+                      <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+                        <use href="#icon-down"></use>
+                      </svg>
+                    </a>
+                  </div>
+                </nav>
               </th>
             </tr>
             <tr>
