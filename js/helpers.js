@@ -1,5 +1,5 @@
 /* exported $, $$ */
-/* global moment */
+/* global dates */
 'use strict';
 
 var $ = document.querySelectorAll.bind(document);
@@ -12,8 +12,8 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 (function (window) {
   var Helpers = function () {
     const _datePattern = 'YYYY-MM-DD';
-    const _today = moment(); // moment
-    const _todayStr = _today.format(_datePattern); // moment
+    const _today = dates.newDate();
+    const _todayStr = _today.formatDate(_datePattern);
 
     const _notSupported =
       'This functionality is not supported in your browser/os/device';
@@ -196,6 +196,15 @@ NodeList.prototype.forEach = Array.prototype.forEach;
       } else {
         throw _notSupported;
       }
+    };
+
+    /**
+     * Create a unique identifier
+     */
+    this.uid = function () {
+      return `${performance.now()}${Math.random()
+        .toString()
+        .replace('0.', '')}`.replace('.', '');
     };
   };
 

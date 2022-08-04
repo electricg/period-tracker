@@ -1,4 +1,4 @@
-/* global moment, helpers */
+/* global moment, dates, helpers */
 (function (window) {
   'use strict';
 
@@ -86,7 +86,7 @@
         return false;
       }
       // check if the date is actually valid
-      return moment(date, helpers.datePattern).isValid(); // moment
+      return dates.isValid(date, helpers.datePattern);
     };
 
     /**
@@ -133,13 +133,13 @@
       if (findByDate(date) !== -1) {
         return -1;
       }
-      var now = moment(); // moment
-      var id = now.valueOf() + ''; // moment
+      var now = dates.newDate();
+      var id = helpers.uid();
       var newItem = {
         id: id,
         date: date,
-        created: now.format(), // moment
-        updated: now.format(), // moment
+        created: now.formatDate(),
+        updated: now.formatDate(),
       };
       _list.unshift(newItem);
       sortDesc();
@@ -165,7 +165,7 @@
       }
       var el = _list[indexById];
       el.date = date;
-      el.updated = moment().format(); // moment
+      el.updated = dates.newDate().formatDate();
       sortDesc();
       return el;
     };
@@ -257,7 +257,8 @@
     var calcIntervals = function () {
       _intervals = [];
       for (var i = 1; i < _list.length; i++) {
-        _intervals.push(moment(_list[i - 1].date).diff(_list[i].date, 'days')); // moment
+        var diff = dates.diffOnce(_list[i - 1].date, _list[i].date, 'days');
+        _intervals.push(diff);
       }
     };
 
@@ -298,7 +299,7 @@
      */
     var calcCountdown = function () {
       if (_next) {
-        _countdown = moment(_next).diff(todayStr, 'days'); // moment
+        _countdown = dates.diffOnce(_next, todayStr, 'days');
         _counter = _average - _countdown + 1;
       } else {
         _countdown = 0;

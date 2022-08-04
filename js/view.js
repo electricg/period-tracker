@@ -1,4 +1,4 @@
-/* global $, $$, moment, helpers, VERSION */
+/* global $, $$, dates, helpers, VERSION */
 (function (window) {
   'use strict';
 
@@ -99,12 +99,9 @@
 
     _viewCommands.home = function (model) {
       $next.innerHTML = model.next
-        ? moment(model.next).format('ddd, MMM D') // moment
+        ? dates.formatOnce(model.next, 'ddd, MMM D')
         : '';
-      $next.setAttribute(
-        'datetime',
-        model.next ? moment(model.next).format(helpers.datePattern) : '' // moment
-      );
+      $next.setAttribute('datetime', model.next ? model.next : '');
       $countdown.innerHTML = model.countdown;
       $counter.innerHTML = model.counter;
       $homeCalc.classList.toggle('home__calc--invisible', !model.next);

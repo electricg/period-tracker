@@ -1,4 +1,4 @@
-/* global moment, helpers */
+/* global moment, dates, helpers */
 (function (window) {
   'use strict';
 
@@ -6,7 +6,7 @@
     var _self = this;
     _self.config = config;
 
-    var _week = moment.weekdaysShort(); // moment
+    var _week = dates.weekdaysShort();
 
     /**
      * @param {object} data
@@ -15,8 +15,8 @@
      * @param {number} yearN - year number
      */
     var calendarGet = function (data, startDayOfWeek, monthN, yearN) {
-      var currentMonthN = helpers.today.format('M'); // moment
-      var currentYearN = helpers.today.format('YYYY'); // moment
+      var currentMonthN = helpers.today.formatDate('M');
+      var currentYearN = helpers.today.formatDate('YYYY');
 
       monthN = monthN || currentMonthN;
       yearN = yearN || currentYearN;
@@ -39,7 +39,7 @@
 
       // previous and next month data for nav links
       var nextMonth = thisMonth.clone().add(1, 'months'); // moment
-      var prevMonth = thisMonth.clone().subtract(1, 'months'); // moment
+      var prevMonth = thisMonth.clone().add(-1, 'months'); // moment
       var nextObj = {
         monthN: nextMonth.format('M'), // moment
         yearN: nextMonth.format('YYYY'), // moment
@@ -53,7 +53,7 @@
 
       // previous and next year data for nav links
       var nextYear = thisMonth.clone().add(1, 'years'); // moment
-      var prevYear = thisMonth.clone().subtract(1, 'years'); // moment
+      var prevYear = thisMonth.clone().add(-1, 'years'); // moment
       var nextYearObj = {
         monthN: nextYear.format('M'), // moment
         yearN: nextYear.format('YYYY'), // moment
@@ -69,7 +69,7 @@
       var currentObj = {
         monthN: currentMonthN,
         yearN: currentYearN,
-        title: helpers.today.format('MMMM YYYY'), // moment
+        title: helpers.today.formatDate('MMMM YYYY'),
       };
 
       var days = [];
@@ -332,7 +332,7 @@
 
     this.log = function (data) {
       var rows = function (prev, item, index) {
-        var s = moment(item.date).format('MMM D, YYYY'); // moment
+        var s = dates.formatOnce(item.date, 'MMM D, YYYY');
         var interval =
           typeof data.intervals[index] !== 'undefined'
             ? data.intervals[index]
