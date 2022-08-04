@@ -1,4 +1,5 @@
 /* jshint unused:false */
+/* eslint no-unused-vars: "off" */
 'use strict';
 
 const VERSION = '0.9';

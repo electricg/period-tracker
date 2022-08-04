@@ -1,0 +1,22 @@
+{
+  "name": "period-tracker",
+  "version": "1.0.0",
+  "description": "Live demo [https://electricg.github.io/period-tracker/](https://electricg.github.io/period-tracker/)",
+  "main": "js/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electricg/period-tracker.git"
+  },
+  "author": "Giulia Alfonsi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/electricg/period-tracker/issues"
+  },
+  "homepage": "https://github.com/electricg/period-tracker#readme",
+  "devDependencies": {
+    "eslint": "^8.21.0"
+  }
+}

@@ -1,3 +1,4 @@
+/* global helpers, NAMESPACE, VERSION, FILE */
 (function (window) {
   'use strict';
 
@@ -90,7 +91,7 @@
       _self.model.update(data.list);
       _self.config.update(data.config);
 
-      // // update the ui
+      // update the ui
       _self.setData();
       _self.view.render('success', 'Data imported successfully');
     };

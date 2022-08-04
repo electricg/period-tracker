@@ -1,4 +1,4 @@
-/* global $, $$, $delegate, prev, moment */
+/* global $, $$, moment, helpers, VERSION */
 (function (window) {
   'use strict';
 

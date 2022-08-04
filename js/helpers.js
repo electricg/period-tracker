@@ -1,4 +1,5 @@
 /* exported $, $$ */
+/* global moment */
 'use strict';
 
 var $ = document.querySelectorAll.bind(document);
@@ -189,7 +190,7 @@ NodeList.prototype.forEach = Array.prototype.forEach;
           sharedObj.text = text;
         }
 
-        navigator.share(sharedObj).catch((e) => {
+        navigator.share(sharedObj).catch(() => {
           // if the user doesn't share the file, swallow the relative browser error
         });
       } else {

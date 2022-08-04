@@ -1,4 +1,4 @@
-/* global moment, z */
+/* global moment, helpers */
 (function (window) {
   'use strict';
 
@@ -128,7 +128,7 @@
       var firstDayDate = moment(firstDay);
       for (var i5 = 0; i5 < data.quicklist.length; i5++) {
         if (data.quicklist[i5] <= firstDay) {
-          floor = data.quicklist[i5];
+          floor = data.quicklist[i5]; // eslint-disable-line no-unused-vars
           break;
         }
       }

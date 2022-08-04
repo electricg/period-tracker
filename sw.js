@@ -1,4 +1,4 @@
-/* global self, caches, VERSION */
+/* global VERSION */
 self.importScripts('js/settings.js');
 const cacheName = `v${VERSION}::static`;
 
