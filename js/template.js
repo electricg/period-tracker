@@ -6,7 +6,7 @@
     var _self = this;
     _self.config = config;
 
-    var _week = moment.weekdaysShort();
+    var _week = moment.weekdaysShort(); // moment
 
     /**
      * @param {object} data
@@ -15,21 +15,22 @@
      * @param {number} yearN - year number
      */
     var calendarGet = function (data, startDayOfWeek, monthN, yearN) {
-      var currentMonthN = helpers.today.format('M');
-      var currentYearN = helpers.today.format('YYYY');
+      var currentMonthN = helpers.today.format('M'); // moment
+      var currentYearN = helpers.today.format('YYYY'); // moment
 
       monthN = monthN || currentMonthN;
       yearN = yearN || currentYearN;
 
-      var thisMonth = moment(yearN + '-' + monthN, 'YYYY-M');
-      var weekdayFirstDayThisMonth = thisMonth.format('d');
-      var daysInThisMonth = thisMonth.daysInMonth();
+      var thisMonth = moment(yearN + '-' + monthN, 'YYYY-M'); // moment
+      var weekdayFirstDayThisMonth = thisMonth.format('d'); // moment
+      var daysInThisMonth = thisMonth.daysInMonth(); // moment
       var lastDayThisMonth = moment(
+        // moment
         yearN + '-' + monthN + '-' + daysInThisMonth,
         'YYYY-M-D'
       );
-      var weekdayLastDayThisMonth = lastDayThisMonth.format('d');
-      var monthTitle = thisMonth.format('MMMM YYYY');
+      var weekdayLastDayThisMonth = lastDayThisMonth.format('d'); // moment
+      var monthTitle = thisMonth.format('MMMM YYYY'); // moment
 
       // rearrange weekday names starting from our own first day of the week
       var weekTitle = _week.slice(0);
@@ -37,44 +38,44 @@
       weekTitle = weekTitle.concat(leftoverWeek);
 
       // previous and next month data for nav links
-      var nextMonth = thisMonth.clone().add(1, 'months');
-      var prevMonth = thisMonth.clone().subtract(1, 'months');
+      var nextMonth = thisMonth.clone().add(1, 'months'); // moment
+      var prevMonth = thisMonth.clone().subtract(1, 'months'); // moment
       var nextObj = {
-        monthN: nextMonth.format('M'),
-        yearN: nextMonth.format('YYYY'),
-        title: nextMonth.format('MMMM YYYY'),
+        monthN: nextMonth.format('M'), // moment
+        yearN: nextMonth.format('YYYY'), // moment
+        title: nextMonth.format('MMMM YYYY'), // moment
       };
       var prevObj = {
-        monthN: prevMonth.format('M'),
-        yearN: prevMonth.format('YYYY'),
-        title: prevMonth.format('MMMM YYYY'),
+        monthN: prevMonth.format('M'), // moment
+        yearN: prevMonth.format('YYYY'), // moment
+        title: prevMonth.format('MMMM YYYY'), // moment
       };
 
       // previous and next year data for nav links
-      var nextYear = thisMonth.clone().add(1, 'years');
-      var prevYear = thisMonth.clone().subtract(1, 'years');
+      var nextYear = thisMonth.clone().add(1, 'years'); // moment
+      var prevYear = thisMonth.clone().subtract(1, 'years'); // moment
       var nextYearObj = {
-        monthN: nextYear.format('M'),
-        yearN: nextYear.format('YYYY'),
-        title: nextYear.format('MMMM YYYY'),
+        monthN: nextYear.format('M'), // moment
+        yearN: nextYear.format('YYYY'), // moment
+        title: nextYear.format('MMMM YYYY'), // moment
       };
       var prevYearObj = {
-        monthN: prevYear.format('M'),
-        yearN: prevYear.format('YYYY'),
-        title: prevYear.format('MMMM YYYY'),
+        monthN: prevYear.format('M'), // moment
+        yearN: prevYear.format('YYYY'), // moment
+        title: prevYear.format('MMMM YYYY'), // moment
       };
 
       // current month and year data for today link
       var currentObj = {
         monthN: currentMonthN,
         yearN: currentYearN,
-        title: helpers.today.format('MMMM YYYY'),
+        title: helpers.today.format('MMMM YYYY'), // moment
       };
 
       var days = [];
 
       // before
-      var daysInPrevMonth = prevMonth.daysInMonth();
+      var daysInPrevMonth = prevMonth.daysInMonth(); // moment
       var diffStart = weekdayFirstDayThisMonth - startDayOfWeek;
       if (diffStart < 0) {
         diffStart = 7 + diffStart;
@@ -125,7 +126,7 @@
       // TODO what is this?
       var floor;
       var firstDay = days[0].date;
-      var firstDayDate = moment(firstDay);
+      var firstDayDate = moment(firstDay); // moment
       for (var i5 = 0; i5 < data.quicklist.length; i5++) {
         if (data.quicklist[i5] <= firstDay) {
           floor = data.quicklist[i5]; // eslint-disable-line no-unused-vars
@@ -136,7 +137,7 @@
       // minimum date that is greater than the last day of the visible month
       var ceiling;
       var lastDay = days[days.length - 1].date;
-      var lastDayDate = moment(lastDay);
+      var lastDayDate = moment(lastDay); // moment
       for (var i6 = i5 - 1; i6 >= 0; i6--) {
         if (data.quicklist[i6] > lastDay) {
           ceiling = data.quicklist[i6];
@@ -149,26 +150,26 @@
 
       // if we have the maximum but not the minimum date, it means we are in the future, so calculate the next events
       if (!ceiling && data.quicklist.length) {
-        var lastEventDate = moment(sliceOfDates[0]);
+        var lastEventDate = moment(sliceOfDates[0]); // moment
         var daysLastSinceLastEvent =
-          lastDayDate.diff(lastEventDate, 'days') + 1;
+          lastDayDate.diff(lastEventDate, 'days') + 1; // moment
         if (daysLastSinceLastEvent > data.average) {
           var daysFirstSinceLastEvent =
-            firstDayDate.diff(lastEventDate, 'days') + 1;
+            firstDayDate.diff(lastEventDate, 'days') + 1; // moment
           var daysFirstDiff = daysFirstSinceLastEvent % data.average;
-          var n = firstDayDate.clone().subtract(daysFirstDiff - 1, 'days');
-          sliceOfDates = [n.format(helpers.datePattern)];
+          var n = firstDayDate.clone().subtract(daysFirstDiff - 1, 'days'); // moment
+          sliceOfDates = [n.format(helpers.datePattern)]; // moment
           var daysEndDiff = daysFirstDiff + days.length;
           var quotient = Math.floor(daysEndDiff / data.average);
           for (var q = 0; q <= quotient; q++) {
-            n.add(data.average, 'days');
-            sliceOfDates.unshift(n.format(helpers.datePattern));
+            n.add(data.average, 'days'); // moment
+            sliceOfDates.unshift(n.format(helpers.datePattern)); // moment
           }
         }
       }
 
-      var firstEventDate = moment(sliceOfDates[sliceOfDates.length - 1]);
-      var counter = firstDayDate.diff(firstEventDate, 'days') + 1;
+      var firstEventDate = moment(sliceOfDates[sliceOfDates.length - 1]); // moment
+      var counter = firstDayDate.diff(firstEventDate, 'days') + 1; // moment
 
       var todayStr = helpers.todayStr;
       days.forEach(function (item) {
@@ -331,7 +332,7 @@
 
     this.log = function (data) {
       var rows = function (prev, item, index) {
-        var s = moment(item.date).format('MMM D, YYYY');
+        var s = moment(item.date).format('MMM D, YYYY'); // moment
         var interval =
           typeof data.intervals[index] !== 'undefined'
             ? data.intervals[index]

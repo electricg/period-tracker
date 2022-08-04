@@ -99,11 +99,11 @@
 
     _viewCommands.home = function (model) {
       $next.innerHTML = model.next
-        ? moment(model.next).format('ddd, MMM D')
+        ? moment(model.next).format('ddd, MMM D') // moment
         : '';
       $next.setAttribute(
         'datetime',
-        model.next ? moment(model.next).format(helpers.datePattern) : ''
+        model.next ? moment(model.next).format(helpers.datePattern) : '' // moment
       );
       $countdown.innerHTML = model.countdown;
       $counter.innerHTML = model.counter;

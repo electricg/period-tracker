@@ -86,7 +86,7 @@
         return false;
       }
       // check if the date is actually valid
-      return moment(date, helpers.datePattern).isValid();
+      return moment(date, helpers.datePattern).isValid(); // moment
     };
 
     /**
@@ -133,13 +133,13 @@
       if (findByDate(date) !== -1) {
         return -1;
       }
-      var now = moment();
-      var id = now.valueOf() + '';
+      var now = moment(); // moment
+      var id = now.valueOf() + ''; // moment
       var newItem = {
         id: id,
         date: date,
-        created: now.format(),
-        updated: now.format(),
+        created: now.format(), // moment
+        updated: now.format(), // moment
       };
       _list.unshift(newItem);
       sortDesc();
@@ -165,7 +165,7 @@
       }
       var el = _list[indexById];
       el.date = date;
-      el.updated = moment().format();
+      el.updated = moment().format(); // moment
       sortDesc();
       return el;
     };
@@ -257,7 +257,7 @@
     var calcIntervals = function () {
       _intervals = [];
       for (var i = 1; i < _list.length; i++) {
-        _intervals.push(moment(_list[i - 1].date).diff(_list[i].date, 'days'));
+        _intervals.push(moment(_list[i - 1].date).diff(_list[i].date, 'days')); // moment
       }
     };
 
@@ -287,7 +287,7 @@
         last = lastItem.date;
       }
       if (_list.length) {
-        _next = moment(last).add(_average, 'days').format(helpers.datePattern);
+        _next = moment(last).add(_average, 'days').format(helpers.datePattern); // moment
       } else {
         _next = '';
       }
@@ -298,7 +298,7 @@
      */
     var calcCountdown = function () {
       if (_next) {
-        _countdown = moment(_next).diff(todayStr, 'days');
+        _countdown = moment(_next).diff(todayStr, 'days'); // moment
         _counter = _average - _countdown + 1;
       } else {
         _countdown = 0;

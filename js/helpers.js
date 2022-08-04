@@ -12,8 +12,8 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 (function (window) {
   var Helpers = function () {
     const _datePattern = 'YYYY-MM-DD';
-    const _today = moment();
-    const _todayStr = _today.format(_datePattern);
+    const _today = moment(); // moment
+    const _todayStr = _today.format(_datePattern); // moment
 
     const _notSupported =
       'This functionality is not supported in your browser/os/device';
