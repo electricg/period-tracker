@@ -7,8 +7,10 @@ const fileList = `
 css/main.css
 images/icon.svg
 js/app.js
+js/calendar.js
 js/config.js
 js/controller.js
+js/dates.js
 js/helpers.js
 js/model.js
 js/offline.js
