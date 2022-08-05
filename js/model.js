@@ -1,8 +1,8 @@
-/* global moment, dates, helpers */
+/* global dates, helpers */
 (function (window) {
   'use strict';
 
-  // this regexp is not strict as the date validation will be performed by moment.js
+  // this regexp is not strict as the date validation will be performed by dates object
   const dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
   const averageIntervals = 3;
 
@@ -133,13 +133,13 @@
       if (findByDate(date) !== -1) {
         return -1;
       }
-      var now = dates.newDate();
+      var now = dates.newDate().formatDate();
       var id = helpers.uid();
       var newItem = {
         id: id,
         date: date,
-        created: now.formatDate(),
-        updated: now.formatDate(),
+        created: now,
+        updated: now,
       };
       _list.unshift(newItem);
       sortDesc();
@@ -288,7 +288,10 @@
         last = lastItem.date;
       }
       if (_list.length) {
-        _next = moment(last).add(_average, 'days').format(helpers.datePattern); // moment
+        _next = dates
+          .newDate(last)
+          .addDate(_average, 'days')
+          .formatDate(helpers.datePattern);
       } else {
         _next = '';
       }

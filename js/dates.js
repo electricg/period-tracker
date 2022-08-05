@@ -1,24 +1,47 @@
 /* global moment */
-/*
-- [x] app.js
-- [x] config.js
-- [x] controller.js
-- [x] helpers.js
-- [-] model.js
-- [x] offline.js
-- [x] settings.js
-- [x] storage.js
-- [-] template.js
-- [x] view.js
-*/
 'use strict';
 
 (function (window) {
-  const NewDate = function (date, parseFormat) {
-    const _date = moment(date, parseFormat);
+  const NewDate = function (...args) {
+    const _date = moment(...args);
 
-    this.formatDate = function (pattern) {
-      return _date.format(pattern);
+    Object.defineProperty(this, 'isANewDateObject', {
+      get: function () {
+        return true;
+      },
+    });
+
+    this.formatDate = function (...args) {
+      return _date.format(...args);
+    };
+
+    this.addDate = function (...args) {
+      _date.add(...args);
+      return this;
+    };
+
+    this.daysInMonthDate = function (...args) {
+      return _date.daysInMonth(...args);
+    };
+
+    this.cloneDate = function (...args) {
+      var copy = _date.clone(...args);
+      return new NewDate(copy);
+    };
+
+    this.subtractDate = function (...args) {
+      _date.subtract(...args);
+      return this;
+    };
+
+    this.diffDate = function (dateB, ...args) {
+      let _dateB;
+      if (typeof dateB === 'object' && dateB.isANewDateObject) {
+        _dateB = dateB.formatDate();
+      } else {
+        _dateB = dateB;
+      }
+      return _date.diff(_dateB, ...args);
     };
   };
 
