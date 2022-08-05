@@ -18,7 +18,7 @@ js/settings.js
 js/storage.js
 js/template.js
 js/view.js
-vendor/moment-2.13.0.min.js
+vendor/moment-2.29.4.min.js
 manifest.webmanifest
 `
   .trim()

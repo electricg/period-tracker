@@ -27,7 +27,7 @@ Live demo [https://electricg.github.io/period-tracker/](https://electricg.github
 - [ ] add legend to calendar
 - [x] add navigation by year, and back to today, in calendar
 - [ ] dark mode
-- [ ] update moment library
+- [x] update moment library
 - [ ] custom splash screen
 - [ ] manifest doesn't have a maskable icon
 - [ ] add functionality to clear/update sw cache from the app ui
