@@ -10,7 +10,13 @@
       var _startDayOfWeek = _self.config.get('startDayOfWeek');
       var _showExtendedMonth = _self.config.get('showExtendedMonth');
       var _periodLength = _self.config.get('periodLength');
-      var cal = calcCalendarData(data, _startDayOfWeek, monthN, yearN);
+      var cal = calcCalendarData(
+        data,
+        _startDayOfWeek,
+        _periodLength,
+        monthN,
+        yearN
+      );
 
       var rowsTitle = function (prev, day) {
         return (
@@ -22,9 +28,6 @@
       };
 
       var rowDays = function (prev, item) {
-        if (item.c >= 1 && item.c <= _periodLength) {
-          item.k.push('calendar__day--selected');
-        }
         return (
           prev +
           `

@@ -31,3 +31,4 @@ Live demo [https://electricg.github.io/period-tracker/](https://electricg.github
 - [ ] custom splash screen
 - [ ] manifest doesn't have a maskable icon
 - [ ] add functionality to clear/update sw cache from the app ui
+- [x] bug when I'm at day 0 and it doesn't show as future

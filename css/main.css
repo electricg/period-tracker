@@ -415,7 +415,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 .calendar__day--selected {
   background: var(--c-theme-second);
 }
-.calendar__day--selected.calendar__day--future {
+.calendar__day--selected-future {
   background: var(--c-main-bg);
   background-image: linear-gradient(45deg, transparent 50%, var(--c-theme-second) 0);
 }

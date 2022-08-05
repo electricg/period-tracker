@@ -5,6 +5,7 @@
   var calcCalendarData = function (
     data,
     startDayOfWeek,
+    periodLength,
     selectedMonthN,
     selectedYearN
   ) {
@@ -155,7 +156,7 @@
       return days;
     };
 
-    var calendarData = function (data, days) {
+    var calendarData = function (data, periodLength, days) {
       // maximum date that is less than or equal the first day of the visible month
       // TODO what is this?
       var floor;
@@ -206,6 +207,7 @@
 
       var firstEventDate = dates.newDate(sliceOfDates[sliceOfDates.length - 1]);
       var counter = firstDayDate.diffDate(firstEventDate, 'days') + 1;
+      var actual = false;
 
       var todayStr = helpers.todayStr;
       days.forEach(function (item) {
@@ -223,6 +225,23 @@
         } else if (item.date > todayStr) {
           item.k.push('calendar__day--future');
         }
+        if (item.c === 1) {
+          if (data.quicklist.indexOf(item.date) !== -1) {
+            actual = true;
+            item.k.push('calendar__day--selected');
+          } else {
+            actual = false;
+            item.k.push('calendar__day--selected-future');
+          }
+        } else if (item.c > 1 && item.c <= periodLength) {
+          if (actual) {
+            item.k.push('calendar__day--selected');
+          } else {
+            item.k.push('calendar__day--selected-future');
+          }
+        } else {
+          actual = false;
+        }
       });
 
       return days;
@@ -237,6 +256,7 @@
     var calendarGet = function (
       data,
       startDayOfWeek,
+      periodLength,
       selectedMonthN,
       selectedYearN
     ) {
@@ -261,7 +281,7 @@
         giulia.nextMonthObj
       );
 
-      days = calendarData(data, days);
+      days = calendarData(data, periodLength, days);
 
       var res = {
         days: days,
@@ -277,7 +297,13 @@
       return res;
     };
 
-    return calendarGet(data, startDayOfWeek, selectedMonthN, selectedYearN);
+    return calendarGet(
+      data,
+      startDayOfWeek,
+      periodLength,
+      selectedMonthN,
+      selectedYearN
+    );
   };
 
   window.calcCalendarData = calcCalendarData;
