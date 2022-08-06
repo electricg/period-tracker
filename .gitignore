@@ -1,7 +1,3 @@
-*.txt
 .DS_Store
 Thumbs.db
-mine.js
-other
-*.sublime-*
 node_modules
