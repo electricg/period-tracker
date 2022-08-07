@@ -341,9 +341,14 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
 }
 
 /*=== calendar */
+.main-section--calendar,
+.calendar-data {
+  height: 100%;
+}
 .calendar {
   background: var(--c-secondary-bg);
   border-spacing: 1px;
+  height: 100%;
   text-align: center;
   user-select: none;
   width: 100%;

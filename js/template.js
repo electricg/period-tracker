@@ -70,68 +70,64 @@
         </a>
       `;
 
+      var nav = `
+        <tr>
+          <th colspan="7">
+            <nav class="calendar__nav">
+              <div>
+                <a href="#/calendar/${cal.prev.yearN}/${cal.prev.monthN}" class="calendar__nav__link" title="${cal.prev.title}" aria-label="Previous month, ${cal.prev.title}">
+                  <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+                    <use href="#icon-prev"></use>
+                  </svg>
+                </a>
+                <a href="#/calendar/${cal.next.yearN}/${cal.next.monthN}" class="calendar__nav__link" title="${cal.next.title}" aria-label="Next month, ${cal.next.title}">
+                  <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+                    <use href="#icon-next"></use>
+                  </svg>
+                </a>
+              </div>
+            
+              <div class="calendar__nav__middle">
+                <span>${cal.title}</span>
+                ${currentMonthLink}
+              </div>
+
+              <div>
+                <a href="#/calendar/${cal.prevYear.yearN}/${cal.prevYear.monthN}" class="calendar__nav__link" title="${cal.prevYear.title}" aria-label="Previous year, ${cal.prevYear.title}">
+                  <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+                    <use href="#icon-up"></use>
+                  </svg>
+                </a>
+                <a href="#/calendar/${cal.nextYear.yearN}/${cal.nextYear.monthN}" class="calendar__nav__link" title="${cal.nextYear.title}" aria-label="Next year, ${cal.nextYear.title}">
+                  <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
+                    <use href="#icon-down"></use>
+                  </svg>
+                </a>
+              </div>
+            </nav>
+          </th>
+        </tr>
+      `;
+
+      var week = `
+      <tr>
+        ${cal.week.reduce(rowsTitle, '')}
+      </tr>
+      `;
+
       var table = `
         <table class="calendar ${showExtendedMonth}">
           <thead>
-            <tr>
-              <th colspan="7">
-                <nav class="calendar__nav">
-                  <div>
-                    <a href="#/calendar/${cal.prev.yearN}/${
-        cal.prev.monthN
-      }" class="calendar__nav__link" title="${
-        cal.prev.title
-      }" aria-label="Previous month, ${cal.prev.title}">
-                      <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
-                        <use href="#icon-prev"></use>
-                      </svg>
-                    </a>
-                    <a href="#/calendar/${cal.next.yearN}/${
-        cal.next.monthN
-      }" class="calendar__nav__link" title="${
-        cal.next.title
-      }" aria-label="Next month, ${cal.next.title}">
-                      <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
-                        <use href="#icon-next"></use>
-                      </svg>
-                    </a>
-                  </div>
-                
-                  <div class="calendar__nav__middle">
-                    <span>${cal.title}</span>
-                    ${currentMonthLink}
-                  </div>
-
-                  <div>
-                    <a href="#/calendar/${cal.prevYear.yearN}/${
-        cal.prevYear.monthN
-      }" class="calendar__nav__link" title="${
-        cal.prevYear.title
-      }" aria-label="Previous year, ${cal.prevYear.title}">
-                      <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
-                        <use href="#icon-up"></use>
-                      </svg>
-                    </a>
-                    <a href="#/calendar/${cal.nextYear.yearN}/${
-        cal.nextYear.monthN
-      }" class="calendar__nav__link" title="${
-        cal.nextYear.title
-      }" aria-label="Next year, ${cal.nextYear.title}">
-                      <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
-                        <use href="#icon-down"></use>
-                      </svg>
-                    </a>
-                  </div>
-                </nav>
-              </th>
-            </tr>
-            <tr>
-              ${cal.week.reduce(rowsTitle, '')}
-            </tr>
+            ${nav}
+            ${week}
           </thead>
           <tbody>
             ${rowsContent()}
           </tbody>
+          <tfoot>
+            ${week}
+            ${nav}
+          </tfoot>
         </table>
       `;
 
