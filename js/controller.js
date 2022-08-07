@@ -87,7 +87,7 @@
         _self.view.render('error', e);
         return;
       }
-
+      // TODO should check that the data imported is correct
       _self.model.update(data.list);
       _self.config.update(data.config);
 

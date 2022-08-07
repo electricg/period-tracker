@@ -33,6 +33,9 @@ Live demo [https://electricg.github.io/period-tracker/](https://electricg.github
 - [ ] add functionality to clear/update sw cache from the app ui
 - [x] bug when I'm at day 0 and it doesn't show as future
 - [ ] try web components
+- [ ] import data from other apps
+  - [ ] app that I use
+- [ ] use more modern css
 
 ## Dev notes
 
