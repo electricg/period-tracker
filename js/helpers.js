@@ -206,6 +206,27 @@ NodeList.prototype.forEach = Array.prototype.forEach;
         .toString()
         .replace('0.', '')}`.replace('.', '');
     };
+
+    /**
+     * Import data from the period track app I use
+     * @param {string} input Text to parse
+     * @returns {Array<string>} Array of dates in YYYY-MM-DD format
+     */
+    this.parseMine = function (input) {
+      let output = [];
+
+      input.split(/\r?\n|\r/).forEach(function (line) {
+        if (line.indexOf('Period Start:') === 0) {
+          output.push(
+            dates
+              .newDate(line.replace('Period Start:', '').trim(), 'MMM D, YYYY')
+              .formatDate(_datePattern)
+          );
+        }
+      });
+
+      return output;
+    };
   };
 
   window.helpers = new Helpers();

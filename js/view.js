@@ -30,6 +30,7 @@
     var $log = $$('#log-data');
 
     var $importData = $$('#import-data');
+    var $importDataMine = $$('#import-data-mine');
     var $exportData = $$('#export-data');
     var $shareData = $$('#share-data');
     var $deleteAll = $$('#delete-all');
@@ -251,6 +252,20 @@
         });
         $importData.on('change', function () {
           const [file] = $importData.files;
+          handler(file);
+        });
+      } else if (event === 'importDataMine') {
+        $importDataMine.on('click', function (event) {
+          if (
+            !window.confirm(
+              'This will completely overwrite the data. Do you want to continue?'
+            )
+          ) {
+            helpers.prev(event);
+          }
+        });
+        $importDataMine.on('change', function () {
+          const [file] = $importDataMine.files;
           handler(file);
         });
       } else if (event === 'exportData') {

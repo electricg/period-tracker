@@ -96,6 +96,28 @@
       _self.view.render('success', 'Data imported successfully');
     };
 
+    this.importDataMine = async function (file) {
+      let data;
+
+      try {
+        data = await helpers.readFromInputFile(file);
+      } catch (e) {
+        _self.view.render('error', e);
+        return;
+      }
+
+      data = helpers.parseMine(data);
+
+      _self.model.clear();
+      data.forEach(function (item) {
+        _self.model.add(item);
+      });
+
+      // update the ui
+      _self.setData();
+      _self.view.render('success', 'Data imported successfully');
+    };
+
     const prepareDataForExport = function () {
       const data = JSON.stringify({
         [NAMESPACE]: {
@@ -143,6 +165,10 @@
 
     _self.view.bind('importData', function (file) {
       return _self.importData(file);
+    });
+
+    _self.view.bind('importDataMine', function (file) {
+      return _self.importDataMine(file);
     });
 
     _self.view.bind('exportData', function () {
