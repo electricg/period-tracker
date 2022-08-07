@@ -13,7 +13,7 @@ const DEFAULT_USER_SETTINGS = {
 };
 
 const FEATURES = {
-  offline: false,
+  offline: true,
 };
 
 const FILE = {
