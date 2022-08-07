@@ -51,6 +51,7 @@ a {
 label, button, input[type=button], input[type=submit], input[type=reset] {
   -webkit-appearance: none;
   cursor: pointer;
+  user-select: none;
 }
 
 .icon {
@@ -74,6 +75,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   top: 0;
   width: 100%;
   z-index: 1;
+  user-select: none;
 }
 .main-header__title {
   font-size: 1em;
@@ -258,6 +260,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   position: fixed;
   width: 100%;
   z-index: 1;
+  user-select: none;
 }
 .main-nav__list {
   align-items: stretch;
@@ -342,6 +345,7 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   background: var(--c-secondary-bg);
   border-spacing: 1px;
   text-align: center;
+  user-select: none;
   width: 100%;
 }
 .calendar__nav {
