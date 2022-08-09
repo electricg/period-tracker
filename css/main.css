@@ -81,7 +81,6 @@ label, button, input[type=button], input[type=submit], input[type=reset] {
   --l-icon-size: var(--l-height-top);
   display: inline;
   vertical-align: middle;
-  width: auto;
 }
 .main-header__status {
   display: flex;
