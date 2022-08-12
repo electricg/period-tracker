@@ -118,6 +118,7 @@ body {
 .main-section--home,
 .main-section--log,
 .main-section--settings,
+.main-section--not-found,
 .log-average {
   padding-left: var(--l-gap);
   padding-right: var(--l-gap);

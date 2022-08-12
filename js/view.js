@@ -78,7 +78,14 @@
       $sections.forEach(function ($el) {
         $el.classList.remove('main-section--selected');
       });
-      $$('#' + parameter).classList.add('main-section--selected');
+      let $selectedSection = $$('#' + parameter);
+
+      if (!$selectedSection) {
+        parameter = 'not-found';
+        $selectedSection = $$('#' + parameter);
+      }
+
+      $selectedSection.classList.add('main-section--selected');
       $navLinks.forEach(function ($el) {
         if ($el.getAttribute('href') === '#/' + parameter) {
           $el.classList.add('main-nav__link--selected');
