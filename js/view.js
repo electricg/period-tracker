@@ -271,7 +271,9 @@
       } else if (event === 'itemRemoveAll') {
         $deleteAll.on('click', function () {
           if (
-            window.confirm('Are you sure you want to delete all the entries?')
+            window.confirm(
+              'Are you sure you want to delete all the entries and reset the settings?'
+            )
           ) {
             handler();
           }
@@ -311,7 +313,9 @@
           var $add = $item.querySelector('.js-number__add');
           var $sub = $item.querySelector('.js-number__sub');
           var $input = $item.querySelector('.js-number__input');
+          // TODO maybe disable the buttons when cannot go above/below min/max
           $sub.on('click', function () {
+            // TODO use the min attribute value
             if ($input.value <= 1) {
               return;
             }
@@ -319,6 +323,7 @@
             $input.dispatchEvent(new Event('input'));
           });
           $add.on('click', function () {
+            // TODO maybe check with the max attribute value
             $input.value++;
             $input.dispatchEvent(new Event('input'));
           });

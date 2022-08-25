@@ -215,6 +215,7 @@
           counter = 1;
         }
         if (counter) {
+          // TODO check this if
           if (counter > 0) {
             item.c = counter;
           }
