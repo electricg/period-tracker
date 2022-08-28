@@ -42,10 +42,13 @@ NodeList.prototype.forEach = Array.prototype.forEach;
      * @returns {string}
      */
     this.z = function (n) {
-      if (n < 10) {
-        return '0' + n;
+      if (typeof n === 'number') {
+        if (n > 0 && n < 10) {
+          return '0' + n;
+        }
+        return '' + n;
       }
-      return '' + n;
+      return n;
     };
 
     /**
