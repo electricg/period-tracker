@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mocha Tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="lib/mocha-10.0.0.css">
+</head>
+<body>
+  <div id="mocha"></div>
+
+  <script src="lib/chai-4.3.6.js"></script>
+  <script src="lib/mocha-10.0.0.js"></script>
+
+  <script src="../vendor/moment-2.29.4.min.js"></script>
+  <script src="../js/dates.js"></script>
+  <script src="../js/settings.js"></script>
+  <script src="../js/helpers.js"></script>
+
+  <script class="mocha-init">
+    mocha.setup('bdd');
+    mocha.checkLeaks();
+    const expect = chai.expect;
+  </script>
+
+  <script src="test.mocha.js"></script>
+  <script src="test.dates.js"></script>
+
+  <script class="mocha-exec">
+    mocha.run();
+  </script>
+</body>
+</html>

@@ -11,29 +11,61 @@
       },
     });
 
-    this.formatDate = function (...args) {
-      return _date.format(...args);
+    /**
+     * Format date by the given pattern
+     * @param {string} format Pattern to parse the date
+     * @returns {string} Formatted date
+     */
+    this.formatDate = function (format) {
+      return _date.format(format);
     };
 
+    /**
+     * Mutate the original date by adding time
+     * @param  {number} number
+     * @param  {string} string
+     * @returns Date object
+     */
     this.addDate = function (...args) {
       _date.add(...args);
       return this;
     };
 
-    this.daysInMonthDate = function (...args) {
-      return _date.daysInMonth(...args);
+    /**
+     * Get the number of days in the month
+     * @returns {number} Number of days
+     */
+    this.daysInMonthDate = function () {
+      return _date.daysInMonth();
     };
 
+    /**
+     * Clone a date object, since all dates are mutable
+     * @param  {...any} args
+     * @returns {object}
+     */
     this.cloneDate = function (...args) {
       var copy = _date.clone(...args);
       return new NewDate(copy);
     };
 
+    /**
+     * Mutate the original date by subtracting time
+     * @param  {number} number
+     * @param  {string} string
+     * @returns Date object
+     */
     this.subtractDate = function (...args) {
       _date.subtract(...args);
       return this;
     };
 
+    /**
+     * Difference between two dates, (this - arg)
+     * @param {string} dateB Second date
+     * @param {string} unit Unit of measurement of the difference
+     * @returns {number} Difference
+     */
     this.diffDate = function (dateB, ...args) {
       let _dateB;
       if (typeof dateB === 'object' && dateB.isANewDateObject) {
@@ -50,13 +82,14 @@
      * Format date by the given pattern
      * @param {string} date Date to format
      * @param {string} format Pattern
+     * @returns {string} Formatted date
      */
     this.formatOnce = function (date, format) {
       return moment(date).format(format);
     };
 
     /**
-     * Difference between two dates
+     * Difference between two dates, (A - B)
      * @param {string} dateA First date
      * @param {string} dateB Second date
      * @param {string} unit Unit of measurement of the difference

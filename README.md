@@ -38,6 +38,7 @@ Live demo [https://electricg.github.io/period-tracker/](https://electricg.github
 - [ ] use more modern css
 - [ ] show fertility and ovulation days
 - [ ] add swipe left and right in the calendar page to navigate prev/next months
+- [ ] add tests
 
 ## Dev notes
 
