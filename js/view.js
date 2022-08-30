@@ -313,17 +313,20 @@
           var $add = $item.querySelector('.js-number__add');
           var $sub = $item.querySelector('.js-number__sub');
           var $input = $item.querySelector('.js-number__input');
+          var min = $input.min ? Number($input.min) : null;
+          var max = $input.max ? Number($input.max) : null;
           // TODO maybe disable the buttons when cannot go above/below min/max
           $sub.on('click', function () {
-            // TODO use the min attribute value
-            if ($input.value <= 1) {
+            if (min !== null && $input.value <= min) {
               return;
             }
             $input.value--;
             $input.dispatchEvent(new Event('input'));
           });
           $add.on('click', function () {
-            // TODO maybe check with the max attribute value
+            if (max !== null && $input.value >= max) {
+              return;
+            }
             $input.value++;
             $input.dispatchEvent(new Event('input'));
           });
