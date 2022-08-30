@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Web component 01</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web component 02</title>
+  <style>
 body {
   margin: 4em 1em;
 }
@@ -18,13 +18,14 @@ input-number input[type=number]::-webkit-outer-spin-button {
 input-number input[type=number] {
   -moz-appearance: textfield;
 }
-    </style>
+  </style>
 </head>
 <body>
 
-<input-number>
-    <input id="test" type="number" min="2" max="17" value="5" step="3">
-</input-number>
+  <label for="test">Test</label>
+  <input-number>
+    <input id="test" type="number" min="-1" max="17" value="5" step="3">
+  </input-number>
 
   <script>
 class InputNumber extends HTMLElement {
@@ -57,6 +58,9 @@ button {
   user-select: none;
   width: 2em;
 }
+button:disabled {
+  cursor: not-allowed;
+}
 ::slotted(input) {
   border-color: #333;
   border-radius: 0;
@@ -77,6 +81,7 @@ button {
     // binding methods
     this.increment = this.increment.bind(this);
     this.decrement = this.decrement.bind(this);
+    this.disableButtons = this.disableButtons.bind(this);
 
     // Attach the created elements to the shadow dom
     shadow.appendChild(wrapper);
@@ -99,15 +104,32 @@ button {
       this.input.dispatchEvent(new Event('input'));
     }
   }
+
+  disableButtons() {
+    if (this.input.value === this.input.min) {
+      this.minus.disabled = true;
+    }
+    else {
+      this.minus.disabled = false;
+    }
+    if (this.input.value === this.input.max) {
+      this.plus.disabled = true;
+    }
+    else {
+      this.plus.disabled = false;
+    }
+  }
   
   // fires after the element has been attached to the DOM
   connectedCallback() {
-    const minus = this.shadowRoot.querySelector('#minus');
-    const plus = this.shadowRoot.querySelector('#plus');
+    this.minus = this.shadowRoot.querySelector('#minus');
+    this.plus = this.shadowRoot.querySelector('#plus');
     this.input = [...this.children][0]; // TODO
+    // console.log(this.minus, this.plus, this.input, this.children);
 
-    minus.addEventListener('click', this.decrement, false);
-    plus.addEventListener('click', this.increment, false);
+    this.minus.addEventListener('click', this.decrement, false);
+    this.plus.addEventListener('click', this.increment, false);
+    this.input.addEventListener('input', this.disableButtons, false);
   }
 }
 
@@ -116,8 +138,8 @@ customElements.define('input-number', InputNumber);
 
 const test = document.querySelector('#test');
 // console.log(test);
-test.addEventListener('input', function() {
-  console.log('wot!');
+test.addEventListener('input', function(e) {
+  console.log('wot!', e.target.value);
 })
   </script>
 </body>
