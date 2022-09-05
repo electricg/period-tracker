@@ -42,6 +42,16 @@ NodeList.prototype.forEach = Array.prototype.forEach;
      * @returns {string}
      */
     this.z = function (n) {
+      if (typeof n === 'string') {
+        if (n === '') {
+          return n;
+        }
+        const n2 = Number(n);
+        if (Number.isNaN(n2)) {
+          return n;
+        }
+        n = n2;
+      }
       if (typeof n === 'number') {
         if (n > 0 && n < 10) {
           return '0' + n;
