@@ -1,3 +1,44 @@
 describe('model.js', function () {
-  it('TODO', function () {});
+  const testNamespace = '_TEST_';
+  let testModel;
+  let testConfig;
+  let testStorage;
+
+  const testDefaultSettings = {
+    periodLength: 4,
+    cycleLength: 28,
+  };
+  Object.freeze(testDefaultSettings);
+
+  describe('init', function () {
+    before(function () {
+      testStorage = new app.Storage(testNamespace);
+      testConfig = new app.Config(testDefaultSettings, testStorage);
+      testModel = new app.Model(testConfig, testStorage);
+    });
+
+    it('should start with zero data', function () {
+      expect(testModel.list).to.eql([]);
+      expect(testModel.quicklist).to.eql([]);
+      expect(testModel.intervals).to.eql([]);
+      expect(testModel.average).to.equal(testDefaultSettings.cycleLength);
+      expect(testModel.next).to.equal('');
+      expect(testModel.countdown).to.equal(0);
+      expect(testModel.counter).to.equal(0);
+    });
+  });
+
+  describe('calc', function () {});
+
+  describe('add', function () {});
+
+  describe('edit', function () {});
+
+  describe('remove', function () {});
+
+  describe('clear', function () {});
+
+  describe('update', function () {});
+
+  describe('getById', function () {});
 });

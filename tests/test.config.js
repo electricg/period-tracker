@@ -1,5 +1,5 @@
 describe('config.js', function () {
-  const testNamespace = '_TEST_CONFIG_';
+  const testNamespace = '_TEST_';
 
   after(function () {
     localStorage.removeItem(testNamespace + 'Config');
