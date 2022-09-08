@@ -1,4 +1,4 @@
-/* global dates, calcCalendarData */
+/* global dates, calendar */
 (function (window) {
   'use strict';
 
@@ -10,7 +10,7 @@
       var _startDayOfWeek = _self.config.get('startDayOfWeek');
       var _showExtendedMonth = _self.config.get('showExtendedMonth');
       var _periodLength = _self.config.get('periodLength');
-      var cal = calcCalendarData(
+      var cal = calendar.calcCalendarData(
         data,
         _startDayOfWeek,
         _periodLength,
