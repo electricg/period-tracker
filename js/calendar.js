@@ -69,6 +69,89 @@
       };
     };
 
+    /**
+     * @param {number} startDayOfWeek - 0 Sunday, 1 Monday, 6 Saturday
+     * @param {number|string} selectedMonthN - Selected month number, 1 or 2 digits no zero leading
+     * @param {number|string} selectedYearN - Selected year number, 4 digits
+     * @param {object} prevMonthObj
+     * @param {object} nextMonthObj
+     */
+    this._calendarDays = (
+      startDayOfWeek,
+      selectedMonthN,
+      selectedYearN,
+      prevMonthObj,
+      nextMonthObj
+    ) => {
+      var days = [];
+
+      var thisMonth = dates.newDate(
+        selectedYearN + '-' + selectedMonthN,
+        'YYYY-M'
+      );
+      var weekdayFirstDayThisMonth = thisMonth.formatDate('d');
+      var daysInThisMonth = thisMonth.daysInMonthDate();
+      var lastDayThisMonth = dates.newDate(
+        selectedYearN + '-' + selectedMonthN + '-' + daysInThisMonth,
+        'YYYY-M-D'
+      );
+      var weekdayLastDayThisMonth = lastDayThisMonth.formatDate('d');
+
+      // before
+      var diffStart = weekdayFirstDayThisMonth - startDayOfWeek;
+      if (diffStart < 0) {
+        diffStart = 7 + diffStart;
+      }
+      diffStart = prevMonthObj.daysInMonth - diffStart + 1;
+      for (var i1 = diffStart; i1 <= prevMonthObj.daysInMonth; i1++) {
+        days.push({
+          date:
+            prevMonthObj.yearN +
+            '-' +
+            helpers.z(prevMonthObj.monthN) +
+            '-' +
+            helpers.z(i1),
+          n: i1,
+          c: '',
+          k: ['calendar__day--another-month'],
+        });
+      }
+      // during
+      for (var i2 = 1; i2 <= daysInThisMonth; i2++) {
+        days.push({
+          date:
+            selectedYearN +
+            '-' +
+            helpers.z(selectedMonthN) +
+            '-' +
+            helpers.z(i2),
+          n: i2,
+          c: '',
+          k: [],
+        });
+      }
+      // after
+      var diffEnd = startDayOfWeek - 1 - weekdayLastDayThisMonth;
+      if (diffEnd < 0) {
+        diffEnd = 7 + diffEnd;
+      }
+      for (var i3 = 1; i3 <= diffEnd; i3++) {
+        days.push({
+          date:
+            nextMonthObj.yearN +
+            '-' +
+            helpers.z(nextMonthObj.monthN) +
+            '-' +
+            helpers.z(i3),
+          n: i3,
+          c: '',
+          k: ['calendar__day--another-month'],
+        });
+      }
+
+      return days;
+    };
+
     this.calcCalendarData = function (
       data,
       startDayOfWeek,
@@ -76,82 +159,6 @@
       selectedMonthN,
       selectedYearN
     ) {
-      var calendarDays = function (
-        startDayOfWeek,
-        selectedMonthN,
-        selectedYearN,
-        prevMonthObj,
-        nextMonthObj
-      ) {
-        var days = [];
-
-        var thisMonth = dates.newDate(
-          selectedYearN + '-' + selectedMonthN,
-          'YYYY-M'
-        );
-        var weekdayFirstDayThisMonth = thisMonth.formatDate('d');
-        var daysInThisMonth = thisMonth.daysInMonthDate();
-        var lastDayThisMonth = dates.newDate(
-          selectedYearN + '-' + selectedMonthN + '-' + daysInThisMonth,
-          'YYYY-M-D'
-        );
-        var weekdayLastDayThisMonth = lastDayThisMonth.formatDate('d');
-
-        // before
-        var diffStart = weekdayFirstDayThisMonth - startDayOfWeek;
-        if (diffStart < 0) {
-          diffStart = 7 + diffStart;
-        }
-        diffStart = prevMonthObj.daysInMonth - diffStart + 1;
-        for (var i1 = diffStart; i1 <= prevMonthObj.daysInMonth; i1++) {
-          days.push({
-            date:
-              prevMonthObj.yearN +
-              '-' +
-              helpers.z(prevMonthObj.monthN) +
-              '-' +
-              helpers.z(i1),
-            n: i1,
-            c: '',
-            k: ['calendar__day--another-month'],
-          });
-        }
-        // during
-        for (var i2 = 1; i2 <= daysInThisMonth; i2++) {
-          days.push({
-            date:
-              selectedYearN +
-              '-' +
-              helpers.z(selectedMonthN) +
-              '-' +
-              helpers.z(i2),
-            n: i2,
-            c: '',
-            k: [],
-          });
-        }
-        // after
-        var diffEnd = startDayOfWeek - 1 - weekdayLastDayThisMonth;
-        if (diffEnd < 0) {
-          diffEnd = 7 + diffEnd;
-        }
-        for (var i3 = 1; i3 <= diffEnd; i3++) {
-          days.push({
-            date:
-              nextMonthObj.yearN +
-              '-' +
-              helpers.z(nextMonthObj.monthN) +
-              '-' +
-              helpers.z(i3),
-            n: i3,
-            c: '',
-            k: ['calendar__day--another-month'],
-          });
-        }
-
-        return days;
-      };
-
       var calendarData = function (data, periodLength, days) {
         // maximum date that is less than or equal the first day of the visible month
         // TODO what is this?
@@ -272,7 +279,7 @@
           selectedYearN
         );
 
-        var days = calendarDays(
+        let days = this._calendarDays(
           startDayOfWeek,
           selectedMonthN,
           selectedYearN,

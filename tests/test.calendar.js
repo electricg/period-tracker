@@ -209,10 +209,231 @@ describe('calendar.js', function () {
     ];
 
     cases.forEach((item) => {
-      it(`should work for ${item.output.title}`, function () {
+      it(`should work for ${item.input.startDayOfWeek} ${item.input.selectedMonthN} ${item.input.selectedYearN}`, function () {
         const { startDayOfWeek, selectedMonthN, selectedYearN } = item.input;
         const test = calendar._calendarChrome(startDayOfWeek, selectedMonthN, selectedYearN);
         expect(test).to.eql(item.output);
+      });
+    });
+  });
+
+  describe('_calendarDays', function () {
+    const cases = [
+      {
+        input: {
+          startDayOfWeek: 1,
+          selectedMonthN: '5',
+          selectedYearN: '2022',
+          nextMonthObj: {
+            monthN: '6',
+            yearN: '2022',
+            title: 'June 2022',
+          },
+          prevMonthObj: {
+            monthN: '4',
+            yearN: '2022',
+            title: 'April 2022',
+            daysInMonth: 30,
+          },
+        },
+        output: {
+          length: 42,
+          items: {
+            0: {
+              c: '',
+              date: '2022-04-25',
+              k: ['calendar__day--another-month'],
+              n: 25,
+            },
+            6: {
+              c: '',
+              date: '2022-05-01',
+              k: [],
+              n: 1,
+            },
+            41: {
+              c: '',
+              date: '2022-06-05',
+              k: ['calendar__day--another-month'],
+              n: 5,
+            },
+          },
+        },
+      },
+      {
+        input: {
+          startDayOfWeek: 0,
+          selectedMonthN: '5',
+          selectedYearN: '2022',
+          nextMonthObj: {
+            monthN: '6',
+            yearN: '2022',
+            title: 'June 2022',
+          },
+          prevMonthObj: {
+            monthN: '4',
+            yearN: '2022',
+            title: 'April 2022',
+            daysInMonth: 30,
+          },
+        },
+        output: {
+          length: 35,
+          items: {
+            0: {
+              c: '',
+              date: '2022-05-01',
+              k: [],
+              n: 1,
+            },
+            30: {
+              c: '',
+              date: '2022-05-31',
+              k: [],
+              n: 31,
+            },
+            34: {
+              c: '',
+              date: '2022-06-04',
+              k: ['calendar__day--another-month'],
+              n: 4,
+            },
+          },
+        },
+      },
+      {
+        input: {
+          startDayOfWeek: 0,
+          selectedMonthN: '2',
+          selectedYearN: '2020',
+          nextMonthObj: {
+            monthN: '3',
+            yearN: '2020',
+            title: 'March 2020',
+          },
+          prevMonthObj: {
+            monthN: '1',
+            yearN: '2020',
+            title: 'January 2020',
+            daysInMonth: 31,
+          },
+        },
+        output: {
+          length: 35,
+          items: {
+            0: {
+              c: '',
+              date: '2020-01-26',
+              k: ['calendar__day--another-month'],
+              n: 26,
+            },
+            6: {
+              c: '',
+              date: '2020-02-01',
+              k: [],
+              n: 1,
+            },
+            34: {
+              c: '',
+              date: '2020-02-29',
+              k: [],
+              n: 29,
+            },
+          },
+        },
+      },
+      {
+        input: {
+          startDayOfWeek: 1,
+          selectedMonthN: '2',
+          selectedYearN: '2021',
+          nextMonthObj: {
+            monthN: '3',
+            yearN: '2021',
+            title: 'March 2021',
+          },
+          prevMonthObj: {
+            monthN: '1',
+            yearN: '2021',
+            title: 'January 2021',
+            daysInMonth: 31,
+          },
+        },
+        output: {
+          length: 28,
+          items: {
+            0: {
+              c: '',
+              date: '2021-02-01',
+              k: [],
+              n: 1,
+            },
+            27: {
+              c: '',
+              date: '2021-02-28',
+              k: [],
+              n: 28,
+            },
+          },
+        },
+      },
+      {
+        input: {
+          startDayOfWeek: 1,
+          selectedMonthN: '3',
+          selectedYearN: '2020',
+          nextMonthObj: {
+            monthN: '4',
+            yearN: '2020',
+            title: 'April 2020',
+          },
+          prevMonthObj: {
+            monthN: '2',
+            yearN: '2020',
+            title: 'February 2020',
+            daysInMonth: 29,
+          },
+        },
+        output: {
+          length: 42,
+          items: {
+            0: {
+              c: '',
+              date: '2020-02-24',
+              k: ['calendar__day--another-month'],
+              n: 24,
+            },
+            5: {
+              c: '',
+              date: '2020-02-29',
+              k: ['calendar__day--another-month'],
+              n: 29,
+            },
+            6: {
+              c: '',
+              date: '2020-03-01',
+              k: [],
+              n: 1,
+            },
+            41: {
+              c: '',
+              date: '2020-04-05',
+              k: ['calendar__day--another-month'],
+              n: 5,
+            },
+          },
+        },
+      },
+    ];
+
+    cases.forEach((item) => {
+      it(`should work for ${item.input.startDayOfWeek} ${item.input.selectedMonthN} ${item.input.selectedYearN}`, function () {
+        const { startDayOfWeek, selectedMonthN, selectedYearN, prevMonthObj, nextMonthObj } = item.input;
+        const test = calendar._calendarDays(startDayOfWeek, selectedMonthN, selectedYearN, prevMonthObj, nextMonthObj);
+        expect(test.length).to.eql(item.output.length);
+        for (const index in item.output.items) {
+          expect(test[index]).to.eql(item.output.items[index]);
+        }
       });
     });
   });
