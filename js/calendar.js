@@ -5,19 +5,18 @@
   const Calendar = function () {
     /**
      * @param {number} startDayOfWeek - 0 Sunday, 1 Monday, 6 Saturday
-     * @param {number|string} selectedMonthN - Selected month number, 1 or 2 digits no zero leading
-     * @param {number|string} selectedYearN - Selected year number, 4 digits
+     * @param {number} selectedMonthN - Selected month number, 1 or 2 digits no zero leading
+     * @param {number} selectedYearN - Selected year number, 4 digits
      */
     this._calendarChrome = (startDayOfWeek, selectedMonthN, selectedYearN) => {
-      const week = dates.weekdaysShort();
-
       // rearrange weekday names starting from our own first day of the week
+      const week = dates.weekdaysShort();
       let weekTitle = week.slice(0);
       const leftoverWeek = weekTitle.splice(0, startDayOfWeek);
       weekTitle = weekTitle.concat(leftoverWeek);
 
       const selectedMonthYear = dates.newDate(
-        selectedYearN + '-' + selectedMonthN,
+        `${selectedYearN}-${selectedMonthN}`,
         'YYYY-M'
       );
       const title = selectedMonthYear.formatDate('MMMM YYYY');
@@ -26,14 +25,14 @@
       const nextMonth = selectedMonthYear.cloneDate().addDate(1, 'months');
       const prevMonth = selectedMonthYear.cloneDate().addDate(-1, 'months');
       const nextMonthObj = {
-        monthN: nextMonth.formatDate('M'),
-        yearN: nextMonth.formatDate('YYYY'),
+        monthN: nextMonth.getDate('month'),
+        yearN: nextMonth.getDate('year'),
         title: nextMonth.formatDate('MMMM YYYY'),
       };
       const prevMonthObj = {
         daysInMonth: prevMonth.daysInMonthDate(),
-        monthN: prevMonth.formatDate('M'),
-        yearN: prevMonth.formatDate('YYYY'),
+        monthN: prevMonth.getDate('month'),
+        yearN: prevMonth.getDate('year'),
         title: prevMonth.formatDate('MMMM YYYY'),
       };
 
@@ -41,20 +40,20 @@
       const nextYear = selectedMonthYear.cloneDate().addDate(1, 'years');
       const prevYear = selectedMonthYear.cloneDate().addDate(-1, 'years');
       const nextYearObj = {
-        monthN: nextYear.formatDate('M'),
-        yearN: nextYear.formatDate('YYYY'),
+        monthN: nextYear.getDate('month'),
+        yearN: nextYear.getDate('year'),
         title: nextYear.formatDate('MMMM YYYY'),
       };
       const prevYearObj = {
-        monthN: prevYear.formatDate('M'),
-        yearN: prevYear.formatDate('YYYY'),
+        monthN: prevYear.getDate('month'),
+        yearN: prevYear.getDate('year'),
         title: prevYear.formatDate('MMMM YYYY'),
       };
 
       // current month and year data for today link
       const todayObj = {
-        monthN: helpers.today.formatDate('M'),
-        yearN: helpers.today.formatDate('YYYY'),
+        monthN: helpers.today.getDate('month'),
+        yearN: helpers.today.getDate('year'),
         title: helpers.today.formatDate('MMMM YYYY'),
       };
 
@@ -71,8 +70,8 @@
 
     /**
      * @param {number} startDayOfWeek - 0 Sunday, 1 Monday, 6 Saturday
-     * @param {number|string} selectedMonthN - Selected month number, 1 or 2 digits no zero leading
-     * @param {number|string} selectedYearN - Selected year number, 4 digits
+     * @param {number} selectedMonthN - Selected month number, 1 or 2 digits no zero leading
+     * @param {number} selectedYearN - Selected year number, 4 digits
      * @param {object} prevMonthObj
      * @param {object} nextMonthObj
      */
@@ -83,67 +82,67 @@
       prevMonthObj,
       nextMonthObj
     ) => {
-      var days = [];
+      let days = [];
 
-      var thisMonth = dates.newDate(
-        selectedYearN + '-' + selectedMonthN,
+      const thisMonth = dates.newDate(
+        `${selectedYearN}-${selectedMonthN}`,
         'YYYY-M'
       );
-      var weekdayFirstDayThisMonth = thisMonth.formatDate('d');
-      var daysInThisMonth = thisMonth.daysInMonthDate();
-      var lastDayThisMonth = dates.newDate(
+      const weekdayFirstDayThisMonth = thisMonth.getDate('day');
+      const daysInThisMonth = thisMonth.daysInMonthDate();
+      const lastDayThisMonth = dates.newDate(
         selectedYearN + '-' + selectedMonthN + '-' + daysInThisMonth,
         'YYYY-M-D'
       );
-      var weekdayLastDayThisMonth = lastDayThisMonth.formatDate('d');
+      const weekdayLastDayThisMonth = lastDayThisMonth.getDate('day');
 
       // before
-      var diffStart = weekdayFirstDayThisMonth - startDayOfWeek;
+      let diffStart = weekdayFirstDayThisMonth - startDayOfWeek;
       if (diffStart < 0) {
         diffStart = 7 + diffStart;
       }
       diffStart = prevMonthObj.daysInMonth - diffStart + 1;
-      for (var i1 = diffStart; i1 <= prevMonthObj.daysInMonth; i1++) {
+      for (let i = diffStart; i <= prevMonthObj.daysInMonth; i++) {
         days.push({
           date:
             prevMonthObj.yearN +
             '-' +
             helpers.z(prevMonthObj.monthN) +
             '-' +
-            helpers.z(i1),
-          n: i1,
+            helpers.z(i),
+          n: i,
           c: '',
           k: ['calendar__day--another-month'],
         });
       }
       // during
-      for (var i2 = 1; i2 <= daysInThisMonth; i2++) {
+      for (let i = 1; i <= daysInThisMonth; i++) {
         days.push({
           date:
             selectedYearN +
             '-' +
             helpers.z(selectedMonthN) +
             '-' +
-            helpers.z(i2),
-          n: i2,
+            helpers.z(i),
+          n: i,
           c: '',
           k: [],
         });
       }
       // after
-      var diffEnd = startDayOfWeek - 1 - weekdayLastDayThisMonth;
+      let diffEnd = startDayOfWeek - 1 - weekdayLastDayThisMonth;
       if (diffEnd < 0) {
         diffEnd = 7 + diffEnd;
       }
-      for (var i3 = 1; i3 <= diffEnd; i3++) {
+      for (let i = 1; i <= diffEnd; i++) {
         days.push({
           date:
             nextMonthObj.yearN +
             '-' +
             helpers.z(nextMonthObj.monthN) +
             '-' +
-            helpers.z(i3),
-          n: i3,
+            helpers.z(i),
+          n: i,
           c: '',
           k: ['calendar__day--another-month'],
         });
@@ -256,8 +255,9 @@
       /**
        * @param {object} data
        * @param {number} startDayOfWeek - 0 Sunday, 1 Monday, 6 Saturday
-       * @param {number} monthN - Selected month number
-       * @param {number} yearN - Selected year number
+       * @param {number} periodLength - Length of period
+       * @param {number} selectedMonthN - Selected month number
+       * @param {number} selectedYearN - Selected year number
        */
       var calendarGet = (
         data,
@@ -266,12 +266,6 @@
         selectedMonthN,
         selectedYearN
       ) => {
-        const todayMonthN = helpers.today.formatDate('M');
-        const todayYearN = helpers.today.formatDate('YYYY');
-
-        selectedMonthN = selectedMonthN || todayMonthN;
-        selectedYearN = selectedYearN || todayYearN;
-
         // TODO clean variable names
         const giulia = this._calendarChrome(
           startDayOfWeek,

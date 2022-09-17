@@ -94,8 +94,15 @@
         }
       });
       if (parameter === 'calendar') {
-        var yearN = args[0];
-        var monthN = args[1];
+        let yearN = args[0];
+        let monthN = args[1];
+
+        const todayMonthN = helpers.today.getDate('month');
+        const todayYearN = helpers.today.getDate('year');
+
+        monthN = parseInt(monthN) || todayMonthN;
+        yearN = parseInt(yearN) || todayYearN;
+
         _viewCommands.calendar(model, monthN, yearN);
       }
     };

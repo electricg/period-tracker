@@ -83,6 +83,34 @@ describe('dates.js', function () {
       });
     });
 
+    describe('getDate()', function () {
+      it('should return numeric year', function () {
+        const a = dates.newDate('2020-02-28');
+        expect(a.getDate('year')).to.equal(2020);
+      });
+
+      it('should return numeric month', function () {
+        const a = dates.newDate('2020-02-28');
+        expect(a.getDate('month')).to.equal(2);
+      });
+
+      it('should return numeric date', function () {
+        const a = dates.newDate('2020-02-28');
+        expect(a.getDate('date')).to.equal(28);
+      });
+
+      it('should return numeric day of week', function () {
+        const a = dates.newDate('2020-02-28');
+        expect(a.getDate('day')).to.equal(5);
+
+        const b = dates.newDate('2020-02-02');
+        expect(b.getDate('day')).to.equal(0);
+
+        const c = dates.newDate('2020-02-01');
+        expect(c.getDate('day')).to.equal(6);
+      });
+    });
+
     describe('addDate()', function () {
       it('should add 1 month', function () {
         expect(dates.newDate('2021-02-28').addDate(1, 'months').formatDate('YYYY-MM-DD')).to.equal('2021-03-28');

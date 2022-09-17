@@ -59,11 +59,10 @@
       var showExtendedMonth = _showExtendedMonth ? 'calendar--extended' : '';
 
       var currentMonthLink =
-        (monthN === undefined && yearN === undefined) ||
-        (monthN === cal.current.monthN && yearN === cal.current.yearN)
+        monthN === cal.current.monthN && yearN === cal.current.yearN
           ? ''
           : `
-        <a href="#/calendar/${cal.current.yearN}/${cal.current.monthN}" class="calendar__nav__link" title="${cal.current.title}" aria-label="This month, ${cal.current.title}">
+        <a href="#/calendar" class="calendar__nav__link" title="${cal.current.title}" aria-label="This month, ${cal.current.title}">
           <svg class="icon calendar__nav__icon" focusable="false" aria-hidden="true">
             <use href="#icon-today"></use>
           </svg>

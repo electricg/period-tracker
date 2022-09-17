@@ -21,6 +21,19 @@
     };
 
     /**
+     * Return numeric value of the unit of the date
+     * @param {string} unit year | month | date | day
+     * @returns {number}
+     */
+    this.getDate = function (unit) {
+      let value = _date.get(unit);
+      if (unit === 'month') {
+        value += 1;
+      }
+      return value;
+    };
+
+    /**
      * Mutate the original date by adding time
      * @param  {number} number
      * @param  {string} string
