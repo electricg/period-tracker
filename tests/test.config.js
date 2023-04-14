@@ -25,7 +25,7 @@ describe('config.js', function () {
       expect(testConfig.getAll()).to.eql(testDefaultSettings);
     });
 
-    describe('update', function () {
+    describe('update()', function () {
       it('should update successfully a property', function () {
         testConfig.update({ cycleLength: 1 });
         expect(testConfig.getAll()).to.eql({ periodLength: 4, cycleLength: 1 });
@@ -33,7 +33,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('reset', function () {
+    describe('reset()', function () {
       it('should reset successfully', function () {
         testConfig.update({ cycleLength: 1 });
         expect(testConfig.getAll()).to.eql({ periodLength: 4, cycleLength: 1 });
@@ -43,7 +43,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('get', function () {
+    describe('get()', function () {
       it('should return undefined for an unkown property', function () {
         expect(testConfig.get('giulia')).to.be.undefined;
       });
@@ -53,7 +53,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('getAll', function () {
+    describe('getAll()', function () {
       it('should return successfully all the properties', function () {
         testConfig.update({ cycleLength: 1 });
         expect(testConfig.getAll()).to.eql({ periodLength: 4, cycleLength: 1 });
@@ -82,7 +82,7 @@ describe('config.js', function () {
       expect(testConfig.getAll()).to.eql({ periodLength: 4, cycleLength: 30 });
     });
 
-    describe('update', function () {
+    describe('update()', function () {
       it('should update successfully a property', function () {
         testConfig.update({ cycleLength: 1 });
         expect(testConfig.getAll()).to.eql({ periodLength: 4, cycleLength: 1 });
@@ -90,7 +90,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('reset', function () {
+    describe('reset()', function () {
       it('should reset successfully', function () {
         testConfig.update({ cycleLength: 1 });
         expect(testConfig.getAll()).to.eql({ periodLength: 4, cycleLength: 1 });
@@ -100,7 +100,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('get', function () {
+    describe('get()', function () {
       it('should return undefined for an unkown property', function () {
         expect(testConfig.get('giulia')).to.be.undefined;
       });
@@ -111,7 +111,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('getAll', function () {
+    describe('getAll()', function () {
       it('should return successfully all the properties', function () {
         testConfig.update({ cycleLength: 1 });
         expect(testConfig.getAll()).to.eql({ periodLength: 4, cycleLength: 1 });
@@ -133,7 +133,7 @@ describe('config.js', function () {
       expect(testConfig.getAll()).to.eql({});
     });
 
-    describe('update', function () {
+    describe('update()', function () {
       it('should update nothing', function () {
         testConfig.update({ cycleLength: 1 });
         expect(testConfig.getAll()).to.eql({});
@@ -141,7 +141,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('reset', function () {
+    describe('reset()', function () {
       it('should reset nothing', function () {
         testConfig.update({ cycleLength: 1 });
         testConfig.reset();
@@ -150,7 +150,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('get', function () {
+    describe('get()', function () {
       it('should return undefined for an unkown property', function () {
         expect(testConfig.get('giulia')).to.be.undefined;
       });
@@ -160,7 +160,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('getAll', function () {
+    describe('getAll()', function () {
       it('should return empty object', function () {
         expect(testConfig.getAll()).to.eql({});
       });
@@ -182,7 +182,7 @@ describe('config.js', function () {
       expect(testConfig.getAll()).to.eql({});
     });
 
-    describe('update', function () {
+    describe('update()', function () {
       it('should update nothing', function () {
         testConfig.update({ cycleLength: 1 });
         expect(testConfig.getAll()).to.eql({});
@@ -190,7 +190,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('reset', function () {
+    describe('reset()', function () {
       it('should reset nothing', function () {
         testConfig.update({ cycleLength: 1 });
         testConfig.reset();
@@ -199,7 +199,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('get', function () {
+    describe('get()', function () {
       it('should return undefined for an unkown property', function () {
         expect(testConfig.get('giulia')).to.be.undefined;
       });
@@ -209,7 +209,7 @@ describe('config.js', function () {
       });
     });
 
-    describe('getAll', function () {
+    describe('getAll()', function () {
       it('should return empty object', function () {
         expect(testConfig.getAll()).to.eql({});
       });
