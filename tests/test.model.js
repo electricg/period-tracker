@@ -10,7 +10,7 @@ describe('model.js', function () {
   };
   Object.freeze(testDefaultSettings);
 
-  describe('init', function () {
+  describe('init()', function () {
     before(function () {
       testStorage = new app.Storage(testNamespace);
       testConfig = new app.Config(testDefaultSettings, testStorage);
@@ -26,19 +26,51 @@ describe('model.js', function () {
       expect(testModel.countdown).to.equal(0);
       expect(testModel.counter).to.equal(0);
     });
+
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
   });
 
-  describe('calc', function () {});
+  describe('calc()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
 
-  describe('add', function () {});
+  describe('add()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
 
-  describe('edit', function () {});
+  describe('edit()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
 
-  describe('remove', function () {});
+  describe('remove()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
 
-  describe('clear', function () {});
+  describe('clear()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
 
-  describe('update', function () {});
+  describe('update()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
 
-  describe('getById', function () {});
+  describe('getById()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
 });
