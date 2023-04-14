@@ -23,7 +23,7 @@ describe('helpers.js', function () {
     });
   });
 
-  describe('z', function () {
+  describe('z()', function () {
     it('should return the exact same input when is not a number or a string', function () {
       expect(helpers.z(true)).to.equal(true);
       expect(helpers.z(false)).to.equal(false);
@@ -64,6 +64,42 @@ describe('helpers.js', function () {
       expect(helpers.z(1)).to.equal('01');
       expect(helpers.z(5)).to.equal('05');
       expect(helpers.z(9)).to.equal('09');
+    });
+  });
+
+  describe('prev()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
+
+  describe('$delegate()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
+
+  describe('readFromInputFile()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
+
+  describe('writeToFile()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
+
+  describe('shareTo()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
+    });
+  });
+
+  describe('uid()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
     });
   });
 });
