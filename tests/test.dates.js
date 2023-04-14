@@ -1,55 +1,6 @@
 describe('dates.js', function () {
-  describe('Dates', function () {
-    describe('formatOnce()', function () {
-      it('should format the date', function () {
-        expect(dates.formatOnce('2020-01-01', 'YYYY')).to.equal('2020');
-        expect(dates.formatOnce('2020-01-01', 'MM')).to.equal('01');
-        expect(dates.formatOnce('2020-01-01', 'DD')).to.equal('01');
-        expect(dates.formatOnce('2020-01-01', 'MMM D, YYYY')).to.equal('Jan 1, 2020');
-        expect(dates.formatOnce('2020-01-01', 'ddd, MMM D')).to.equal('Wed, Jan 1');
-      });
-
-      it('should return error when date is invalid', function () {
-        expect(dates.formatOnce('2020-13-01', 'DD')).to.equal('Invalid date');
-      });
-    });
-
-    describe('diffOnce()', function () {
-      it('should return the difference in days', function () {
-        expect(dates.diffOnce('2020-01-01', '2020-01-01', 'days')).to.equal(0);
-        expect(dates.diffOnce('2020-01-02', '2020-01-01', 'days')).to.equal(1);
-        expect(dates.diffOnce('2020-01-01', '2020-01-02', 'days')).to.equal(-1);
-        expect(dates.diffOnce('2020-01-01', '2019-12-31', 'days')).to.equal(1);
-      });
-
-      it('should return error when date is invalid', function () {
-        expect(dates.diffOnce('2020-04-31', '2020-04-30', 'days')).to.be.NaN;
-        expect(dates.diffOnce('2020-04-30', '2020-04-31', 'days')).to.be.NaN;
-      });
-    });
-
-    describe('isValid()', function () {
-      it('should return true with valid date', function () {
-        expect(dates.isValid('2020-01-01')).to.equal(true);
-        expect(dates.isValid('2020-02-29')).to.equal(true);
-      });
-
-      it('should return false with invalid date', function () {
-        expect(dates.isValid('2020-13-01')).to.equal(false);
-        expect(dates.isValid('2020-04-31')).to.equal(false);
-        expect(dates.isValid('2021-02-29')).to.equal(false);
-      });
-    });
-
-    describe('weekdaysShort()', function () {
-      it('should return the list of weekdays', function () {
-        expect(dates.weekdaysShort()).to.eql(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
-      });
-    });
-  });
-
   describe('NewDate', function () {
-    describe('new', function () {
+    describe('new()', function () {
       it('should create a new object', function () {
         const a = dates.newDate('2020-02-28');
         expect(a).to.have.property('isANewDateObject').to.equal(true);
@@ -223,6 +174,73 @@ describe('dates.js', function () {
       it('should return error when date is invalid', function () {
         expect(dates.newDate('2020-04-31').diffDate('2020-04-30', 'days')).to.be.NaN;
         expect(dates.newDate('2020-04-30').diffDate('2020-04-31', 'days')).to.be.NaN;
+      });
+    });
+  });
+
+  describe('Dates', function () {
+    describe('formatOnce()', function () {
+      it('should format the date', function () {
+        expect(dates.formatOnce('2020-01-01', 'YYYY')).to.equal('2020');
+        expect(dates.formatOnce('2020-01-01', 'MM')).to.equal('01');
+        expect(dates.formatOnce('2020-01-01', 'DD')).to.equal('01');
+        expect(dates.formatOnce('2020-01-01', 'MMM D, YYYY')).to.equal('Jan 1, 2020');
+        expect(dates.formatOnce('2020-01-01', 'ddd, MMM D')).to.equal('Wed, Jan 1');
+      });
+
+      it('should return error when date is invalid', function () {
+        expect(dates.formatOnce('2020-13-01', 'DD')).to.equal('Invalid date');
+      });
+    });
+
+    describe('diffOnce()', function () {
+      it('should return the difference in days', function () {
+        expect(dates.diffOnce('2020-01-01', '2020-01-01', 'days')).to.equal(0);
+        expect(dates.diffOnce('2020-01-02', '2020-01-01', 'days')).to.equal(1);
+        expect(dates.diffOnce('2020-01-01', '2020-01-02', 'days')).to.equal(-1);
+        expect(dates.diffOnce('2020-01-01', '2019-12-31', 'days')).to.equal(1);
+      });
+
+      it('should return error when date is invalid', function () {
+        expect(dates.diffOnce('2020-04-31', '2020-04-30', 'days')).to.be.NaN;
+        expect(dates.diffOnce('2020-04-30', '2020-04-31', 'days')).to.be.NaN;
+      });
+    });
+
+    describe('isValid()', function () {
+      it('should return true with valid date', function () {
+        expect(dates.isValid('2020-01-01')).to.equal(true);
+        expect(dates.isValid('2020-02-29')).to.equal(true);
+      });
+
+      it('should return false with invalid date', function () {
+        expect(dates.isValid('2020-13-01')).to.equal(false);
+        expect(dates.isValid('2020-04-31')).to.equal(false);
+        expect(dates.isValid('2021-02-29')).to.equal(false);
+      });
+    });
+
+    describe('weekdaysShort()', function () {
+      it('should return the list of weekdays', function () {
+        expect(dates.weekdaysShort()).to.eql(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
+      });
+    });
+
+    describe('newDate()', function () {
+      it('should create a new object', function () {
+        const a = dates.newDate('2020-02-28');
+        expect(a).to.have.property('isANewDateObject').to.equal(true);
+        expect(a.formatDate('YYYY-MM-DD')).to.equal('2020-02-28');
+      });
+
+      it('should create a new object with format parameter', function () {
+        const a = dates.newDate('2020:28 [02', 'YYYY:DD [MM');
+        expect(a).to.have.property('isANewDateObject').to.equal(true);
+        expect(a.formatDate('YYYY-MM-DD')).to.equal('2020-02-28');
+      });
+
+      it('should return error when date is invalid', function () {
+        expect(dates.newDate('2020-04-31').formatDate()).to.equal('Invalid date');
       });
     });
   });
