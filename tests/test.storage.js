@@ -6,7 +6,7 @@ describe('storage.js', function () {
     testStorage = new app.Storage(testNamespace);
   });
 
-  describe('setItem', function () {
+  describe('setItem()', function () {
     it('should successfully set an item with an empty key', function () {
       testStorage.setItem('', { test: '1' });
       expect(localStorage[testNamespace]).to.equal('{"test":"1"}');
@@ -18,7 +18,7 @@ describe('storage.js', function () {
     });
   });
 
-  describe('getItem', function () {
+  describe('getItem()', function () {
     it('should successfully get an item with an empty key', function () {
       expect(testStorage.getItem('')).to.eql({ test: '1' });
     });
@@ -28,7 +28,7 @@ describe('storage.js', function () {
     });
   });
 
-  describe('removeItem', function () {
+  describe('removeItem()', function () {
     it('should successfully remove an item with an empty key', function () {
       expect(localStorage[testNamespace]).to.equal('{"test":"1"}');
       expect(testStorage.removeItem('')).to.be.undefined;
@@ -44,7 +44,7 @@ describe('storage.js', function () {
     });
   });
 
-  describe('clear', function () {
+  describe('clear()', function () {
     it('should clear all items in the namespace', function () {
       testStorage.setItem('', { test: '1' });
       testStorage.setItem('giulia2', { test: '2' });
