@@ -1,5 +1,4 @@
-/* global VERSION */
-self.importScripts('js/settings.js');
+const VERSION = '0.11.1';
 const cacheName = `v${VERSION}::static`;
 
 const fileList = `

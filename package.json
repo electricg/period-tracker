@@ -1,6 +1,6 @@
 {
   "name": "period-tracker",
-  "version": "1.0.0",
+  "version": "0.11.1",
   "description": "Live demo [https://electricg.github.io/period-tracker/](https://electricg.github.io/period-tracker/)",
   "main": "js/app.js",
   "scripts": {
