@@ -6,7 +6,7 @@ const VERSION = '0.11';
 const NAMESPACE = 'periodTracker';
 
 const DEFAULT_USER_SETTINGS = {
-  startDayOfWeek: 1, // 0 Sunday, 1 Monday
+  startDayOfWeek: 1, // 0 Sunday, 1 Monday, 6 Saturday
   showExtendedMonth: false,
   periodLength: 4,
   cycleLength: 28,
