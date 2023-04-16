@@ -1,7 +1,7 @@
 /* global dates, helpers */
-(function (window) {
-  'use strict';
+'use strict';
 
+(function (window) {
   // this regexp is not strict as the date validation will be performed by dates object
   const dateRegExp = new RegExp(/^\d{4}-\d{2}-\d{2}$/);
   const averageIntervals = 3;

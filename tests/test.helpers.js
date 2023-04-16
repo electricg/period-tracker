@@ -1,25 +1,33 @@
+'use strict';
+
 describe('helpers.js', function () {
   describe('today', function () {
     it('should be accessed but not overwritten', function () {
       expect(helpers.today).to.not.be.undefined;
-      helpers.today = 'test';
-      expect(helpers.today).to.not.equal('test');
+      function badFn() {
+        helpers.today = 'test';
+      }
+      expect(badFn).to.throw();
     });
   });
 
   describe('todayStr', function () {
     it('should be accessed but not overwritten', function () {
       expect(helpers.todayStr).to.not.be.undefined;
-      helpers.todayStr = 'test';
-      expect(helpers.todayStr).to.not.equal('test');
+      function badFn() {
+        helpers.todayStr = 'test';
+      }
+      expect(badFn).to.throw();
     });
   });
 
   describe('datePattern', function () {
     it('should be accessed but not overwritten', function () {
       expect(helpers.datePattern).to.not.be.undefined;
-      helpers.datePattern = 'test';
-      expect(helpers.datePattern).to.not.equal('test');
+      function badFn() {
+        helpers.datePattern = 'test';
+      }
+      expect(badFn).to.throw();
     });
   });
 

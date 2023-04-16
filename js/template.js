@@ -1,7 +1,7 @@
 /* global dates, calendar */
-(function (window) {
-  'use strict';
+'use strict';
 
+(function (window) {
   var Template = function (config) {
     var _self = this;
     _self.config = config;

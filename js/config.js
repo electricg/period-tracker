@@ -1,6 +1,6 @@
-(function (window) {
-  'use strict';
+'use strict';
 
+(function (window) {
   var Config = function (defaultOpts, storage) {
     var _options = { ...defaultOpts };
 

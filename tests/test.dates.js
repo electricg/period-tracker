@@ -1,3 +1,5 @@
+'use strict';
+
 describe('dates.js', function () {
   describe('NewDate', function () {
     describe('new()', function () {

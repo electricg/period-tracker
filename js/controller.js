@@ -1,7 +1,7 @@
 /* global helpers, NAMESPACE, VERSION, FILE */
-(function (window) {
-  'use strict';
+'use strict';
 
+(function (window) {
   /**
    * Take a model and view and acts as the controller between them
    * @param {object} model The model instance

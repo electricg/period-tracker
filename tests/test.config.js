@@ -1,3 +1,5 @@
+'use strict';
+
 describe('config.js', function () {
   const testNamespace = '_TEST_';
 

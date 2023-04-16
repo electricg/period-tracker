@@ -1,3 +1,5 @@
+'use strict';
+
 describe('calendar.js', function () {
   describe('_calendarChrome', function () {
     const today = new Date();

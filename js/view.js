@@ -1,7 +1,7 @@
 /* global $, $$, dates, helpers, VERSION */
-(function (window) {
-  'use strict';
+'use strict';
 
+(function (window) {
   /**
    * View
    */

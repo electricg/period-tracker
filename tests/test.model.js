@@ -1,3 +1,5 @@
+'use strict';
+
 describe('model.js', function () {
   const testNamespace = '_TEST_';
   let testModel;

@@ -1,7 +1,7 @@
 /* global dates, helpers */
-(function (window) {
-  'use strict';
+'use strict';
 
+(function (window) {
   const Calendar = function () {
     /**
      * @param {number} startDayOfWeek - 0 Sunday, 1 Monday, 6 Saturday

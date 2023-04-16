@@ -1,3 +1,5 @@
+'use strict';
+
 describe('storage.js', function () {
   let testStorage;
   const testNamespace = '_TEST_';

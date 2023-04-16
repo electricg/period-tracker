@@ -1,6 +1,6 @@
-(function (window) {
-  'use strict';
+'use strict';
 
+(function (window) {
   var Storage = function (namespace) {
     var capitalize = function (string) {
       if (string === '') {
