@@ -1,7 +1,7 @@
 'use strict';
 
 describe('calendar.js', function () {
-  describe('_calendarChrome', function () {
+  describe('_calendarChrome()', function () {
     const today = new Date();
     const todayObj = {
       monthN: parseInt(today.toLocaleString(undefined, { month: 'numeric' })),
@@ -219,7 +219,7 @@ describe('calendar.js', function () {
     });
   });
 
-  describe('_calendarDays', function () {
+  describe('_calendarDays()', function () {
     const cases = [
       {
         input: {
@@ -437,6 +437,12 @@ describe('calendar.js', function () {
           expect(test[index]).to.eql(item.output.items[index]);
         }
       });
+    });
+  });
+
+  describe('calcCalendarData()', function () {
+    it('TODO', function () {
+      expect(123).to.equal(123);
     });
   });
 });

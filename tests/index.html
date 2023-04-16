@@ -22,19 +22,30 @@
   <script src="../js/calendar.js"></script>
 
   <script class="mocha-init">
-    mocha.setup('bdd');
-    mocha.checkLeaks();
-    const expect = chai.expect;
+'use strict';
+mocha.setup('bdd');
+mocha.checkLeaks();
+const expect = chai.expect;
+
+describe('Mocha', function () {
+  it('should work', function () {
+    expect(123).to.equal(123);
+  });
+});
   </script>
 
-  <script src="test.mocha.js"></script>
-  <script src="test.settings.js"></script>
+  <script src="test.app.js"></script>
+  <script src="test.calendar.js"></script>
+  <script src="test.config.js"></script>
+  <script src="test.controllers.js"></script>
   <script src="test.dates.js"></script>
   <script src="test.helpers.js"></script>
-  <script src="test.storage.js"></script>
-  <script src="test.config.js"></script>
   <script src="test.model.js"></script>
-  <script src="test.calendar.js"></script>
+  <script src="test.offline.js"></script>
+  <script src="test.settings.js"></script>
+  <script src="test.storage.js"></script>
+  <script src="test.template.js"></script>
+  <script src="test.view.js"></script>
 
   <script class="mocha-exec">
     mocha.run();
