@@ -100,8 +100,17 @@ describe('helpers.js', function () {
   });
 
   describe('uid()', function () {
-    it('TODO', function () {
-      expect(123).to.equal(123);
+    it('should have only digits', function () {
+      const regex = new RegExp(/^\d+$/);
+      const str = helpers.uid();
+      expect(regex.test('.123')).to.be.false; // check the regex
+      expect(regex.test(str)).to.be.true;
+    });
+
+    it('should create two different ids', function () {
+      const a = helpers.uid();
+      const b = helpers.uid();
+      expect(a !== b).to.be.true;
     });
   });
 });
