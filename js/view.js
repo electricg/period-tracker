@@ -179,7 +179,7 @@
 
         $addForm.forEach(function ($el) {
           $el.on('submit', function (event) {
-            helpers.prev(event);
+            event.preventDefault();
             var res = handler(this.elements['add-date'].value);
             if (res !== -1) {
               this.reset();
@@ -244,7 +244,7 @@
         });
       } else if (event === 'itemEdit') {
         $editForm.on('submit', function (event) {
-          helpers.prev(event);
+          event.preventDefault();
           var res = handler(
             this.elements['edit-id'].value,
             this.elements['edit-date'].value
@@ -260,7 +260,7 @@
               'This will completely overwrite the data. Do you want to continue?'
             )
           ) {
-            helpers.prev(event);
+            event.preventDefault();
           }
         });
         $importData.on('change', function () {

@@ -75,12 +75,6 @@ describe('helpers.js', function () {
     });
   });
 
-  describe('prev()', function () {
-    it('TODO', function () {
-      expect(123).to.equal(123);
-    });
-  });
-
   describe('$delegate()', function () {
     it('TODO', function () {
       expect(123).to.equal(123);

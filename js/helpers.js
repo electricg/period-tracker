@@ -62,18 +62,6 @@ NodeList.prototype.forEach = Array.prototype.forEach;
     };
 
     /**
-     * Prevent default event
-     * @param {object} event
-     */
-    this.prev = function (event) {
-      if (event.preventDefault) {
-        event.preventDefault();
-      } else {
-        event.returnValue = false;
-      }
-    };
-
-    /**
      * Attach a handler to event for all elements that match the selector,
      * now or in the future, based on a root element
      */
