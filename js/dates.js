@@ -22,7 +22,7 @@
 
     /**
      * Return numeric value of the unit of the date
-     * @param {string} unit year | month | date | day
+     * @param {('year'|'month'|'date'|'day')} unit
      * @returns {number}
      */
     this.getDate = function (unit) {
@@ -35,8 +35,8 @@
 
     /**
      * Mutate the original date by adding time
-     * @param  {number} number
-     * @param  {string} string
+     * @param {number} number
+     * @param {string} string
      * @returns Date object
      */
     this.addDate = function (...args) {

@@ -43,6 +43,7 @@ Live demo [https://electricg.github.io/period-tracker/](https://electricg.github
 - [ ] add tests
 - [ ] replace svg icons in log with emojis
 - [ ] add the auto patch versioning on commit
+- [ ] add the github action workflow
 
 ## Dev notes
 
