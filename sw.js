@@ -1,4 +1,4 @@
-const VERSION = '0.11.1';
+const VERSION = '0.11.2';
 const cacheName = `v${VERSION}::static`;
 
 const fileList = `
@@ -31,9 +31,13 @@ self.addEventListener('install', (e) => {
     caches
       .open(cacheName)
       .then((cache) => {
-        return cache.addAll(fileList).then(() => {
-          self.skipWaiting();
-        });
+        return cache
+          .addAll(
+            fileList.map((file) => new Request(file, { cache: 'no-cache' }))
+          )
+          .then(() => {
+            self.skipWaiting();
+          });
       })
       .then(() => {
         console.log(`offline ${VERSION} ready 🎉`);
