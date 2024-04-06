@@ -1,40 +1,36 @@
-/* global app, NAMESPACE, DEFAULT_USER_SETTINGS, FEATURES */
+/* global app, NAMESPACE, DEFAULT_USER_SETTINGS */
 'use strict';
 
-var Tracker = function (namespace, settings) {
+const App = function (namespace, settings) {
   this.storage = new app.Storage(namespace);
   this.config = new app.Config(settings, this.storage);
   this.model = new app.Model(this.config, this.storage);
   this.template = new app.Template(this.config);
   this.view = new app.View(this.template);
   this.controller = new app.Controller(this.model, this.view);
+  this.offline = new app.Offline({
+    showOffline: (status) => this.view.render('offline', status),
+    showInfo: (msg) => this.view.render('info', msg),
+  });
+  this.show = () => {
+    this.controller.setSection(document.location.hash);
+  };
+  this.init = () => {
+    this.offline.init();
+    this.controller.setData();
+    this.show();
+  };
 };
 
-var tracker = new Tracker(NAMESPACE, DEFAULT_USER_SETTINGS);
-
-var show = function () {
-  tracker.controller.setSection(document.location.hash);
-};
-
-var load = function () {
-  tracker.controller.setData();
-  show();
-};
+app.instance = new App(NAMESPACE, DEFAULT_USER_SETTINGS);
 
 if (location.protocol === 'http:' && location.hostname !== 'localhost') {
   const newUrl = location.href.replace('http://', 'https://');
-  tracker.view.render(
+  app.instance.view.render(
     'warning',
     `Warning: this app is better loaded from its <a href="${newUrl}">https counterpart</a>`
   );
 }
 
-window.addEventListener('load', load);
-window.addEventListener('hashchange', show);
-
-if (FEATURES.offline) {
-  tracker.offline = new app.Offline({
-    showOffline: (status) => tracker.view.render('offline', status),
-    showInfo: (msg) => tracker.view.render('info', msg),
-  });
-}
+window.addEventListener('load', app.instance.init);
+window.addEventListener('hashchange', app.instance.show);

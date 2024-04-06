@@ -12,9 +12,7 @@ const DEFAULT_USER_SETTINGS = {
   cycleLength: 28,
 };
 
-const FEATURES = {
-  offline: true,
-};
+const FEATURES = {};
 
 const FILE = {
   name: 'period-tracker_${now}.txt',

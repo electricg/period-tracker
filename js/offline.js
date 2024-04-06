@@ -4,12 +4,11 @@
   const Offline = function ({
     showOffline = () => {},
     showInfo = () => {},
-    debug = false,
     registerFile = 'sw.js',
     msgInstalled = 'This app is now available offline!',
     msgUpdated = 'This app has an update, please refresh.',
   }) {
-    debug && console.log('debug: on');
+    console.debug('debug: sw on');
     let isSWInstalled = false;
 
     /**
@@ -17,7 +16,7 @@
      * @param {boolean} status true if sw is active
      */
     const swUIStatus = (status) => {
-      debug && console.log('debug: sw status', !!status);
+      console.debug('debug: sw status', !!status);
       showOffline(status);
     };
 
@@ -25,7 +24,7 @@
      * Show service worker has been installed for the first time ever
      */
     const swUIFirstTime = () => {
-      debug && console.log('debug: sw first time ever');
+      console.debug('debug: sw first time ever');
       swUIStatus(true);
       swUIMessage(msgInstalled);
     };
@@ -34,7 +33,7 @@
      * Show service worker has been installed
      */
     const swUIInstalled = () => {
-      debug && console.log('debug: sw installed');
+      console.debug('debug: sw installed');
       swUIStatus(true);
     };
 
@@ -42,16 +41,17 @@
      * Show that service worker has a new update to show
      */
     const swUIUpdate = () => {
-      debug && console.log('debug: sw there is a new update, please refresh');
+      console.debug('debug: sw there is a new update, please refresh');
       swUIMessage(msgUpdated);
     };
 
     /**
      * Show service worker has returned an error
+     * To test it, change the value of `registerFile` to some non existant file
      * @param {Object} err error
      */
     const swUIError = (err) => {
-      debug && console.error('debug: sw registration failed: ', err);
+      console.debug('debug: sw registration failed❗️', err);
     };
 
     /**
@@ -71,7 +71,7 @@
     };
 
     const onStateChange = (newWorker) => {
-      debug && console.log('debug: sw onStateChange', newWorker.state);
+      console.debug('debug: sw onStateChange', newWorker.state);
       if (newWorker.state === 'activated') {
         if (!isSWInstalled) {
           isSWInstalled = swCheckStatus();
@@ -87,14 +87,25 @@
       }
     };
 
-    const init = function () {
+    /**
+     * Start the service worker
+     */
+    this.init = function () {
       if ('serviceWorker' in navigator) {
         isSWInstalled = swCheckStatus();
 
         if (isSWInstalled) {
           swUIInstalled();
         }
+      }
+    };
 
+    /**
+     * Install the service worker
+     */
+    this.install = function () {
+      console.log('sw install');
+      if ('serviceWorker' in navigator) {
         navigator.serviceWorker
           .register(registerFile)
           .then((registration) => {
@@ -123,18 +134,19 @@
     /**
      * Unregister service worker and send message to delete all caches
      */
-    this.clearSW = async () => {
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      const unregisterPromises = registrations.map((registration) =>
-        registration.unregister()
-      );
-      await Promise.all([...unregisterPromises]);
-      sendMessage({
-        type: 'clear',
-      });
+    this.uninstall = async () => {
+      // TODO check that's installed first?
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        const unregisterPromises = registrations.map((registration) =>
+          registration.unregister()
+        );
+        await Promise.all([...unregisterPromises]);
+        sendMessage({
+          type: 'clear',
+        });
+      }
     };
-
-    init();
   };
 
   // export to window
