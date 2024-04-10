@@ -39,6 +39,7 @@ body {
   background: var(--c-main-bg);
   line-height: 1.4;
   margin: 0;
+  overscroll-behavior-y: contain; /* disable pull to refresh */
 }
 body, input, button {
   color: var(--c-main-text);
