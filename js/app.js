@@ -11,6 +11,8 @@ const App = function (namespace, settings) {
   this.offline = new app.Offline({
     showOffline: (status) => this.view.render('offline', status),
     showInfo: (msg) => this.view.render('info', msg),
+    showInstall: () => this.view.render('install'),
+    showUninstall: () => this.view.render('uninstall'),
   });
   this.show = () => {
     this.controller.setSection(document.location.hash);
@@ -19,6 +21,9 @@ const App = function (namespace, settings) {
     this.offline.init();
     this.controller.setData();
     this.show();
+  };
+  this.handleBeforeInstallPrompt = (e) => {
+    this.offline.handleBeforeInstallPrompt(e);
   };
 };
 
@@ -34,3 +39,10 @@ if (location.protocol === 'http:' && location.hostname !== 'localhost') {
 
 window.addEventListener('load', app.instance.init);
 window.addEventListener('hashchange', app.instance.show);
+window.addEventListener(
+  'beforeinstallprompt',
+  app.instance.handleBeforeInstallPrompt
+);
+window.addEventListener('appinstalled', function (e) {
+  console.log('appinstalled', e);
+});

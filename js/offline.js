@@ -4,12 +4,47 @@
   const Offline = function ({
     showOffline = () => {},
     showInfo = () => {},
+    showInstall = () => {},
+    showUninstall = () => {},
     registerFile = 'sw.js',
     msgInstalled = 'This app is now available offline!',
     msgUpdated = 'This app has an update, please refresh.',
   }) {
-    console.debug('debug: sw on');
+    console.debug('debug: sw started');
     let isSWInstalled = false;
+    let isSWInstallable = false;
+
+    let deferredPrompt = null;
+
+    this.install = async function (e) {
+      console.log('event install', e);
+      console.log(deferredPrompt);
+
+      if (deferredPrompt) {
+        // deferredPrompt is a global variable we've been using in the sample to capture the `beforeinstallevent`
+        deferredPrompt.prompt();
+        // Find out whether the user confirmed the installation or not
+        const { outcome } = await deferredPrompt.userChoice;
+        // The deferredPrompt can only be used once.
+        deferredPrompt = null;
+        console.log('this', installServiceWorker);
+        // Act on the user's choice
+        if (outcome === 'accepted') {
+          console.log('User accepted the install prompt.');
+          installServiceWorker(); // TODO maybe there's a better way to call it?
+        } else if (outcome === 'dismissed') {
+          console.log('User dismissed the install prompt');
+        }
+      }
+    };
+
+    this.uninstall = function (e) {
+      console.log('event uninstall', e);
+
+      if (window.confirm('Uninstall?')) {
+        uninstallServiceWorker();
+      }
+    };
 
     /**
      * Show service worker status
@@ -18,6 +53,11 @@
     const swUIStatus = (status) => {
       console.debug('debug: sw status', !!status);
       showOffline(status);
+      if (status) {
+        showUninstall();
+      } else {
+        showInstall();
+      }
     };
 
     /**
@@ -88,9 +128,37 @@
     };
 
     /**
+     * Return if the service worker is installed
+     * @returns {boolean}
+     */
+    this.isInstalled = function () {
+      console.log('is installed?', isSWInstalled);
+      return isSWInstalled;
+    };
+
+    /**
+     * Return if the service worker is installable
+     * @returns {boolean}
+     */
+    this.isInstallable = function () {
+      console.log('is installable', isSWInstallable);
+      return isSWInstallable;
+    };
+
+    this.handleBeforeInstallPrompt = function (event) {
+      console.debug('debug: sw beforeinstallprompt', event);
+
+      // Prevents the default mini-infobar or install dialog from appearing on mobile
+      event.preventDefault();
+      // Save the event because you'll need to trigger it later.
+      deferredPrompt = event;
+    };
+
+    /**
      * Start the service worker
      */
     this.init = function () {
+      console.debug('debug: sw offline init');
       if ('serviceWorker' in navigator) {
         isSWInstalled = swCheckStatus();
 
@@ -98,13 +166,30 @@
           swUIInstalled();
         }
       }
+
+      if (isSWInstalled) {
+        showUninstall();
+      }
+      if (isSWInstallable) {
+        showInstall();
+      }
+      window.addEventListener('sw:install', this.install);
+      window.addEventListener('sw:uninstall', this.uninstall);
+    };
+
+    /**
+     * Send message object to the service worker
+     * @param {object} message
+     */
+    const sendMessage = (message) => {
+      navigator.serviceWorker.controller.postMessage(message);
     };
 
     /**
      * Install the service worker
      */
-    this.install = function () {
-      console.log('sw install');
+    const installServiceWorker = function () {
+      console.debug('debug: sw install');
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker
           .register(registerFile)
@@ -124,17 +209,9 @@
     };
 
     /**
-     * Send message object to the service worker
-     * @param {object} message
-     */
-    const sendMessage = (message) => {
-      navigator.serviceWorker.controller.postMessage(message);
-    };
-
-    /**
      * Unregister service worker and send message to delete all caches
      */
-    this.uninstall = async () => {
+    const uninstallServiceWorker = async () => {
       // TODO check that's installed first?
       if ('serviceWorker' in navigator) {
         const registrations = await navigator.serviceWorker.getRegistrations();
