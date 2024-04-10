@@ -113,8 +113,10 @@
       console.log('view chrome');
       $version.innerHTML = VERSION;
 
-      $install.on('click', async function () {
-        window.dispatchEvent(new CustomEvent('sw:install'));
+      const eventInstall = new Event('sw:install');
+
+      $install.on('click', function () {
+        window.dispatchEvent(eventInstall);
       });
     };
 
