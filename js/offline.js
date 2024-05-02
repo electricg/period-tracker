@@ -101,7 +101,7 @@
             registration.addEventListener('updatefound', () => {
               const newWorker = registration.installing;
 
-              registration.installing.addEventListener('statechange', () =>
+              newWorker.addEventListener('statechange', () =>
                 onStateChange(newWorker)
               );
             });

@@ -2,7 +2,7 @@
 /* eslint no-unused-vars: "off" */
 'use strict';
 
-const VERSION = '0.11.5';
+const VERSION = '0.11.6';
 const NAMESPACE = 'periodTracker';
 
 const DEFAULT_USER_SETTINGS = {
